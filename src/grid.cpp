@@ -29,13 +29,15 @@ void Grid::Print(){
 }
 
 bool Grid::IsCellOutside(int row, int column){
-  return (row <= 0 || row>HEIGHT || column<=0 || column>WIDE);
+  return (row < 0 || row>HEIGHT || column<0 || column>WIDE);
 }
 
+//Array access without boundary check in IsCellEmpty()
 bool Grid::IsCellEmpty(int row, int column){
   return (grid[row][column] == 0);
 }
 
+//xem lai logic
 int Grid::ClearFullRows(){
     int cleared = 0;
     for (int i=0;i<HEIGHT;i++){
@@ -51,7 +53,6 @@ int Grid::ClearFullRows(){
 bool Grid::IsRowFull(int row){
     for(int j=0;j<WIDE;j++){
       if(grid[row][j]==0) return false;
-      else continue;
     }
   return true;
 }
