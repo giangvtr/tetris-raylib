@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include "grid.h"
+#include "colors.h"
 
 int main(){
 

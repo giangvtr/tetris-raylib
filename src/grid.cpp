@@ -1,5 +1,6 @@
 #include "grid.h"
 #include <iostream>
+#include "colors.h"
 
 Grid::Grid() //This is the definition of a constructor for the Grid class.
 {
@@ -8,6 +9,7 @@ Grid::Grid() //This is the definition of a constructor for the Grid class.
     cellSize = CELL_SIZE;
 
     Initialize();
+    colors = GetCellColors();
 }
 
 
@@ -70,4 +72,3 @@ void Grid::MoveRowDown(int row, int numRows){
     grid[row][j]=grid[row-numRows][j];
   }
 }
-
