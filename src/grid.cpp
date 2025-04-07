@@ -12,16 +12,16 @@ Grid::Grid() //This is the definition of a constructor for the Grid class.
 
 
 void Grid::Initialize(){
-    for (int i=0;i<HEIGHT;i++){
-        for(int j = 0; j<WIDE;j++){
+    for (int i=0;i<nbRows;i++){
+        for(int j = 0; j<nbCols;j++){
             grid[i][j]=0;
         }
     }
 }
 
 void Grid::Print(){
-    for (int i=0;i<HEIGHT;i++){
-        for(int j = 0; j<WIDE;j++){
+    for (int i=0;i<nbRows;i++){
+        for(int j = 0; j<nbCols;j++){
             std::cout << grid[i][j] << " ";
         }
         std::cout << std::endl;
@@ -29,7 +29,7 @@ void Grid::Print(){
 }
 
 bool Grid::IsCellOutside(int row, int column){
-  return (row < 0 || row>HEIGHT || column<0 || column>WIDE);
+  return (row < 0 || row>nbRows || column<0 || column>nbCols);
 }
 
 //Array access without boundary check in IsCellEmpty()
@@ -41,7 +41,7 @@ bool Grid::IsCellEmpty(int row, int column){
 //xem lai logic
 int Grid::ClearFullRows(){
     int cleared = 0;
-    for (int i=0;i<HEIGHT;i++){
+    for (int i=0;i<nbRows;i++){
         if(IsRowFull(i)){
           ClearRow(i);
           cleared++;
@@ -52,21 +52,21 @@ int Grid::ClearFullRows(){
 }
 
 bool Grid::IsRowFull(int row){
-    for(int j=0;j<WIDE;j++){
+    for(int j=0;j<nbCols;j++){
       if(grid[row][j]==0) return false;
     }
   return true;
 }
 
 void Grid::ClearRow(int row){
-  for(int j=0;j<WIDE;j++){
+  for(int j=0;j<nbCols;j++){
     grid[row][j]=0;
   }
 }
 
 void Grid::MoveRowDown(int row, int numRows){
   //copy the "row" to "row-numRows"
-  for(int j=0;j<WIDE;j++){
+  for(int j=0;j<nbCols;j++){
     grid[row][j]=grid[row-numRows][j];
   }
 }
