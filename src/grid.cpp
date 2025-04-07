@@ -34,6 +34,7 @@ bool Grid::IsCellOutside(int row, int column){
 
 //Array access without boundary check in IsCellEmpty()
 bool Grid::IsCellEmpty(int row, int column){
+  if (IsCellOutside(row,column)) return false;
   return (grid[row][column] == 0);
 }
 
