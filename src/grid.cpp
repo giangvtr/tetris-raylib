@@ -12,11 +12,22 @@ Grid::Grid() //This is the definition of a constructor for the Grid class.
     colors = GetCellColors();
 }
 
-
 void Grid::Initialize(){
     for (int i=0;i<nbRows;i++){
         for(int j = 0; j<nbCols;j++){
             grid[i][j]=0;
+        }
+    }
+}
+
+void Grid::Draw()
+{
+    for (int row = 0; row < nbRows; row++)
+    {
+        for (int column = 0; column < nbCols; column++)
+        {
+            int cellValue = grid[row][column];
+            DrawRectangle(column * cellSize + 5, row * cellSize + 5, cellSize - 1, cellSize - 1, colors[cellValue]);
         }
     }
 }
@@ -42,15 +53,17 @@ bool Grid::IsCellEmpty(int row, int column){
 
 //xem lai logic
 int Grid::ClearFullRows(){
-    int cleared = 0;
-    for (int i=0;i<nbRows;i++){
-        if(IsRowFull(i)){
-          ClearRow(i);
-          cleared++;
+    int completed = 0;
+    for (int row = nbRows - 1; row >= 0; row--)
+    {
+        if (IsRowFull(row))
+        {
+            ClearRow(row);
+            completed++;
         }
-        else if(cleared > 0) MoveRowDown(i,cleared);
+        else if (completed > 0) MoveRowDown(row, completed);
     }
-    return cleared;
+    return completed;
 }
 
 bool Grid::IsRowFull(int row){
