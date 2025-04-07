@@ -1,0 +1,328 @@
+\doxysection{vulkan.\+c}
+\hypertarget{vulkan_8c_source}{}\label{vulkan_8c_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/vulkan.c@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/vulkan.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ GLFW\ 3.4\ -\/\ www.glfw.org}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ 2002-\/2006\ Marcus\ Geelnard}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Copyright\ (c)\ 2006-\/2018\ Camilla\ Löwy\ <elmindreda@glfw.org>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ This\ software\ is\ provided\ 'as-\/is',\ without\ any\ express\ or\ implied}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ warranty.\ In\ no\ event\ will\ the\ authors\ be\ held\ liable\ for\ any\ damages}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ including\ commercial\ applications,\ and\ to\ alter\ it\ and\ redistribute\ it}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ claim\ that\ you\ wrote\ the\ original\ software.\ If\ you\ use\ this\ software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ in\ a\ product,\ an\ acknowledgment\ in\ the\ product\ documentation\ would}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ \ \ be\ misrepresented\ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ distribution.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}internal.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ \_GLFW\_FIND\_LOADER\ \ \ \ 1}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ \_GLFW\_REQUIRE\_LOADER\ 2}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ GLFWbool\ \_glfwInitVulkan(\textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ VkResult\ err;}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{structVkExtensionProperties}{VkExtensionProperties}}*\ ep;}
+\DoxyCodeLine{00046\ \ \ \ \ PFN\_vkEnumerateInstanceExtensionProperties\ vkEnumerateInstanceExtensionProperties;}
+\DoxyCodeLine{00047\ \ \ \ \ uint32\_t\ i,\ count;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.vk.available)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.hints.init.vulkanLoader)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \_glfw.vk.GetInstanceProcAddr\ =\ \_glfw.hints.init.vulkanLoader;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_VULKAN\_LIBRARY)}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwPlatformLoadModule(\_GLFW\_VULKAN\_LIBRARY);}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#elif\ defined(\_GLFW\_WIN32)}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwPlatformLoadModule(\textcolor{stringliteral}{"{}vulkan-\/1.dll"{}});}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#elif\ defined(\_GLFW\_COCOA)}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwPlatformLoadModule(\textcolor{stringliteral}{"{}libvulkan.1.dylib"{}});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.handle)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwLoadLocalVulkanLoaderCocoa();}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#elif\ defined(\_\_OpenBSD\_\_)\ ||\ defined(\_\_NetBSD\_\_)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwPlatformLoadModule(\textcolor{stringliteral}{"{}libvulkan.so"{}});}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_glfw.vk.handle\ =\ \_glfwPlatformLoadModule(\textcolor{stringliteral}{"{}libvulkan.so.1"{}});}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.handle)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ==\ \_GLFW\_REQUIRE\_LOADER)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},\ \textcolor{stringliteral}{"{}Vulkan:\ Loader\ not\ found"{}});}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_glfw.vk.GetInstanceProcAddr\ =\ (PFN\_vkGetInstanceProcAddr)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwPlatformGetModuleSymbol(\_glfw.vk.handle,\ \textcolor{stringliteral}{"{}vkGetInstanceProcAddr"{}});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.GetInstanceProcAddr)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Loader\ does\ not\ export\ vkGetInstanceProcAddr"{}});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwTerminateVulkan();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ vkEnumerateInstanceExtensionProperties\ =\ (PFN\_vkEnumerateInstanceExtensionProperties)}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ vkGetInstanceProcAddr(NULL,\ \textcolor{stringliteral}{"{}vkEnumerateInstanceExtensionProperties"{}});}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (!vkEnumerateInstanceExtensionProperties)}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Failed\ to\ retrieve\ vkEnumerateInstanceExtensionProperties"{}});}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \_glfwTerminateVulkan();}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ err\ =\ vkEnumerateInstanceExtensionProperties(NULL,\ \&count,\ NULL);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}\ (err)}
+\DoxyCodeLine{00102\ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ This\ happens\ on\ systems\ with\ a\ loader\ but\ without\ any\ Vulkan\ ICD}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ==\ \_GLFW\_REQUIRE\_LOADER)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Failed\ to\ query\ instance\ extension\ count:\ \%s"{}},}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwGetVulkanResultString(err));}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_glfwTerminateVulkan();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ ep\ =\ \_glfw\_calloc(count,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structVkExtensionProperties}{VkExtensionProperties}}));}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ err\ =\ vkEnumerateInstanceExtensionProperties(NULL,\ \&count,\ ep);}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (err)}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Failed\ to\ query\ instance\ extensions:\ \%s"{}},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwGetVulkanResultString(err));}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \_glfw\_free(ep);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \_glfwTerminateVulkan();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ i\ <\ count;\ \ i++)}
+\DoxyCodeLine{00130\ \ \ \ \ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_KHR\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.KHR\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_KHR\_win32\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.KHR\_win32\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_MVK\_macos\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.MVK\_macos\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_EXT\_metal\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.EXT\_metal\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_KHR\_xlib\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.KHR\_xlib\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_KHR\_xcb\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.KHR\_xcb\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(ep[i].extensionName,\ \textcolor{stringliteral}{"{}VK\_KHR\_wayland\_surface"{}})\ ==\ 0)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.vk.KHR\_wayland\_surface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \_glfw\_free(ep);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \_glfw.vk.available\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \_glfw.platform.getRequiredInstanceExtensions(\_glfw.vk.extensions);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ \_glfwTerminateVulkan(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00157\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.vk.handle)}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \_glfwPlatformFreeModule(\_glfw.vk.handle);}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_glfwGetVulkanResultString(VkResult\ result)}
+\DoxyCodeLine{00163\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{switch}\ (result)}
+\DoxyCodeLine{00165\ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_SUCCESS:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Success"{}};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_NOT\_READY:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ fence\ or\ query\ has\ not\ yet\ completed"{}};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_TIMEOUT:}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ wait\ operation\ has\ not\ completed\ in\ the\ specified\ time"{}};}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_EVENT\_SET:}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}An\ event\ is\ signaled"{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_EVENT\_RESET:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}An\ event\ is\ unsignaled"{}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_INCOMPLETE:}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ return\ array\ was\ too\ small\ for\ the\ result"{}};}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_OUT\_OF\_HOST\_MEMORY:}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ host\ memory\ allocation\ has\ failed"{}};}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_OUT\_OF\_DEVICE\_MEMORY:}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ device\ memory\ allocation\ has\ failed"{}};}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_INITIALIZATION\_FAILED:}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Initialization\ of\ an\ object\ could\ not\ be\ completed\ for\ implementation-\/specific\ reasons"{}};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_DEVICE\_LOST:}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}The\ logical\ or\ physical\ device\ has\ been\ lost"{}};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_MEMORY\_MAP\_FAILED:}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Mapping\ of\ a\ memory\ object\ has\ failed"{}};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_LAYER\_NOT\_PRESENT:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ requested\ layer\ is\ not\ present\ or\ could\ not\ be\ loaded"{}};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_EXTENSION\_NOT\_PRESENT:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ requested\ extension\ is\ not\ supported"{}};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_FEATURE\_NOT\_PRESENT:}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ requested\ feature\ is\ not\ supported"{}};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_INCOMPATIBLE\_DRIVER:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}The\ requested\ version\ of\ Vulkan\ is\ not\ supported\ by\ the\ driver\ or\ is\ otherwise\ incompatible"{}};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_TOO\_MANY\_OBJECTS:}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Too\ many\ objects\ of\ the\ type\ have\ already\ been\ created"{}};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_FORMAT\_NOT\_SUPPORTED:}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ requested\ format\ is\ not\ supported\ on\ this\ device"{}};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_SURFACE\_LOST\_KHR:}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ surface\ is\ no\ longer\ available"{}};}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_SUBOPTIMAL\_KHR:}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ swapchain\ no\ longer\ matches\ the\ surface\ properties\ exactly,\ but\ can\ still\ be\ used"{}};}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_OUT\_OF\_DATE\_KHR:}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ surface\ has\ changed\ in\ such\ a\ way\ that\ it\ is\ no\ longer\ compatible\ with\ the\ swapchain"{}};}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_INCOMPATIBLE\_DISPLAY\_KHR:}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}The\ display\ used\ by\ a\ swapchain\ does\ not\ use\ the\ same\ presentable\ image\ layout"{}};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_NATIVE\_WINDOW\_IN\_USE\_KHR:}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}The\ requested\ window\ is\ already\ connected\ to\ a\ VkSurfaceKHR,\ or\ to\ some\ other\ non-\/Vulkan\ API"{}};}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ VK\_ERROR\_VALIDATION\_FAILED\_EXT:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}A\ validation\ layer\ found\ an\ error"{}};}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}ERROR:\ UNKNOWN\ VULKAN\ ERROR"{}};}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__vulkan_ga72e7c3757d9ff2333181a5569bb7c403}{glfwVulkanSupported}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(\mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}});}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfwInitVulkan(\_GLFW\_FIND\_LOADER);}
+\DoxyCodeLine{00226\ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ GLFWAPI\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}**\ \mbox{\hyperlink{group__vulkan_gada152edc5bbbd0c2138728878632fd9c}{glfwGetRequiredInstanceExtensions}}(uint32\_t*\ count)}
+\DoxyCodeLine{00229\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ assert(count\ !=\ NULL);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ *count\ =\ 0;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwInitVulkan(\_GLFW\_REQUIRE\_LOADER))}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.extensions[0])}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ *count\ =\ 2;}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}**)\ \_glfw.vk.extensions;}
+\DoxyCodeLine{00244\ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ GLFWAPI\ \mbox{\hyperlink{group__vulkan_ga70c01918dc9d233a4fbe0681a43018af}{GLFWvkproc}}\ glfwGetInstanceProcAddress(VkInstance\ instance,}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ procname)}
+\DoxyCodeLine{00248\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \mbox{\hyperlink{group__vulkan_ga70c01918dc9d233a4fbe0681a43018af}{GLFWvkproc}}\ proc;}
+\DoxyCodeLine{00250\ \ \ \ \ assert(procname\ !=\ NULL);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwInitVulkan(\_GLFW\_REQUIRE\_LOADER))}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Vulkan\ 1.0\ and\ 1.1\ vkGetInstanceProcAddr\ cannot\ return\ itself}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp(procname,\ \textcolor{stringliteral}{"{}vkGetInstanceProcAddr"{}})\ ==\ 0)}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{group__vulkan_ga70c01918dc9d233a4fbe0681a43018af}{GLFWvkproc}})\ vkGetInstanceProcAddr;}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ proc\ =\ (\mbox{\hyperlink{group__vulkan_ga70c01918dc9d233a4fbe0681a43018af}{GLFWvkproc}})\ vkGetInstanceProcAddr(instance,\ procname);}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (!proc)}
+\DoxyCodeLine{00263\ \ \ \ \ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.vk.handle)}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ proc\ =\ (\mbox{\hyperlink{group__vulkan_ga70c01918dc9d233a4fbe0681a43018af}{GLFWvkproc}})\ \_glfwPlatformGetModuleSymbol(\_glfw.vk.handle,\ procname);}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{return}\ proc;}
+\DoxyCodeLine{00269\ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ GLFWAPI\ \textcolor{keywordtype}{int}\ glfwGetPhysicalDevicePresentationSupport(VkInstance\ instance,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VkPhysicalDevice\ device,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ queuefamily)}
+\DoxyCodeLine{00274\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ assert(instance\ !=\ VK\_NULL\_HANDLE);}
+\DoxyCodeLine{00276\ \ \ \ \ assert(device\ !=\ VK\_NULL\_HANDLE);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(\mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}});}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwInitVulkan(\_GLFW\_REQUIRE\_LOADER))}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.extensions[0])}
+\DoxyCodeLine{00284\ \ \ \ \ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Window\ surface\ creation\ extensions\ not\ found"{}});}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00288\ \ \ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.getPhysicalDevicePresentationSupport(instance,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ device,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queuefamily);}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ GLFWAPI\ VkResult\ glfwCreateWindowSurface(VkInstance\ instance,}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structVkAllocationCallbacks}{VkAllocationCallbacks}}*\ allocator,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VkSurfaceKHR*\ surface)}
+\DoxyCodeLine{00299\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00301\ \ \ \ \ assert(instance\ !=\ VK\_NULL\_HANDLE);}
+\DoxyCodeLine{00302\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00303\ \ \ \ \ assert(surface\ !=\ NULL);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ *surface\ =\ VK\_NULL\_HANDLE;}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(VK\_ERROR\_INITIALIZATION\_FAILED);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwInitVulkan(\_GLFW\_REQUIRE\_LOADER))}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VK\_ERROR\_INITIALIZATION\_FAILED;}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.vk.extensions[0])}
+\DoxyCodeLine{00313\ \ \ \ \ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}},}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Window\ surface\ creation\ extensions\ not\ found"{}});}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VK\_ERROR\_EXTENSION\_NOT\_PRESENT;}
+\DoxyCodeLine{00317\ \ \ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>context.client\ !=\ GLFW\_NO\_API)}
+\DoxyCodeLine{00320\ \ \ \ \ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vulkan:\ Window\ surface\ creation\ requires\ the\ window\ to\ have\ the\ client\ API\ set\ to\ GLFW\_NO\_API"{}});}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VK\_ERROR\_NATIVE\_WINDOW\_IN\_USE\_KHR;}
+\DoxyCodeLine{00324\ \ \ \ \ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.createWindowSurface(instance,\ window,\ allocator,\ surface);}
+\DoxyCodeLine{00327\ \}}
+\DoxyCodeLine{00328\ }
+
+\end{DoxyCode}

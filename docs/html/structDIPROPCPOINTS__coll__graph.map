@@ -1,0 +1,7 @@
+<map id="DIPROPCPOINTS" name="DIPROPCPOINTS">
+<area shape="rect" id="Node000001" title=" " alt="" coords="67,93,195,119"/>
+<area shape="rect" id="Node000002" href="$structDIPROPHEADER.html" title=" " alt="" coords="5,5,131,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,40,124,91,120,94,82,43"/>
+<area shape="rect" id="Node000003" href="$struct__CPOINT.html" title=" " alt="" coords="155,5,234,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,43,142,94,137,91,176,40"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="ModelAnimation" name="ModelAnimation">
+<area shape="rect" id="Node000001" title=" " alt="" coords="18,196,147,221"/>
+<area shape="rect" id="Node000002" href="$structBoneInfo.html" title=" " alt="" coords="5,108,85,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,145,65,171,78,195,73,197,60,173,50,147"/>
+<area shape="rect" id="Node000003" href="$structTransform.html" title=" " alt="" coords="110,108,197,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,146,95,197,90,194,133,142"/>
+<area shape="rect" id="Node000004" href="$structVector3.html" title=" " alt="" coords="67,5,138,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="101,44,101,64,106,83,117,96,130,106,127,110,113,100,102,85,96,65,95,44"/>
+<area shape="rect" id="Node000005" href="$structVector4.html" title=" " alt="" coords="169,5,239,31"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="196,45,177,85,163,109,158,106,172,83,191,42"/>
+</map>

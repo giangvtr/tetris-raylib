@@ -1,0 +1,484 @@
+\doxysection{Window\+\_\+management}
+\hypertarget{group__Window__management}{}\label{group__Window__management}\index{Window\_management@{Window\_management}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gad4e025c3958a7118fd3ec5728cc7c43e}{RGFW\+\_\+set\+Class\+Name}} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga01315659b679358f434b95ff9d66935f}{RGFW\+\_\+set\+XInst\+Name}} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gac67121a641fb36365fa5dc06004307c2}{RGFW\+\_\+move\+To\+Mac\+OSResource\+Dir}} (void)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Window__management_gaf8a8eaf0d6031adb217117e43f161a3c}{RGFW\+\_\+create\+Window}} (const char \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} rect, RGFW\+\_\+window\+Flags flags)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Window__management_gacd2a85f50be8de9991ce67e760ee1c7a}{RGFW\+\_\+create\+Window\+Ptr}} (const char \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} rect, RGFW\+\_\+window\+Flags flags, \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__Window__management_gac2fbc527977db4e817ba86d102283497}\label{group__Window__management_gac2fbc527977db4e817ba86d102283497} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+init\+Buffer} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__Window__management_ga7be601ce7f62be40c627b4f9644a163c}\label{group__Window__management_ga7be601ce7f62be40c627b4f9644a163c} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+init\+Buffer\+Size} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} area)
+\item 
+\Hypertarget{group__Window__management_gaff53f08bc36bca0231dcf054b9c2da37}\label{group__Window__management_gaff53f08bc36bca0231dcf054b9c2da37} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+init\+Buffer\+Ptr} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 \texorpdfstring{$\ast$}{*}buffer, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} area)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga1c3a89944c13d571c67be26fdc1041af}{RGFW\+\_\+window\+\_\+set\+Flags}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+window\+Flags)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} \mbox{\hyperlink{group__Window__management_ga2952eee39f36b85b6829976656043f97}{RGFW\+\_\+get\+Screen\+Size}} (void)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__event}{RGFW\+\_\+event}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Window__management_gaf7af05a4da3bbc3b8870fd29f82d1cf5}{RGFW\+\_\+window\+\_\+check\+Event}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+typedef \mbox{\hyperlink{group__Window__management_ga796e26eb144ea14843ff641a94640de8}{RGFW\+\_\+\+ENUM}} (u32, RGFW\+\_\+event\+Wait)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga516d1d9a86f449020dc40eef0e3ddbe8}{RGFW\+\_\+window\+\_\+event\+Wait}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u32 wait\+MS)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga643e8b05015fc4aafa74cb778bc384bc}{RGFW\+\_\+window\+\_\+check\+Events}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u32 wait\+MS)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga77d53bb9ffadd6f6c5149be8a46612e1}{RGFW\+\_\+stop\+Check\+Events}} (void)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gab9fbaeec9a1268374ab141b6ccfc41a3}{RGFW\+\_\+window\+\_\+close}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga1d2a9a61b4acc071f8cc2723723a3ce5}{RGFW\+\_\+window\+\_\+move}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} v)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga2fa4deae6ef9c9037d9a182982c41556}{RGFW\+\_\+window\+\_\+move\+To\+Monitor}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__monitor}{RGFW\+\_\+monitor}} m)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga49cb75955ec07bb68faf7f260b30e693}{RGFW\+\_\+window\+\_\+resize}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gaca9c6225eb590dc1c792907b9a8346b2}{RGFW\+\_\+window\+\_\+set\+Aspect\+Ratio}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga62a242f890c1def944d0b4771b6c79d4}{RGFW\+\_\+window\+\_\+set\+Min\+Size}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gacd5210fddb2ff8e834c25923070ee9f7}{RGFW\+\_\+window\+\_\+set\+Max\+Size}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga2f4b6c35c012889e20ef9966c145134d}{RGFW\+\_\+window\+\_\+focus}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gaa95e38f35b8f993406a8185cd4b48871}{RGFW\+\_\+window\+\_\+is\+In\+Focus}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga9cbbfa79e24517e57da59e5cf4abe9e3}{RGFW\+\_\+window\+\_\+raise}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga867c6a774a544f1cf7765feb17da99e1}{RGFW\+\_\+window\+\_\+maximize}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga594d554fefbb56363c7b613dd44e7ee5}{RGFW\+\_\+window\+\_\+set\+Fullscreen}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool fullscreen)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga8e9fd2dbbbf3a74f18173e2793955dda}{RGFW\+\_\+window\+\_\+center}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gadf5a4e9746a8340b1ec5b6f290d7c907}{RGFW\+\_\+window\+\_\+minimize}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga68d347a9064621a8691398f358ee46a3}{RGFW\+\_\+window\+\_\+restore}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga7a692ef18ae01567c2fdf73c68c08b64}{RGFW\+\_\+window\+\_\+set\+Floating}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool floating)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga54a2347c554cf916668c873cbce48d54}{RGFW\+\_\+window\+\_\+set\+Opacity}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 opacity)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga210cfa064760291d2823fb330ea50d9c}{RGFW\+\_\+window\+\_\+set\+Border}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool border)
+\item 
+\Hypertarget{group__Window__management_gacbbf5186b802bd637defa9dea7c086bc}\label{group__Window__management_gacbbf5186b802bd637defa9dea7c086bc} 
+RGFWDEF RGFW\+\_\+bool {\bfseries RGFW\+\_\+window\+\_\+borderless} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gafb366b10a525683266ad9ba0db2760ef}{RGFW\+\_\+window\+\_\+set\+DND}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool allow)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga60516750e05a503395bd4e7dbfeb9a0a}{RGFW\+\_\+window\+\_\+allows\+DND}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga28a62377041405463b49dcc68c06cce8}{RGFW\+\_\+window\+\_\+set\+Mouse\+Passthrough}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool passthrough)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga9f908f5871fe2b172fbaabccab2256bf}{RGFW\+\_\+window\+\_\+set\+Name}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, const char \texorpdfstring{$\ast$}{*}name)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gaca5383e752ee7fe0d42e569997db4059}{RGFW\+\_\+window\+\_\+set\+Icon}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 \texorpdfstring{$\ast$}{*}icon, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a, i32 channels)
+\item 
+\Hypertarget{group__Window__management_gafb82b63e83e7246d44a7a3150df68d56}\label{group__Window__management_gafb82b63e83e7246d44a7a3150df68d56} 
+typedef {\bfseries RGFW\+\_\+\+ENUM} (u8, RGFW\+\_\+icon)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gaead0db8ed85a96afe69d448b47a9c25b}{RGFW\+\_\+window\+\_\+set\+Icon\+Ex}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 \texorpdfstring{$\ast$}{*}icon, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} a, i32 channels, u8 type)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gac9c75b705eebbee5e2c86cbaf144a4e0}{RGFW\+\_\+window\+\_\+set\+Mouse}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+mouse \texorpdfstring{$\ast$}{*}mouse)
+\item 
+\Hypertarget{group__Window__management_gaf64e00ada410505300e05e5320217dde}\label{group__Window__management_gaf64e00ada410505300e05e5320217dde} 
+RGFWDEF RGFW\+\_\+bool {\bfseries RGFW\+\_\+window\+\_\+set\+Mouse\+Standard} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 mouse)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga46e9ec7d9e23ed20b38a6046e1b93f49}{RGFW\+\_\+window\+\_\+set\+Mouse\+Default}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__Window__management_ga628b14b6a829b040b3b0d78d482770a3}\label{group__Window__management_ga628b14b6a829b040b3b0d78d482770a3} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+mouse\+Hold} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} area)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gac1e5e04771ec71af96eaffdbf3edf906}{RGFW\+\_\+window\+\_\+mouse\+Unhold}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gad0dd15469e9f8648345b52f0f9c0c023}{RGFW\+\_\+window\+\_\+hide}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gaf8ea66870c99917ef07acd09ad6d7746}{RGFW\+\_\+window\+\_\+show}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__Window__management_gaf0292ade1017afd3d9df17e806bcb41b}\label{group__Window__management_gaf0292ade1017afd3d9df17e806bcb41b} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+set\+Should\+Close} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} \mbox{\hyperlink{group__Window__management_ga4ad826ac2c2514025697e8ad64e4e1c9}{RGFW\+\_\+get\+Global\+Mouse\+Point}} (void)
+\item 
+RGFWDEF \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} \mbox{\hyperlink{group__Window__management_ga1d970bf9f2042f7ccdd6c132c6f576fa}{RGFW\+\_\+window\+\_\+get\+Mouse\+Point}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_gaccfc463b60b5d664a7a6b53e342945dc}{RGFW\+\_\+window\+\_\+show\+Mouse}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool show)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gaeb8d10c5756c4dea558dc781913a4e31}{RGFW\+\_\+window\+\_\+mouse\+Hidden}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Window__management_ga1f8210bbda82bd96122267c39f9c85c3}{RGFW\+\_\+window\+\_\+move\+Mouse}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} v)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gae40de5fbdc9e850c1ff7e2e8dac46624}{RGFW\+\_\+window\+\_\+should\+Close}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_gaf42393d36b8798a22117fa12c396e757}{RGFW\+\_\+window\+\_\+is\+Fullscreen}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga6c5edc3fef40721ec9d701d77295519d}{RGFW\+\_\+window\+\_\+is\+Hidden}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga21de6b33899222d8f50760d80dd16dca}{RGFW\+\_\+window\+\_\+is\+Minimized}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga110cc32439e48fb5a4dfd67825f6963a}{RGFW\+\_\+window\+\_\+is\+Maximized}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF RGFW\+\_\+bool \mbox{\hyperlink{group__Window__management_ga7dc71032d66fc47f441f31027cc13fc4}{RGFW\+\_\+window\+\_\+is\+Floating}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__Window__management_gaf8a8eaf0d6031adb217117e43f161a3c}\label{group__Window__management_gaf8a8eaf0d6031adb217117e43f161a3c} 
+\index{Window\_management@{Window\_management}!RGFW\_createWindow@{RGFW\_createWindow}}
+\index{RGFW\_createWindow@{RGFW\_createWindow}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_createWindow()}{RGFW\_createWindow()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*} RGFW\+\_\+create\+Window (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{\mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}}}]{rect,  }\item[{RGFW\+\_\+window\+Flags}]{flags }\end{DoxyParamCaption})}
+
+function to create a window and struct \Hypertarget{group__Window__management_gacd2a85f50be8de9991ce67e760ee1c7a}\label{group__Window__management_gacd2a85f50be8de9991ce67e760ee1c7a} 
+\index{Window\_management@{Window\_management}!RGFW\_createWindowPtr@{RGFW\_createWindowPtr}}
+\index{RGFW\_createWindowPtr@{RGFW\_createWindowPtr}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_createWindowPtr()}{RGFW\_createWindowPtr()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*} RGFW\+\_\+create\+Window\+Ptr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{\mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}}}]{rect,  }\item[{RGFW\+\_\+window\+Flags}]{flags,  }\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+function to create a window (without allocating a window struct) \Hypertarget{group__Window__management_ga796e26eb144ea14843ff641a94640de8}\label{group__Window__management_ga796e26eb144ea14843ff641a94640de8} 
+\index{Window\_management@{Window\_management}!RGFW\_ENUM@{RGFW\_ENUM}}
+\index{RGFW\_ENUM@{RGFW\_ENUM}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_ENUM()}{RGFW\_ENUM()}}
+{\footnotesize\ttfamily typedef RGFW\+\_\+\+ENUM (\begin{DoxyParamCaption}\item[{u32}]{,  }\item[{RGFW\+\_\+event\+Wait}]{ }\end{DoxyParamCaption})}
+
+for RGFW\+\_\+window\+\_\+event\+Wait and RGFW\+\_\+window\+\_\+check\+Events wait\+MS -\/\texorpdfstring{$>$}{>} Allows the function to keep checking for events even after {\ttfamily RGFW\+\_\+window\+\_\+check\+Event == NULL} if wait\+MS == 0, the loop will not wait for events if wait\+MS \texorpdfstring{$>$}{>} 0, the loop will wait that many miliseconds after there are no more events until it returns if wait\+MS == -\/1 or wait\+MS == the max size of an unsigned 32-\/bit int, the loop will not return until it gets another event \Hypertarget{group__Window__management_ga4ad826ac2c2514025697e8ad64e4e1c9}\label{group__Window__management_ga4ad826ac2c2514025697e8ad64e4e1c9} 
+\index{Window\_management@{Window\_management}!RGFW\_getGlobalMousePoint@{RGFW\_getGlobalMousePoint}}
+\index{RGFW\_getGlobalMousePoint@{RGFW\_getGlobalMousePoint}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getGlobalMousePoint()}{RGFW\_getGlobalMousePoint()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} RGFW\+\_\+get\+Global\+Mouse\+Point (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+where the mouse is on the screen \Hypertarget{group__Window__management_ga2952eee39f36b85b6829976656043f97}\label{group__Window__management_ga2952eee39f36b85b6829976656043f97} 
+\index{Window\_management@{Window\_management}!RGFW\_getScreenSize@{RGFW\_getScreenSize}}
+\index{RGFW\_getScreenSize@{RGFW\_getScreenSize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getScreenSize()}{RGFW\_getScreenSize()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}} RGFW\+\_\+get\+Screen\+Size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get the size of the screen to an area struct \Hypertarget{group__Window__management_gac67121a641fb36365fa5dc06004307c2}\label{group__Window__management_gac67121a641fb36365fa5dc06004307c2} 
+\index{Window\_management@{Window\_management}!RGFW\_moveToMacOSResourceDir@{RGFW\_moveToMacOSResourceDir}}
+\index{RGFW\_moveToMacOSResourceDir@{RGFW\_moveToMacOSResourceDir}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_moveToMacOSResourceDir()}{RGFW\_moveToMacOSResourceDir()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+move\+To\+Mac\+OSResource\+Dir (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+(cocoa only) change directory to resource folder \Hypertarget{group__Window__management_gad4e025c3958a7118fd3ec5728cc7c43e}\label{group__Window__management_gad4e025c3958a7118fd3ec5728cc7c43e} 
+\index{Window\_management@{Window\_management}!RGFW\_setClassName@{RGFW\_setClassName}}
+\index{RGFW\_setClassName@{RGFW\_setClassName}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setClassName()}{RGFW\_setClassName()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+set\+Class\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+the class name for X11 and Win\+API. apps with the same class will be grouped by the WM by default the class name will == the root window\textquotesingle{}s name \Hypertarget{group__Window__management_ga01315659b679358f434b95ff9d66935f}\label{group__Window__management_ga01315659b679358f434b95ff9d66935f} 
+\index{Window\_management@{Window\_management}!RGFW\_setXInstName@{RGFW\_setXInstName}}
+\index{RGFW\_setXInstName@{RGFW\_setXInstName}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setXInstName()}{RGFW\_setXInstName()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+set\+XInst\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+X11 instance name (window name will by used by default) \Hypertarget{group__Window__management_ga77d53bb9ffadd6f6c5149be8a46612e1}\label{group__Window__management_ga77d53bb9ffadd6f6c5149be8a46612e1} 
+\index{Window\_management@{Window\_management}!RGFW\_stopCheckEvents@{RGFW\_stopCheckEvents}}
+\index{RGFW\_stopCheckEvents@{RGFW\_stopCheckEvents}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_stopCheckEvents()}{RGFW\_stopCheckEvents()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+stop\+Check\+Events (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+tell RGFW\+\_\+window\+\_\+event\+Wait to stop waiting (to be ran from another thread) \Hypertarget{group__Window__management_ga60516750e05a503395bd4e7dbfeb9a0a}\label{group__Window__management_ga60516750e05a503395bd4e7dbfeb9a0a} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_allowsDND@{RGFW\_window\_allowsDND}}
+\index{RGFW\_window\_allowsDND@{RGFW\_window\_allowsDND}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_allowsDND()}{RGFW\_window\_allowsDND()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+allows\+DND (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+check if DND is allowed \Hypertarget{group__Window__management_ga8e9fd2dbbbf3a74f18173e2793955dda}\label{group__Window__management_ga8e9fd2dbbbf3a74f18173e2793955dda} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_center@{RGFW\_window\_center}}
+\index{RGFW\_window\_center@{RGFW\_window\_center}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_center()}{RGFW\_window\_center()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+center (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+center the window \Hypertarget{group__Window__management_gaf7af05a4da3bbc3b8870fd29f82d1cf5}\label{group__Window__management_gaf7af05a4da3bbc3b8870fd29f82d1cf5} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_checkEvent@{RGFW\_window\_checkEvent}}
+\index{RGFW\_window\_checkEvent@{RGFW\_window\_checkEvent}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_checkEvent()}{RGFW\_window\_checkEvent()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__event}{RGFW\+\_\+event}} \texorpdfstring{$\ast$}{*} RGFW\+\_\+window\+\_\+check\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+this function checks an {\itshape individual} event (and updates window structure attributes) this means, using this function without a while loop may cause event lag
+
+ex.
+
+while (RGFW\+\_\+window\+\_\+check\+Event(win) != NULL) \mbox{[}this keeps checking events until it reaches the last one\mbox{]}
+
+this function is optional if you choose to use event callbacks, although you still need some way to tell RGFW to process events eg. {\ttfamily RGFW\+\_\+window\+\_\+check\+Events} check current event (returns a pointer to win-\/\texorpdfstring{$>$}{>}event or NULL if there is no event) \Hypertarget{group__Window__management_ga643e8b05015fc4aafa74cb778bc384bc}\label{group__Window__management_ga643e8b05015fc4aafa74cb778bc384bc} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_checkEvents@{RGFW\_window\_checkEvents}}
+\index{RGFW\_window\_checkEvents@{RGFW\_window\_checkEvents}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_checkEvents()}{RGFW\_window\_checkEvents()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+check\+Events (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u32}]{wait\+MS }\end{DoxyParamCaption})}
+
+check all the events until there are none left. This should only be used if you\textquotesingle{}re using callbacks only \Hypertarget{group__Window__management_gab9fbaeec9a1268374ab141b6ccfc41a3}\label{group__Window__management_gab9fbaeec9a1268374ab141b6ccfc41a3} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_close@{RGFW\_window\_close}}
+\index{RGFW\_window\_close@{RGFW\_window\_close}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_close()}{RGFW\_window\_close()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+window managment functions close the window and free leftover data \Hypertarget{group__Window__management_ga516d1d9a86f449020dc40eef0e3ddbe8}\label{group__Window__management_ga516d1d9a86f449020dc40eef0e3ddbe8} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_eventWait@{RGFW\_window\_eventWait}}
+\index{RGFW\_window\_eventWait@{RGFW\_window\_eventWait}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_eventWait()}{RGFW\_window\_eventWait()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+event\+Wait (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u32}]{wait\+MS }\end{DoxyParamCaption})}
+
+sleep until RGFW gets an event or the timer ends (defined by OS) \Hypertarget{group__Window__management_ga2f4b6c35c012889e20ef9966c145134d}\label{group__Window__management_ga2f4b6c35c012889e20ef9966c145134d} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_focus@{RGFW\_window\_focus}}
+\index{RGFW\_window\_focus@{RGFW\_window\_focus}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_focus()}{RGFW\_window\_focus()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+focus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+sets the focus to this window \Hypertarget{group__Window__management_ga1d970bf9f2042f7ccdd6c132c6f576fa}\label{group__Window__management_ga1d970bf9f2042f7ccdd6c132c6f576fa} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_getMousePoint@{RGFW\_window\_getMousePoint}}
+\index{RGFW\_window\_getMousePoint@{RGFW\_window\_getMousePoint}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_getMousePoint()}{RGFW\_window\_getMousePoint()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} RGFW\+\_\+window\+\_\+get\+Mouse\+Point (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+where the mouse is on the window \Hypertarget{group__Window__management_gad0dd15469e9f8648345b52f0f9c0c023}\label{group__Window__management_gad0dd15469e9f8648345b52f0f9c0c023} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_hide@{RGFW\_window\_hide}}
+\index{RGFW\_window\_hide@{RGFW\_window\_hide}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_hide()}{RGFW\_window\_hide()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+hide (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+hide the window \Hypertarget{group__Window__management_ga7dc71032d66fc47f441f31027cc13fc4}\label{group__Window__management_ga7dc71032d66fc47f441f31027cc13fc4} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isFloating@{RGFW\_window\_isFloating}}
+\index{RGFW\_window\_isFloating@{RGFW\_window\_isFloating}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isFloating()}{RGFW\_window\_isFloating()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+Floating (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window is floating \Hypertarget{group__Window__management_gaf42393d36b8798a22117fa12c396e757}\label{group__Window__management_gaf42393d36b8798a22117fa12c396e757} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isFullscreen@{RGFW\_window\_isFullscreen}}
+\index{RGFW\_window\_isFullscreen@{RGFW\_window\_isFullscreen}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isFullscreen()}{RGFW\_window\_isFullscreen()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+Fullscreen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window is fullscreen \Hypertarget{group__Window__management_ga6c5edc3fef40721ec9d701d77295519d}\label{group__Window__management_ga6c5edc3fef40721ec9d701d77295519d} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isHidden@{RGFW\_window\_isHidden}}
+\index{RGFW\_window\_isHidden@{RGFW\_window\_isHidden}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isHidden()}{RGFW\_window\_isHidden()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+Hidden (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window is hidden \Hypertarget{group__Window__management_gaa95e38f35b8f993406a8185cd4b48871}\label{group__Window__management_gaa95e38f35b8f993406a8185cd4b48871} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isInFocus@{RGFW\_window\_isInFocus}}
+\index{RGFW\_window\_isInFocus@{RGFW\_window\_isInFocus}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isInFocus()}{RGFW\_window\_isInFocus()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+In\+Focus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+checks the focus to this window \Hypertarget{group__Window__management_ga110cc32439e48fb5a4dfd67825f6963a}\label{group__Window__management_ga110cc32439e48fb5a4dfd67825f6963a} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isMaximized@{RGFW\_window\_isMaximized}}
+\index{RGFW\_window\_isMaximized@{RGFW\_window\_isMaximized}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isMaximized()}{RGFW\_window\_isMaximized()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+Maximized (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window is maximized \Hypertarget{group__Window__management_ga21de6b33899222d8f50760d80dd16dca}\label{group__Window__management_ga21de6b33899222d8f50760d80dd16dca} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_isMinimized@{RGFW\_window\_isMinimized}}
+\index{RGFW\_window\_isMinimized@{RGFW\_window\_isMinimized}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_isMinimized()}{RGFW\_window\_isMinimized()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+is\+Minimized (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window is minimized \Hypertarget{group__Window__management_ga867c6a774a544f1cf7765feb17da99e1}\label{group__Window__management_ga867c6a774a544f1cf7765feb17da99e1} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_maximize@{RGFW\_window\_maximize}}
+\index{RGFW\_window\_maximize@{RGFW\_window\_maximize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_maximize()}{RGFW\_window\_maximize()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+maximize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+maximize the window \Hypertarget{group__Window__management_gadf5a4e9746a8340b1ec5b6f290d7c907}\label{group__Window__management_gadf5a4e9746a8340b1ec5b6f290d7c907} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_minimize@{RGFW\_window\_minimize}}
+\index{RGFW\_window\_minimize@{RGFW\_window\_minimize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_minimize()}{RGFW\_window\_minimize()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+minimize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+minimize the window (in taskbar (per OS)) \Hypertarget{group__Window__management_gaeb8d10c5756c4dea558dc781913a4e31}\label{group__Window__management_gaeb8d10c5756c4dea558dc781913a4e31} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_mouseHidden@{RGFW\_window\_mouseHidden}}
+\index{RGFW\_window\_mouseHidden@{RGFW\_window\_mouseHidden}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_mouseHidden()}{RGFW\_window\_mouseHidden()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+mouse\+Hidden (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the mouse is hidden \Hypertarget{group__Window__management_gac1e5e04771ec71af96eaffdbf3edf906}\label{group__Window__management_gac1e5e04771ec71af96eaffdbf3edf906} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_mouseUnhold@{RGFW\_window\_mouseUnhold}}
+\index{RGFW\_window\_mouseUnhold@{RGFW\_window\_mouseUnhold}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_mouseUnhold()}{RGFW\_window\_mouseUnhold()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+mouse\+Unhold (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+stop holding the mouse and let it move freely \Hypertarget{group__Window__management_ga1d2a9a61b4acc071f8cc2723723a3ce5}\label{group__Window__management_ga1d2a9a61b4acc071f8cc2723723a3ce5} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_move@{RGFW\_window\_move}}
+\index{RGFW\_window\_move@{RGFW\_window\_move}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_move()}{RGFW\_window\_move()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}}}]{v }\end{DoxyParamCaption})}
+
+move a window to a given point 
+\begin{DoxyParams}{Parameters}
+{\em v} & new pos \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__Window__management_ga1f8210bbda82bd96122267c39f9c85c3}\label{group__Window__management_ga1f8210bbda82bd96122267c39f9c85c3} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_moveMouse@{RGFW\_window\_moveMouse}}
+\index{RGFW\_window\_moveMouse@{RGFW\_window\_moveMouse}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_moveMouse()}{RGFW\_window\_moveMouse()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+move\+Mouse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}}}]{v }\end{DoxyParamCaption})}
+
+move the mouse to a given point \Hypertarget{group__Window__management_ga2fa4deae6ef9c9037d9a182982c41556}\label{group__Window__management_ga2fa4deae6ef9c9037d9a182982c41556} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_moveToMonitor@{RGFW\_window\_moveToMonitor}}
+\index{RGFW\_window\_moveToMonitor@{RGFW\_window\_moveToMonitor}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_moveToMonitor()}{RGFW\_window\_moveToMonitor()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+move\+To\+Monitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__monitor}{RGFW\+\_\+monitor}}}]{m }\end{DoxyParamCaption})}
+
+move window to a specific monitor \Hypertarget{group__Window__management_ga9cbbfa79e24517e57da59e5cf4abe9e3}\label{group__Window__management_ga9cbbfa79e24517e57da59e5cf4abe9e3} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_raise@{RGFW\_window\_raise}}
+\index{RGFW\_window\_raise@{RGFW\_window\_raise}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_raise()}{RGFW\_window\_raise()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+raise (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+raise the window (to the top) \Hypertarget{group__Window__management_ga49cb75955ec07bb68faf7f260b30e693}\label{group__Window__management_ga49cb75955ec07bb68faf7f260b30e693} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_resize@{RGFW\_window\_resize}}
+\index{RGFW\_window\_resize@{RGFW\_window\_resize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_resize()}{RGFW\_window\_resize()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+resize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a }\end{DoxyParamCaption})}
+
+resize window to a current size/area 
+\begin{DoxyParams}{Parameters}
+{\em win} & source window  \\
+\hline
+{\em a} & new size \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__Window__management_ga68d347a9064621a8691398f358ee46a3}\label{group__Window__management_ga68d347a9064621a8691398f358ee46a3} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_restore@{RGFW\_window\_restore}}
+\index{RGFW\_window\_restore@{RGFW\_window\_restore}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_restore()}{RGFW\_window\_restore()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+restore (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+restore the window from minimized (per OS) \Hypertarget{group__Window__management_gaca9c6225eb590dc1c792907b9a8346b2}\label{group__Window__management_gaca9c6225eb590dc1c792907b9a8346b2} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setAspectRatio@{RGFW\_window\_setAspectRatio}}
+\index{RGFW\_window\_setAspectRatio@{RGFW\_window\_setAspectRatio}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setAspectRatio()}{RGFW\_window\_setAspectRatio()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Aspect\+Ratio (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a }\end{DoxyParamCaption})}
+
+set window aspect ratio \Hypertarget{group__Window__management_ga210cfa064760291d2823fb330ea50d9c}\label{group__Window__management_ga210cfa064760291d2823fb330ea50d9c} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setBorder@{RGFW\_window\_setBorder}}
+\index{RGFW\_window\_setBorder@{RGFW\_window\_setBorder}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setBorder()}{RGFW\_window\_setBorder()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Border (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{border }\end{DoxyParamCaption})}
+
+if the window should have a border or not (borderless) based on bool value of {\ttfamily border} \Hypertarget{group__Window__management_gafb366b10a525683266ad9ba0db2760ef}\label{group__Window__management_gafb366b10a525683266ad9ba0db2760ef} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setDND@{RGFW\_window\_setDND}}
+\index{RGFW\_window\_setDND@{RGFW\_window\_setDND}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setDND()}{RGFW\_window\_setDND()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+DND (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{allow }\end{DoxyParamCaption})}
+
+turn on / off dnd (RGFW\+\_\+window\+Allow\+DND stil must be passed to the window) \Hypertarget{group__Window__management_ga1c3a89944c13d571c67be26fdc1041af}\label{group__Window__management_ga1c3a89944c13d571c67be26fdc1041af} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setFlags@{RGFW\_window\_setFlags}}
+\index{RGFW\_window\_setFlags@{RGFW\_window\_setFlags}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setFlags()}{RGFW\_window\_setFlags()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+window\+Flags}]{ }\end{DoxyParamCaption})}
+
+set the window flags (will undo flags if they don\textquotesingle{}t match the old ones) \Hypertarget{group__Window__management_ga7a692ef18ae01567c2fdf73c68c08b64}\label{group__Window__management_ga7a692ef18ae01567c2fdf73c68c08b64} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setFloating@{RGFW\_window\_setFloating}}
+\index{RGFW\_window\_setFloating@{RGFW\_window\_setFloating}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setFloating()}{RGFW\_window\_setFloating()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Floating (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{floating }\end{DoxyParamCaption})}
+
+make the window a floating window \Hypertarget{group__Window__management_ga594d554fefbb56363c7b613dd44e7ee5}\label{group__Window__management_ga594d554fefbb56363c7b613dd44e7ee5} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setFullscreen@{RGFW\_window\_setFullscreen}}
+\index{RGFW\_window\_setFullscreen@{RGFW\_window\_setFullscreen}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setFullscreen()}{RGFW\_window\_setFullscreen()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Fullscreen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{fullscreen }\end{DoxyParamCaption})}
+
+turn fullscreen on / off for a window \Hypertarget{group__Window__management_gaca5383e752ee7fe0d42e569997db4059}\label{group__Window__management_gaca5383e752ee7fe0d42e569997db4059} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setIcon@{RGFW\_window\_setIcon}}
+\index{RGFW\_window\_setIcon@{RGFW\_window\_setIcon}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setIcon()}{RGFW\_window\_setIcon()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+set\+Icon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u8 \texorpdfstring{$\ast$}{*}}]{icon,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a,  }\item[{i32}]{channels }\end{DoxyParamCaption})}
+
+image MAY be resized by default, set both the taskbar and window icon 
+\begin{DoxyParams}{Parameters}
+{\em win} & source window  \\
+\hline
+{\em icon} & icon bitmap  \\
+\hline
+{\em a} & width and height of the bitmap  \\
+\hline
+{\em channels} & how many channels the bitmap has (rgb \+: 3, rgba \+: 4) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__Window__management_gaead0db8ed85a96afe69d448b47a9c25b}\label{group__Window__management_gaead0db8ed85a96afe69d448b47a9c25b} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setIconEx@{RGFW\_window\_setIconEx}}
+\index{RGFW\_window\_setIconEx@{RGFW\_window\_setIconEx}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setIconEx()}{RGFW\_window\_setIconEx()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+set\+Icon\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u8 \texorpdfstring{$\ast$}{*}}]{icon,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a,  }\item[{i32}]{channels,  }\item[{u8}]{type }\end{DoxyParamCaption})}
+
+sets mouse to RGFW\+\_\+mouse icon (loaded from a bitmap struct) \Hypertarget{group__Window__management_gacd5210fddb2ff8e834c25923070ee9f7}\label{group__Window__management_gacd5210fddb2ff8e834c25923070ee9f7} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setMaxSize@{RGFW\_window\_setMaxSize}}
+\index{RGFW\_window\_setMaxSize@{RGFW\_window\_setMaxSize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setMaxSize()}{RGFW\_window\_setMaxSize()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Max\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a }\end{DoxyParamCaption})}
+
+set the maximum dimensions of a window \Hypertarget{group__Window__management_ga62a242f890c1def944d0b4771b6c79d4}\label{group__Window__management_ga62a242f890c1def944d0b4771b6c79d4} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setMinSize@{RGFW\_window\_setMinSize}}
+\index{RGFW\_window\_setMinSize@{RGFW\_window\_setMinSize}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setMinSize()}{RGFW\_window\_setMinSize()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Min\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{\mbox{\hyperlink{structRGFW__area}{RGFW\+\_\+area}}}]{a }\end{DoxyParamCaption})}
+
+set the minimum dimensions of a window \Hypertarget{group__Window__management_gac9c75b705eebbee5e2c86cbaf144a4e0}\label{group__Window__management_gac9c75b705eebbee5e2c86cbaf144a4e0} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setMouse@{RGFW\_window\_setMouse}}
+\index{RGFW\_window\_setMouse@{RGFW\_window\_setMouse}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setMouse()}{RGFW\_window\_setMouse()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Mouse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+mouse \texorpdfstring{$\ast$}{*}}]{mouse }\end{DoxyParamCaption})}
+
+sets the mouse to a standard API cursor (based on RGFW\+\_\+\+MOUSE, as seen at the end of the RGFW\+\_\+\+HEADER part of this file) \Hypertarget{group__Window__management_ga46e9ec7d9e23ed20b38a6046e1b93f49}\label{group__Window__management_ga46e9ec7d9e23ed20b38a6046e1b93f49} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setMouseDefault@{RGFW\_window\_setMouseDefault}}
+\index{RGFW\_window\_setMouseDefault@{RGFW\_window\_setMouseDefault}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setMouseDefault()}{RGFW\_window\_setMouseDefault()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+set\+Mouse\+Default (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+sets the mouse to the default mouse icon \Hypertarget{group__Window__management_ga28a62377041405463b49dcc68c06cce8}\label{group__Window__management_ga28a62377041405463b49dcc68c06cce8} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setMousePassthrough@{RGFW\_window\_setMousePassthrough}}
+\index{RGFW\_window\_setMousePassthrough@{RGFW\_window\_setMousePassthrough}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setMousePassthrough()}{RGFW\_window\_setMousePassthrough()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Mouse\+Passthrough (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{passthrough }\end{DoxyParamCaption})}
+
+turn on / off mouse passthrough \Hypertarget{group__Window__management_ga9f908f5871fe2b172fbaabccab2256bf}\label{group__Window__management_ga9f908f5871fe2b172fbaabccab2256bf} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setName@{RGFW\_window\_setName}}
+\index{RGFW\_window\_setName@{RGFW\_window\_setName}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setName()}{RGFW\_window\_setName()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+rename window to a given string \Hypertarget{group__Window__management_ga54a2347c554cf916668c873cbce48d54}\label{group__Window__management_ga54a2347c554cf916668c873cbce48d54} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_setOpacity@{RGFW\_window\_setOpacity}}
+\index{RGFW\_window\_setOpacity@{RGFW\_window\_setOpacity}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_setOpacity()}{RGFW\_window\_setOpacity()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+set\+Opacity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u8}]{opacity }\end{DoxyParamCaption})}
+
+sets the opacity of a window \Hypertarget{group__Window__management_gae40de5fbdc9e850c1ff7e2e8dac46624}\label{group__Window__management_gae40de5fbdc9e850c1ff7e2e8dac46624} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_shouldClose@{RGFW\_window\_shouldClose}}
+\index{RGFW\_window\_shouldClose@{RGFW\_window\_shouldClose}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_shouldClose()}{RGFW\_window\_shouldClose()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+bool RGFW\+\_\+window\+\_\+should\+Close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+if the window should close (RGFW\+\_\+close was sent or escape was pressed) \Hypertarget{group__Window__management_gaf8ea66870c99917ef07acd09ad6d7746}\label{group__Window__management_gaf8ea66870c99917ef07acd09ad6d7746} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_show@{RGFW\_window\_show}}
+\index{RGFW\_window\_show@{RGFW\_window\_show}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_show()}{RGFW\_window\_show()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+show (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+show the window \Hypertarget{group__Window__management_gaccfc463b60b5d664a7a6b53e342945dc}\label{group__Window__management_gaccfc463b60b5d664a7a6b53e342945dc} 
+\index{Window\_management@{Window\_management}!RGFW\_window\_showMouse@{RGFW\_window\_showMouse}}
+\index{RGFW\_window\_showMouse@{RGFW\_window\_showMouse}!Window\_management@{Window\_management}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_showMouse()}{RGFW\_window\_showMouse()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+show\+Mouse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{RGFW\+\_\+bool}]{show }\end{DoxyParamCaption})}
+
+show the mouse or hide the mouse 

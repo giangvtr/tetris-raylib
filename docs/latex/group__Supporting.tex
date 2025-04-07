@@ -1,0 +1,103 @@
+\doxysection{Supporting}
+\hypertarget{group__Supporting}{}\label{group__Supporting}\index{Supporting@{Supporting}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF double \mbox{\hyperlink{group__Supporting_ga187d665d68d7808c2924334a993c7ccc}{RGFW\+\_\+get\+Time}} (void)
+\item 
+RGFWDEF u64 \mbox{\hyperlink{group__Supporting_ga2556ad5561537a8b328d062f8b8268e5}{RGFW\+\_\+get\+Time\+NS}} (void)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Supporting_ga89d25fafe12c27addf2cab9c67be8e6e}{RGFW\+\_\+sleep}} (u64 milisecond)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Supporting_gad609638d190115888b8bf9bb6e4c8abb}{RGFW\+\_\+set\+Time}} (double time)
+\item 
+RGFWDEF u64 \mbox{\hyperlink{group__Supporting_ga2cc1efd5d74bc11f121c68de6ffa9d61}{RGFW\+\_\+get\+Timer\+Value}} (void)
+\item 
+RGFWDEF u64 \mbox{\hyperlink{group__Supporting_ga61b19bfefc3b405a68beca259cfbdbaf}{RGFW\+\_\+get\+Timer\+Freq}} (void)
+\item 
+RGFWDEF u32 \mbox{\hyperlink{group__Supporting_ga823d884986312f33fb49e0ea5abfe2ba}{RGFW\+\_\+check\+FPS}} (double start\+Time, u32 frame\+Count, u32 fps\+Cap)
+\item 
+\Hypertarget{group__Supporting_gafdab87dd54d25d3699a381e1051cb303}\label{group__Supporting_gafdab87dd54d25d3699a381e1051cb303} 
+RGFWDEF void {\bfseries RGFW\+\_\+set\+Root\+Window} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__Supporting_ga9938b52ee354a81f049e67ae6e99fc94}\label{group__Supporting_ga9938b52ee354a81f049e67ae6e99fc94} 
+RGFWDEF \mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*} {\bfseries RGFW\+\_\+get\+Root\+Window} (void)
+\item 
+void \mbox{\hyperlink{group__Supporting_ga5931a0bf25028b657a3bbf231b02af4c}{RGFW\+\_\+event\+Queue\+Push}} (\mbox{\hyperlink{structRGFW__event}{RGFW\+\_\+event}} event)
+\item 
+\Hypertarget{group__Supporting_ga5e594acc8f65142aca3ab5eac1f13d4b}\label{group__Supporting_ga5e594acc8f65142aca3ab5eac1f13d4b} 
+\mbox{\hyperlink{structRGFW__event}{RGFW\+\_\+event}} \texorpdfstring{$\ast$}{*} {\bfseries RGFW\+\_\+event\+Queue\+Pop} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+typedef \mbox{\hyperlink{group__Supporting_gafa4b496a0ce0efa4b3d5c4f9a0a0304b}{RGFW\+\_\+\+ENUM}} (u8, RGFW\+\_\+key)
+\item 
+\Hypertarget{group__Supporting_gaf4429fa8a0dc4b06ffc1a2406a17b9ac}\label{group__Supporting_gaf4429fa8a0dc4b06ffc1a2406a17b9ac} 
+RGFWDEF u32 {\bfseries RGFW\+\_\+api\+Key\+To\+RGFW} (u32 keycode)
+\item 
+\Hypertarget{group__Supporting_ga3824ba4f7824072fac0588db1a3c4cb7}\label{group__Supporting_ga3824ba4f7824072fac0588db1a3c4cb7} 
+typedef {\bfseries RGFW\+\_\+\+ENUM} (u8, RGFW\+\_\+mouse\+Icons)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__Supporting_ga823d884986312f33fb49e0ea5abfe2ba}\label{group__Supporting_ga823d884986312f33fb49e0ea5abfe2ba} 
+\index{Supporting@{Supporting}!RGFW\_checkFPS@{RGFW\_checkFPS}}
+\index{RGFW\_checkFPS@{RGFW\_checkFPS}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_checkFPS()}{RGFW\_checkFPS()}}
+{\footnotesize\ttfamily RGFWDEF u32 RGFW\+\_\+check\+FPS (\begin{DoxyParamCaption}\item[{double}]{start\+Time,  }\item[{u32}]{frame\+Count,  }\item[{u32}]{fps\+Cap }\end{DoxyParamCaption})}
+
+change which window is the root window \Hypertarget{group__Supporting_gafa4b496a0ce0efa4b3d5c4f9a0a0304b}\label{group__Supporting_gafa4b496a0ce0efa4b3d5c4f9a0a0304b} 
+\index{Supporting@{Supporting}!RGFW\_ENUM@{RGFW\_ENUM}}
+\index{RGFW\_ENUM@{RGFW\_ENUM}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_ENUM()}{RGFW\_ENUM()}}
+{\footnotesize\ttfamily typedef RGFW\+\_\+\+ENUM (\begin{DoxyParamCaption}\item[{u8}]{,  }\item[{RGFW\+\_\+key}]{ }\end{DoxyParamCaption})}
+
+key codes and mouse icon enums \Hypertarget{group__Supporting_ga5931a0bf25028b657a3bbf231b02af4c}\label{group__Supporting_ga5931a0bf25028b657a3bbf231b02af4c} 
+\index{Supporting@{Supporting}!RGFW\_eventQueuePush@{RGFW\_eventQueuePush}}
+\index{RGFW\_eventQueuePush@{RGFW\_eventQueuePush}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_eventQueuePush()}{RGFW\_eventQueuePush()}}
+{\footnotesize\ttfamily void RGFW\+\_\+event\+Queue\+Push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__event}{RGFW\+\_\+event}}}]{event }\end{DoxyParamCaption})}
+
+standard event queue, used for injecting events and returning source API callback events like any other queue check \Hypertarget{group__Supporting_ga187d665d68d7808c2924334a993c7ccc}\label{group__Supporting_ga187d665d68d7808c2924334a993c7ccc} 
+\index{Supporting@{Supporting}!RGFW\_getTime@{RGFW\_getTime}}
+\index{RGFW\_getTime@{RGFW\_getTime}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getTime()}{RGFW\_getTime()}}
+{\footnotesize\ttfamily RGFWDEF double RGFW\+\_\+get\+Time (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get time in seconds since RGFW\+\_\+set\+Time, which ran when the first window is open ~\newline
+ \Hypertarget{group__Supporting_ga2556ad5561537a8b328d062f8b8268e5}\label{group__Supporting_ga2556ad5561537a8b328d062f8b8268e5} 
+\index{Supporting@{Supporting}!RGFW\_getTimeNS@{RGFW\_getTimeNS}}
+\index{RGFW\_getTimeNS@{RGFW\_getTimeNS}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getTimeNS()}{RGFW\_getTimeNS()}}
+{\footnotesize\ttfamily RGFWDEF u64 RGFW\+\_\+get\+Time\+NS (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get time in nanoseconds RGFW\+\_\+set\+Time, which ran when the first window is open \Hypertarget{group__Supporting_ga61b19bfefc3b405a68beca259cfbdbaf}\label{group__Supporting_ga61b19bfefc3b405a68beca259cfbdbaf} 
+\index{Supporting@{Supporting}!RGFW\_getTimerFreq@{RGFW\_getTimerFreq}}
+\index{RGFW\_getTimerFreq@{RGFW\_getTimerFreq}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getTimerFreq()}{RGFW\_getTimerFreq()}}
+{\footnotesize\ttfamily RGFWDEF u64 RGFW\+\_\+get\+Timer\+Freq (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get API time freq \Hypertarget{group__Supporting_ga2cc1efd5d74bc11f121c68de6ffa9d61}\label{group__Supporting_ga2cc1efd5d74bc11f121c68de6ffa9d61} 
+\index{Supporting@{Supporting}!RGFW\_getTimerValue@{RGFW\_getTimerValue}}
+\index{RGFW\_getTimerValue@{RGFW\_getTimerValue}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getTimerValue()}{RGFW\_getTimerValue()}}
+{\footnotesize\ttfamily RGFWDEF u64 RGFW\+\_\+get\+Timer\+Value (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get API timer value \Hypertarget{group__Supporting_gad609638d190115888b8bf9bb6e4c8abb}\label{group__Supporting_gad609638d190115888b8bf9bb6e4c8abb} 
+\index{Supporting@{Supporting}!RGFW\_setTime@{RGFW\_setTime}}
+\index{RGFW\_setTime@{RGFW\_setTime}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setTime()}{RGFW\_setTime()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+set\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})}
+
+set timer in seconds \Hypertarget{group__Supporting_ga89d25fafe12c27addf2cab9c67be8e6e}\label{group__Supporting_ga89d25fafe12c27addf2cab9c67be8e6e} 
+\index{Supporting@{Supporting}!RGFW\_sleep@{RGFW\_sleep}}
+\index{RGFW\_sleep@{RGFW\_sleep}!Supporting@{Supporting}}
+\doxysubsubsection{\texorpdfstring{RGFW\_sleep()}{RGFW\_sleep()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+sleep (\begin{DoxyParamCaption}\item[{u64}]{milisecond }\end{DoxyParamCaption})}
+
+sleep for a set time 

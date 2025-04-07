@@ -1,0 +1,277 @@
+\doxysection{null\+\_\+platform.\+h}
+\hypertarget{null__platform_8h_source}{}\label{null__platform_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/null\_platform.h@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/null\_platform.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ GLFW\ 3.4\ -\/\ www.glfw.org}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ 2016\ Google\ Inc.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Copyright\ (c)\ 2016-\/2017\ Camilla\ Löwy\ <elmindreda@glfw.org>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ This\ software\ is\ provided\ 'as-\/is',\ without\ any\ express\ or\ implied}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ warranty.\ In\ no\ event\ will\ the\ authors\ be\ held\ liable\ for\ any\ damages}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ including\ commercial\ applications,\ and\ to\ alter\ it\ and\ redistribute\ it}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ claim\ that\ you\ wrote\ the\ original\ software.\ If\ you\ use\ this\ software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ in\ a\ product,\ an\ acknowledgment\ in\ the\ product\ documentation\ would}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ \ \ be\ misrepresented\ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ distribution.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_WINDOW\_STATE\ \ \ \ \ \ \ \ \ \ \_GLFWwindowNull\ null;}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_LIBRARY\_WINDOW\_STATE\ \ \_GLFWlibraryNull\ null;}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_MONITOR\_STATE\ \ \ \ \ \ \ \ \ \_GLFWmonitorNull\ null;}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_CONTEXT\_STATE}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_CURSOR\_STATE}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_LIBRARY\_CONTEXT\_STATE}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_FIRST\ \ \ \ \ \ \ \ \ \ GLFW\_NULL\_SC\_SPACE}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_SPACE\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_APOSTROPHE\ \ \ \ \ 2}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_COMMA\ \ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_MINUS\ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_PERIOD\ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_SLASH\ \ \ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ 9}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_3\ \ \ \ \ \ \ \ \ \ \ \ \ \ 10}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ 11}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_5\ \ \ \ \ \ \ \ \ \ \ \ \ \ 12}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_6\ \ \ \ \ \ \ \ \ \ \ \ \ \ 13}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_7\ \ \ \ \ \ \ \ \ \ \ \ \ \ 14}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ 15}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_9\ \ \ \ \ \ \ \ \ \ \ \ \ \ 16}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_SEMICOLON\ \ \ \ \ \ 17}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_EQUAL\ \ \ \ \ \ \ \ \ \ 18}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\_BRACKET\ \ \ 19}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_BACKSLASH\ \ \ \ \ \ 20}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\_BRACKET\ \ 21}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_GRAVE\_ACCENT\ \ \ 22}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_WORLD\_1\ \ \ \ \ \ \ \ 23}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_WORLD\_2\ \ \ \ \ \ \ \ 24}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_ESCAPE\ \ \ \ \ \ \ \ \ 25}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_ENTER\ \ \ \ \ \ \ \ \ \ 26}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_TAB\ \ \ \ \ \ \ \ \ \ \ \ 27}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_BACKSPACE\ \ \ \ \ \ 28}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_INSERT\ \ \ \ \ \ \ \ \ 29}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_DELETE\ \ \ \ \ \ \ \ \ 30}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\ \ \ \ \ \ \ \ \ \ 31}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\ \ \ \ \ \ \ \ \ \ \ 32}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_DOWN\ \ \ \ \ \ \ \ \ \ \ 33}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ 34}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_PAGE\_UP\ \ \ \ \ \ \ \ 35}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_PAGE\_DOWN\ \ \ \ \ \ 36}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_HOME\ \ \ \ \ \ \ \ \ \ \ 37}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_END\ \ \ \ \ \ \ \ \ \ \ \ 38}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_CAPS\_LOCK\ \ \ \ \ \ 39}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_SCROLL\_LOCK\ \ \ \ 40}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_NUM\_LOCK\ \ \ \ \ \ \ 41}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_PRINT\_SCREEN\ \ \ 42}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_PAUSE\ \ \ \ \ \ \ \ \ \ 43}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_A\ \ \ \ \ \ \ \ \ \ \ \ \ \ 44}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_B\ \ \ \ \ \ \ \ \ \ \ \ \ \ 45}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_C\ \ \ \ \ \ \ \ \ \ \ \ \ \ 46}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_D\ \ \ \ \ \ \ \ \ \ \ \ \ \ 47}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_E\ \ \ \ \ \ \ \ \ \ \ \ \ \ 48}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F\ \ \ \ \ \ \ \ \ \ \ \ \ \ 49}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_G\ \ \ \ \ \ \ \ \ \ \ \ \ \ 50}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_H\ \ \ \ \ \ \ \ \ \ \ \ \ \ 51}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_I\ \ \ \ \ \ \ \ \ \ \ \ \ \ 52}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_J\ \ \ \ \ \ \ \ \ \ \ \ \ \ 53}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_K\ \ \ \ \ \ \ \ \ \ \ \ \ \ 54}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_L\ \ \ \ \ \ \ \ \ \ \ \ \ \ 55}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_M\ \ \ \ \ \ \ \ \ \ \ \ \ \ 56}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_N\ \ \ \ \ \ \ \ \ \ \ \ \ \ 57}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_O\ \ \ \ \ \ \ \ \ \ \ \ \ \ 58}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_P\ \ \ \ \ \ \ \ \ \ \ \ \ \ 59}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_Q\ \ \ \ \ \ \ \ \ \ \ \ \ \ 60}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_R\ \ \ \ \ \ \ \ \ \ \ \ \ \ 61}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_S\ \ \ \ \ \ \ \ \ \ \ \ \ \ 62}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_T\ \ \ \ \ \ \ \ \ \ \ \ \ \ 63}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_U\ \ \ \ \ \ \ \ \ \ \ \ \ \ 64}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_V\ \ \ \ \ \ \ \ \ \ \ \ \ \ 65}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_W\ \ \ \ \ \ \ \ \ \ \ \ \ \ 66}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_X\ \ \ \ \ \ \ \ \ \ \ \ \ \ 67}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_Y\ \ \ \ \ \ \ \ \ \ \ \ \ \ 68}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_Z\ \ \ \ \ \ \ \ \ \ \ \ \ \ 69}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F1\ \ \ \ \ \ \ \ \ \ \ \ \ 70}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F2\ \ \ \ \ \ \ \ \ \ \ \ \ 71}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F3\ \ \ \ \ \ \ \ \ \ \ \ \ 72}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F4\ \ \ \ \ \ \ \ \ \ \ \ \ 73}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F5\ \ \ \ \ \ \ \ \ \ \ \ \ 74}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F6\ \ \ \ \ \ \ \ \ \ \ \ \ 75}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F7\ \ \ \ \ \ \ \ \ \ \ \ \ 76}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F8\ \ \ \ \ \ \ \ \ \ \ \ \ 77}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F9\ \ \ \ \ \ \ \ \ \ \ \ \ 78}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F10\ \ \ \ \ \ \ \ \ \ \ \ 79}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F11\ \ \ \ \ \ \ \ \ \ \ \ 80}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F12\ \ \ \ \ \ \ \ \ \ \ \ 81}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F13\ \ \ \ \ \ \ \ \ \ \ \ 82}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F14\ \ \ \ \ \ \ \ \ \ \ \ 83}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F15\ \ \ \ \ \ \ \ \ \ \ \ 84}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F16\ \ \ \ \ \ \ \ \ \ \ \ 85}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F17\ \ \ \ \ \ \ \ \ \ \ \ 86}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F18\ \ \ \ \ \ \ \ \ \ \ \ 87}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F19\ \ \ \ \ \ \ \ \ \ \ \ 88}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F20\ \ \ \ \ \ \ \ \ \ \ \ 89}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F21\ \ \ \ \ \ \ \ \ \ \ \ 90}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F22\ \ \ \ \ \ \ \ \ \ \ \ 91}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F23\ \ \ \ \ \ \ \ \ \ \ \ 92}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F24\ \ \ \ \ \ \ \ \ \ \ \ 93}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_F25\ \ \ \ \ \ \ \ \ \ \ \ 94}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_0\ \ \ \ \ \ \ \ \ \ \ 95}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_1\ \ \ \ \ \ \ \ \ \ \ 96}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_2\ \ \ \ \ \ \ \ \ \ \ 97}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_3\ \ \ \ \ \ \ \ \ \ \ 98}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_4\ \ \ \ \ \ \ \ \ \ \ 99}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_5\ \ \ \ \ \ \ \ \ \ \ 100}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_6\ \ \ \ \ \ \ \ \ \ \ 101}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_7\ \ \ \ \ \ \ \ \ \ \ 102}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_8\ \ \ \ \ \ \ \ \ \ \ 103}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_9\ \ \ \ \ \ \ \ \ \ \ 104}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_DECIMAL\ \ \ \ \ 105}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_DIVIDE\ \ \ \ \ \ 106}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_MULTIPLY\ \ \ \ 107}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_SUBTRACT\ \ \ \ 108}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_ADD\ \ \ \ \ \ \ \ \ 109}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_ENTER\ \ \ \ \ \ \ 110}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_KP\_EQUAL\ \ \ \ \ \ \ 111}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\_SHIFT\ \ \ \ \ 112}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\_CONTROL\ \ \ 113}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\_ALT\ \ \ \ \ \ \ 114}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LEFT\_SUPER\ \ \ \ \ 115}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\_SHIFT\ \ \ \ 116}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\_CONTROL\ \ 117}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\_ALT\ \ \ \ \ \ 118}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_RIGHT\_SUPER\ \ \ \ 119}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_MENU\ \ \ \ \ \ \ \ \ \ \ 120}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ GLFW\_NULL\_SC\_LAST\ \ \ \ \ \ \ \ \ \ \ GLFW\_NULL\_SC\_MENU}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{//\ Null-\/specific\ per-\/window\ data}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__GLFWwindowNull}{\_GLFWwindowNull}}}
+\DoxyCodeLine{00162\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ xpos;}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ ypos;}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ width;}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ height;}
+\DoxyCodeLine{00167\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ visible;}
+\DoxyCodeLine{00168\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ iconified;}
+\DoxyCodeLine{00169\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ maximized;}
+\DoxyCodeLine{00170\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ resizable;}
+\DoxyCodeLine{00171\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ decorated;}
+\DoxyCodeLine{00172\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ floating;}
+\DoxyCodeLine{00173\ \ \ \ \ GLFWbool\ \ \ \ \ \ \ \ transparent;}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ opacity;}
+\DoxyCodeLine{00175\ \}\ \mbox{\hyperlink{struct__GLFWwindowNull}{\_GLFWwindowNull}};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{//\ Null-\/specific\ per-\/monitor\ data}}
+\DoxyCodeLine{00178\ \textcolor{comment}{//}}
+\DoxyCodeLine{00179\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__GLFWmonitorNull}{\_GLFWmonitorNull}}}
+\DoxyCodeLine{00180\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \mbox{\hyperlink{structGLFWgammaramp}{GLFWgammaramp}}\ \ \ ramp;}
+\DoxyCodeLine{00182\ \}\ \mbox{\hyperlink{struct__GLFWmonitorNull}{\_GLFWmonitorNull}};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ Null-\/specific\ global\ data}}
+\DoxyCodeLine{00185\ \textcolor{comment}{//}}
+\DoxyCodeLine{00186\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__GLFWlibraryNull}{\_GLFWlibraryNull}}}
+\DoxyCodeLine{00187\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ xcursor;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ ycursor;}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{char}*\ \ \ \ \ \ \ \ \ \ \ clipboardString;}
+\DoxyCodeLine{00191\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ \ \ \ focusedWindow;}
+\DoxyCodeLine{00192\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ keycodes[GLFW\_NULL\_SC\_LAST\ +\ 1];}
+\DoxyCodeLine{00193\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ scancodes[GLFW\_KEY\_LAST\ +\ 1];}
+\DoxyCodeLine{00194\ \}\ \mbox{\hyperlink{struct__GLFWlibraryNull}{\_GLFWlibraryNull}};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keywordtype}{void}\ \_glfwPollMonitorsNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ GLFWbool\ \_glfwConnectNull(\textcolor{keywordtype}{int}\ platformID,\ \mbox{\hyperlink{struct__GLFWplatform}{\_GLFWplatform}}*\ platform);}
+\DoxyCodeLine{00199\ \textcolor{keywordtype}{int}\ \_glfwInitNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00200\ \textcolor{keywordtype}{void}\ \_glfwTerminateNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keywordtype}{void}\ \_glfwFreeMonitorNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor);}
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{void}\ \_glfwGetMonitorPosNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keywordtype}{int}*\ xpos,\ \textcolor{keywordtype}{int}*\ ypos);}
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{void}\ \_glfwGetMonitorContentScaleNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keywordtype}{float}*\ xscale,\ \textcolor{keywordtype}{float}*\ yscale);}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ \_glfwGetMonitorWorkareaNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keywordtype}{int}*\ xpos,\ \textcolor{keywordtype}{int}*\ ypos,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height);}
+\DoxyCodeLine{00206\ \mbox{\hyperlink{structGLFWvidmode}{GLFWvidmode}}*\ \_glfwGetVideoModesNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keywordtype}{int}*\ found);}
+\DoxyCodeLine{00207\ GLFWbool\ \_glfwGetVideoModeNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \mbox{\hyperlink{structGLFWvidmode}{GLFWvidmode}}*\ mode);}
+\DoxyCodeLine{00208\ GLFWbool\ \_glfwGetGammaRampNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \mbox{\hyperlink{structGLFWgammaramp}{GLFWgammaramp}}*\ ramp);}
+\DoxyCodeLine{00209\ \textcolor{keywordtype}{void}\ \_glfwSetGammaRampNull(\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGLFWgammaramp}{GLFWgammaramp}}*\ ramp);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ GLFWbool\ \_glfwCreateWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__GLFWwndconfig}{\_GLFWwndconfig}}*\ wndconfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__GLFWctxconfig}{\_GLFWctxconfig}}*\ ctxconfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__GLFWfbconfig}{\_GLFWfbconfig}}*\ fbconfig);}
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{void}\ \_glfwDestroyWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00213\ \textcolor{keywordtype}{void}\ \_glfwSetWindowTitleNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title);}
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{void}\ \_glfwSetWindowIconNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGLFWimage}{GLFWimage}}*\ images);}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ \_glfwSetWindowMonitorNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor,\ \textcolor{keywordtype}{int}\ xpos,\ \textcolor{keywordtype}{int}\ ypos,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ refreshRate);}
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{void}\ \_glfwGetWindowPosNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}*\ xpos,\ \textcolor{keywordtype}{int}*\ ypos);}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ \_glfwSetWindowPosNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ xpos,\ \textcolor{keywordtype}{int}\ ypos);}
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{void}\ \_glfwGetWindowSizeNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height);}
+\DoxyCodeLine{00219\ \textcolor{keywordtype}{void}\ \_glfwSetWindowSizeNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{void}\ \_glfwSetWindowSizeLimitsNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ minwidth,\ \textcolor{keywordtype}{int}\ minheight,\ \textcolor{keywordtype}{int}\ maxwidth,\ \textcolor{keywordtype}{int}\ maxheight);}
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{void}\ \_glfwSetWindowAspectRatioNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{int}\ d);}
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{void}\ \_glfwGetFramebufferSizeNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height);}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ \_glfwGetWindowFrameSizeNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}*\ left,\ \textcolor{keywordtype}{int}*\ top,\ \textcolor{keywordtype}{int}*\ right,\ \textcolor{keywordtype}{int}*\ bottom);}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{void}\ \_glfwGetWindowContentScaleNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{float}*\ xscale,\ \textcolor{keywordtype}{float}*\ yscale);}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}\ \_glfwIconifyWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{void}\ \_glfwRestoreWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00227\ \textcolor{keywordtype}{void}\ \_glfwMaximizeWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00228\ GLFWbool\ \_glfwWindowMaximizedNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00229\ GLFWbool\ \_glfwWindowHoveredNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00230\ GLFWbool\ \_glfwFramebufferTransparentNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ \_glfwSetWindowResizableNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ enabled);}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ \_glfwSetWindowDecoratedNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ enabled);}
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{void}\ \_glfwSetWindowFloatingNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ enabled);}
+\DoxyCodeLine{00234\ \textcolor{keywordtype}{void}\ \_glfwSetWindowMousePassthroughNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ enabled);}
+\DoxyCodeLine{00235\ \textcolor{keywordtype}{float}\ \_glfwGetWindowOpacityNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{void}\ \_glfwSetWindowOpacityNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{float}\ opacity);}
+\DoxyCodeLine{00237\ \textcolor{keywordtype}{void}\ \_glfwSetRawMouseMotionNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}\ *window,\ GLFWbool\ enabled);}
+\DoxyCodeLine{00238\ GLFWbool\ \_glfwRawMouseMotionSupportedNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ \_glfwShowWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00240\ \textcolor{keywordtype}{void}\ \_glfwRequestWindowAttentionNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00241\ \textcolor{keywordtype}{void}\ \_glfwHideWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00242\ \textcolor{keywordtype}{void}\ \_glfwFocusWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00243\ GLFWbool\ \_glfwWindowFocusedNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00244\ GLFWbool\ \_glfwWindowIconifiedNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00245\ GLFWbool\ \_glfwWindowVisibleNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ \_glfwPollEventsNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00247\ \textcolor{keywordtype}{void}\ \_glfwWaitEventsNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00248\ \textcolor{keywordtype}{void}\ \_glfwWaitEventsTimeoutNull(\textcolor{keywordtype}{double}\ timeout);}
+\DoxyCodeLine{00249\ \textcolor{keywordtype}{void}\ \_glfwPostEmptyEventNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00250\ \textcolor{keywordtype}{void}\ \_glfwGetCursorPosNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{double}*\ xpos,\ \textcolor{keywordtype}{double}*\ ypos);}
+\DoxyCodeLine{00251\ \textcolor{keywordtype}{void}\ \_glfwSetCursorPosNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y);}
+\DoxyCodeLine{00252\ \textcolor{keywordtype}{void}\ \_glfwSetCursorModeNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00253\ GLFWbool\ \_glfwCreateCursorNull(\mbox{\hyperlink{struct__GLFWcursor}{\_GLFWcursor}}*\ cursor,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGLFWimage}{GLFWimage}}*\ image,\ \textcolor{keywordtype}{int}\ xhot,\ \textcolor{keywordtype}{int}\ yhot);}
+\DoxyCodeLine{00254\ GLFWbool\ \_glfwCreateStandardCursorNull(\mbox{\hyperlink{struct__GLFWcursor}{\_GLFWcursor}}*\ cursor,\ \textcolor{keywordtype}{int}\ shape);}
+\DoxyCodeLine{00255\ \textcolor{keywordtype}{void}\ \_glfwDestroyCursorNull(\mbox{\hyperlink{struct__GLFWcursor}{\_GLFWcursor}}*\ cursor);}
+\DoxyCodeLine{00256\ \textcolor{keywordtype}{void}\ \_glfwSetCursorNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \mbox{\hyperlink{struct__GLFWcursor}{\_GLFWcursor}}*\ cursor);}
+\DoxyCodeLine{00257\ \textcolor{keywordtype}{void}\ \_glfwSetClipboardStringNull(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{string});}
+\DoxyCodeLine{00258\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_glfwGetClipboardStringNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00259\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_glfwGetScancodeNameNull(\textcolor{keywordtype}{int}\ scancode);}
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{int}\ \_glfwGetKeyScancodeNull(\textcolor{keywordtype}{int}\ key);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ EGLenum\ \_glfwGetEGLPlatformNull(EGLint**\ attribs);}
+\DoxyCodeLine{00263\ EGLNativeDisplayType\ \_glfwGetEGLNativeDisplayNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00264\ EGLNativeWindowType\ \_glfwGetEGLNativeWindowNull(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{keywordtype}{void}\ \_glfwGetRequiredInstanceExtensionsNull(\textcolor{keywordtype}{char}**\ extensions);}
+\DoxyCodeLine{00267\ GLFWbool\ \_glfwGetPhysicalDevicePresentationSupportNull(VkInstance\ instance,\ VkPhysicalDevice\ device,\ uint32\_t\ queuefamily);}
+\DoxyCodeLine{00268\ VkResult\ \_glfwCreateWindowSurfaceNull(VkInstance\ instance,\ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structVkAllocationCallbacks}{VkAllocationCallbacks}}*\ allocator,\ VkSurfaceKHR*\ surface);}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{keywordtype}{void}\ \_glfwPollMonitorsNull(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00271\ }
+
+\end{DoxyCode}

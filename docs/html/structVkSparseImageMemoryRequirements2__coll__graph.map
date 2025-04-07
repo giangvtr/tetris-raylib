@@ -1,0 +1,9 @@
+<map id="VkSparseImageMemoryRequirements2" name="VkSparseImageMemoryRequirements2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,269,283,295"/>
+<area shape="rect" id="Node000002" href="$structVkSparseImageMemoryRequirements.html" title=" " alt="" coords="9,181,279,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,221,147,269,141,269,141,221"/>
+<area shape="rect" id="Node000003" href="$structVkSparseImageFormatProperties.html" title=" " alt="" coords="26,93,262,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="147,133,147,181,141,181,141,133"/>
+<area shape="rect" id="Node000004" href="$structVkExtent3D.html" title=" " alt="" coords="95,5,193,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,45,147,93,141,93,141,45"/>
+</map>

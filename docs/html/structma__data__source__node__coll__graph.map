@@ -1,0 +1,15 @@
+<map id="ma_data_source_node" name="ma_data_source_node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="16,303,184,328"/>
+<area shape="rect" id="Node000002" href="$structma__node__base.html" title=" " alt="" coords="124,200,244,225"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,234,121,251,108,277,103,303,98,302,103,276,117,248,138,230"/>
+<area shape="rect" id="Node000003" href="$structma__node__graph.html" title=" " alt="" coords="209,303,335,328"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="178,239,176,259,182,277,196,291,213,300,211,305,193,295,178,280,171,260,173,239"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="262,291,253,270,241,251,226,238,209,228,212,223,229,234,245,248,258,268,267,288"/>
+<area shape="rect" id="Node000004" href="$structma__node__vtable.html" title=" " alt="" coords="5,95,136,121"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="86,131,102,153,122,174,159,198,156,202,118,178,98,156,82,134"/>
+<area shape="rect" id="Node000005" href="$structma__node__input__bus.html" title=" " alt="" coords="301,95,453,121"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="345,129,207,202,205,197,342,125"/>
+<area shape="rect" id="Node000006" href="$structma__node__output__bus.html" title=" " alt="" coords="125,5,286,31"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="205,44,199,94,188,200,182,200,193,93,199,44"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="241,35,356,93,354,98,239,39"/>
+</map>

@@ -1,0 +1,832 @@
+\doxysection{rl\+\_\+gputex.\+h}
+\hypertarget{rl__gputex_8h_source}{}\label{rl__gputex_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/rl\_gputex.h@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/rl\_gputex.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ \ \ rl\_gputex\ v1.0\ -\/\ GPU\ compressed\ textures\ loading\ and\ saving}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ DESCRIPTION:}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ Load\ GPU\ compressed\ image\ data\ from\ image\ files\ provided\ as\ memory\ data\ arrays,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ \ \ \ \ data\ is\ loaded\ compressed,\ ready\ to\ be\ loaded\ into\ GPU.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ Note\ that\ some\ file\ formats\ (DDS,\ PVR,\ KTX)\ also\ support\ uncompressed\ data\ storage.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ \ \ \ \ In\ those\ cases\ data\ is\ loaded\ uncompressed\ and\ format\ is\ returned.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ \ \ TODO:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ \ \ -\/\ Implement\ raylib\ function:\ rlGetGlTextureFormats(),\ required\ by\ rl\_save\_ktx\_to\_memory()}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ \ \ \ \ -\/\ Review\ rl\_load\_ktx\_from\_memory()\ to\ support\ KTX\ v2.2\ specs}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ CONFIGURATION:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ \ \ \#define\ RL\_GPUTEX\_SUPPORT\_DDS}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \#define\ RL\_GPUTEX\_SUPPORT\_PKM}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ \ \ \#define\ RL\_GPUTEX\_SUPPORT\_KTX}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ \ \ \#define\ RL\_GPUTEX\_SUPPORT\_PVR}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ \ \ \#define\ RL\_GPUTEX\_SUPPORT\_ASTC}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ \ \ \ \ \ \ Define\ desired\ file\ formats\ to\ be\ supported}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ \ \ LICENSE:\ zlib/libpng}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ \ \ Copyright\ (c)\ 2013-\/2022\ Ramon\ Santamaria\ (@raysan5)}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ This\ software\ is\ provided\ "{}as-\/is"{},\ without\ any\ express\ or\ implied\ warranty.\ In\ no\ event}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*\ \ \ will\ the\ authors\ be\ held\ liable\ for\ any\ damages\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*}}
+\DoxyCodeLine{00034\ \textcolor{comment}{*\ \ \ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,\ including\ commercial}}
+\DoxyCodeLine{00035\ \textcolor{comment}{*\ \ \ applications,\ and\ to\ alter\ it\ and\ redistribute\ it\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00036\ \textcolor{comment}{*}}
+\DoxyCodeLine{00037\ \textcolor{comment}{*\ \ \ \ \ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not\ claim\ that\ you}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*\ \ \ \ \ wrote\ the\ original\ software.\ If\ you\ use\ this\ software\ in\ a\ product,\ an\ acknowledgment}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*\ \ \ \ \ in\ the\ product\ documentation\ would\ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00040\ \textcolor{comment}{*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{*\ \ \ \ \ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not\ be\ misrepresented}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*\ \ \ \ \ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{*}}
+\DoxyCodeLine{00044\ \textcolor{comment}{*\ \ \ \ \ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source\ distribution.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ RL\_GPUTEX\_H}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ RL\_GPUTEX\_H}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifndef\ RLAPI}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \#define\ RLAPI\ \ \ \ \ \ \ }\textcolor{comment}{//\ Functions\ defined\ as\ 'extern'\ by\ default\ (implicit\ specifiers)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Module\ Functions\ Declaration}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prevents\ name\ mangling\ of\ functions}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Load\ image\ data\ from\ memory\ data\ files}}
+\DoxyCodeLine{00063\ RLAPI\ \textcolor{keywordtype}{void}\ *rl\_load\_dds\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips);}
+\DoxyCodeLine{00064\ RLAPI\ \textcolor{keywordtype}{void}\ *rl\_load\_pkm\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips);}
+\DoxyCodeLine{00065\ RLAPI\ \textcolor{keywordtype}{void}\ *rl\_load\_ktx\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips);}
+\DoxyCodeLine{00066\ RLAPI\ \textcolor{keywordtype}{void}\ *rl\_load\_pvr\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips);}
+\DoxyCodeLine{00067\ RLAPI\ \textcolor{keywordtype}{void}\ *rl\_load\_astc\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ RLAPI\ \textcolor{keywordtype}{int}\ rl\_save\_ktx\_to\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fileName,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ format,\ \textcolor{keywordtype}{int}\ mipmaps);\ \ \textcolor{comment}{//\ Save\ image\ data\ as\ KTX\ file}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RL\_GPUTEX\_H}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/***********************************************************************************}}
+\DoxyCodeLine{00079\ \textcolor{comment}{*}}
+\DoxyCodeLine{00080\ \textcolor{comment}{*\ \ \ RL\_GPUTEX\ IMPLEMENTATION}}
+\DoxyCodeLine{00081\ \textcolor{comment}{*}}
+\DoxyCodeLine{00082\ \textcolor{comment}{************************************************************************************/}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_IMPLEMENTATION)}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ Simple\ log\ system\ to\ avoid\ RPNG\_LOG()\ calls\ if\ required}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ NOTE:\ Avoiding\ those\ calls,\ also\ avoids\ const\ strings\ memory\ usage}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ RL\_GPUTEX\_SHOW\_LOG\_INFO}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SHOW\_LOG\_INFO)\ \&\&\ !defined(LOG)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ LOG(...)\ printf(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ LOG(...)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ Module\ Internal\ Functions\ Declaration}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ Get\ pixel\ data\ size\ in\ bytes\ for\ certain\ pixel\ format}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ get\_pixel\_data\_size(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ format);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ Module\ Functions\ Definition}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SUPPORT\_DDS)}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ Loading\ DDS\ from\ memory\ image\ data\ (compressed\ or\ uncompressed)}}
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{void}\ *rl\_load\_dds\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips)}
+\DoxyCodeLine{00107\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ *image\_data\ =\ NULL;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ data\ pointer}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{int}\ image\_pixel\_size\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ pixel\ size}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)file\_data;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ Required\ extension:}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ GL\_EXT\_texture\_compression\_s3tc}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Supported\ tokens\ (defined\ by\ extensions)}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGB\_S3TC\_DXT1\_EXT\ \ \ \ \ \ 0x83F0}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_S3TC\_DXT1\_EXT\ \ \ \ \ 0x83F1}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_S3TC\_DXT3\_EXT\ \ \ \ \ 0x83F2}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_S3TC\_DXT5\_EXT\ \ \ \ \ 0x83F3}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ \#define\ FOURCC\_DXT1\ 0x31545844\ \ }\textcolor{comment}{//\ Equivalent\ to\ "{}DXT1"{}\ in\ ASCII}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ \#define\ FOURCC\_DXT3\ 0x33545844\ \ }\textcolor{comment}{//\ Equivalent\ to\ "{}DXT3"{}\ in\ ASCII}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \ \ \#define\ FOURCC\_DXT5\ 0x35545844\ \ }\textcolor{comment}{//\ Equivalent\ to\ "{}DXT5"{}\ in\ ASCII}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ DDS\ Pixel\ Format}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ fourcc;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rgb\_bit\_count;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ r\_bit\_mask;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ g\_bit\_mask;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ b\_bit\_mask;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ a\_bit\_mask;}
+\DoxyCodeLine{00136\ \ \ \ \ \}\ dds\_pixel\_format;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ DDS\ Header\ (124\ bytes)}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pitch\_or\_linear\_size;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ depth;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ mipmap\_count;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ reserved1[11];}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ dds\_pixel\_format\ ddspf;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ caps;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ caps2;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ caps3;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ caps4;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ reserved2;}
+\DoxyCodeLine{00154\ \ \ \ \ \}\ dds\_header;}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_data\_ptr\ !=\ NULL)}
+\DoxyCodeLine{00157\ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Verify\ the\ type\ of\ file}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *dds\_header\_id\ =\ file\_data\_ptr;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ 4;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((dds\_header\_id[0]\ !=\ \textcolor{charliteral}{'D'})\ ||\ (dds\_header\_id[1]\ !=\ \textcolor{charliteral}{'D'})\ ||\ (dds\_header\_id[2]\ !=\ \textcolor{charliteral}{'S'})\ ||\ (dds\_header\_id[3]\ !=\ \textcolor{charliteral}{'\ '}))}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ DDS\ file\ data\ not\ valid"{}});}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ dds\_header\ *header\ =\ (dds\_header\ *)file\_data\_ptr;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(dds\_header);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Skip\ header}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ *width\ =\ header-\/>width;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ *height\ =\ header-\/>height;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*width\ \%\ 4\ !=\ 0)\ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ DDS\ file\ width\ must\ be\ multiple\ of\ 4.\ Image\ will\ not\ display\ correctly"{}});}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*height\ \%\ 4\ !=\ 0)\ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ DDS\ file\ height\ must\ be\ multiple\ of\ 4.\ Image\ will\ not\ display\ correctly"{}});}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ image\_pixel\_size\ =\ header-\/>width*header-\/>height;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ ==\ 0)\ *mips\ =\ 1;\ \ \ \textcolor{comment}{//\ Parameter\ not\ used}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ *mips\ =\ header-\/>mipmap\_count;}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>ddspf.rgb\_bit\_count\ ==\ 16)\ \ \ \ \ \ \textcolor{comment}{//\ 16bit\ mode,\ no\ compressed}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>ddspf.flags\ ==\ 0x40)\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ alpha\ channel}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ image\_pixel\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ short);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ data\_size\ +\ data\_size\ /\ 3;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R5G6B5;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>ddspf.flags\ ==\ 0x41)\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ With\ alpha\ channel}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>ddspf.a\_bit\_mask\ ==\ 0x8000)\ \ \ \ \ \textcolor{comment}{//\ 1bit\ alpha}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ image\_pixel\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ short);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ data\_size\ +\ data\_size\ /\ 3;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ alpha\ =\ 0;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Data\ comes\ as\ A1R5G5B5,\ it\ must\ be\ reordered\ to\ R5G5B5A1}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ image\_pixel\_size;\ i++)}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ >>\ 15;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ <<\ 1;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ +=\ alpha;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R5G5B5A1;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>ddspf.a\_bit\_mask\ ==\ 0xf000)\ \ \ \textcolor{comment}{//\ 4bit\ alpha}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ image\_pixel\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ short);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ data\_size\ +\ data\_size\ /\ 3;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ alpha\ =\ 0;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Data\ comes\ as\ A4R4G4B4,\ it\ must\ be\ reordered\ R4G4B4A4}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ image\_pixel\_size;\ i++)}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ >>\ 12;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ <<\ 4;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *)image\_data)[i]\ +=\ alpha;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R4G4B4A4;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>ddspf.flags\ ==\ 0x40)\ \&\&\ (header-\/>ddspf.rgb\_bit\_count\ ==\ 24))\ \ \ \textcolor{comment}{//\ DDS\_RGB,\ no\ compressed}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ image\_pixel\_size*3*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ char);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ data\_size\ +\ data\_size\ /\ 3;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size);}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>ddspf.flags\ ==\ 0x41)\ \&\&\ (header-\/>ddspf.rgb\_bit\_count\ ==\ 32))\ \textcolor{comment}{//\ DDS\_RGBA,\ no\ compressed}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ image\_pixel\_size*4*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ char);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ data\_size\ +\ data\_size\ /\ 3;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size);}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ blue\ =\ 0;}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Data\ comes\ as\ A8R8G8B8,\ it\ must\ be\ reordered\ R8G8B8A8\ (view\ next\ comment)}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DirecX\ understand\ ARGB\ as\ a\ 32bit\ DWORD\ but\ the\ actual\ memory\ byte\ alignment\ is\ BGRA}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ So,\ we\ must\ realign\ B8G8R8A8\ to\ R8G8B8A8}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ image\_pixel\_size*4;\ i\ +=\ 4)}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blue\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)image\_data)[i];}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)image\_data)[i]\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)image\_data)[i\ +\ 2];}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)image\_data)[i\ +\ 2]\ =\ blue;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8A8;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (((header-\/>ddspf.flags\ ==\ 0x04)\ ||\ (header-\/>ddspf.flags\ ==\ 0x05))\ \&\&\ (header-\/>ddspf.fourcc\ >\ 0))\ \textcolor{comment}{//\ Compressed}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ 0;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ data\ size,\ including\ all\ mipmaps}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>mipmap\_count\ >\ 1)\ data\_size\ =\ header-\/>pitch\_or\_linear\_size\ +\ header-\/>pitch\_or\_linear\_size\ /\ 3;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ data\_size\ =\ header-\/>pitch\_or\_linear\_size;}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (header-\/>ddspf.fourcc)}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FOURCC\_DXT1:}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>ddspf.flags\ ==\ 0x04)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_DXT1\_RGB;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ *format\ =\ PIXELFORMAT\_COMPRESSED\_DXT1\_RGBA;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FOURCC\_DXT3:\ *format\ =\ PIXELFORMAT\_COMPRESSED\_DXT3\_RGBA;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FOURCC\_DXT5:\ *format\ =\ PIXELFORMAT\_COMPRESSED\_DXT5\_RGBA;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_data;}
+\DoxyCodeLine{00299\ \}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SUPPORT\_PKM)}}
+\DoxyCodeLine{00303\ \textcolor{comment}{//\ Loading\ PKM\ image\ data\ (ETC1/ETC2\ compression)}}
+\DoxyCodeLine{00304\ \textcolor{comment}{//\ NOTE:\ KTX\ is\ the\ standard\ Khronos\ Group\ compression\ format\ (ETC1/ETC2,\ mipmaps)}}
+\DoxyCodeLine{00305\ \textcolor{comment}{//\ PKM\ is\ a\ much\ simpler\ file\ format\ used\ mainly\ to\ contain\ a\ single\ ETC1/ETC2\ compressed\ image\ (no\ mipmaps)}}
+\DoxyCodeLine{00306\ \textcolor{keywordtype}{void}\ *rl\_load\_pkm\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips)}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordtype}{void}\ *image\_data\ =\ NULL;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ data\ pointer}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)file\_data;}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{comment}{//\ Required\ extensions:}}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{comment}{//\ GL\_OES\_compressed\_ETC1\_RGB8\_texture\ \ (ETC1)\ (OpenGL\ ES\ 2.0)}}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{comment}{//\ GL\_ARB\_ES3\_compatibility\ \ (ETC2/EAC)\ (OpenGL\ ES\ 3.0)}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{comment}{//\ Supported\ tokens\ (defined\ by\ extensions)}}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{//\ GL\_ETC1\_RGB8\_OES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x8D64}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGB8\_ETC2\ \ \ \ \ \ \ \ \ \ 0x9274}}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA8\_ETC2\_EAC\ \ \ \ \ 0x9278}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{comment}{//\ PKM\ file\ (ETC1)\ Header\ (16\ bytes)}}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id}[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}PKM\ "{}}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ version[2];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}10"{}\ or\ "{}20"{}}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ format;\ \ \ \ \ \ \textcolor{comment}{//\ Data\ format\ (big-\/endian)\ (Check\ list\ below)}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ width;\ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ width\ (big-\/endian)\ (orig\_width\ rounded\ to\ multiple\ of\ 4)}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ height;\ \ \ \ \ \ \textcolor{comment}{//\ Texture\ height\ (big-\/endian)\ (orig\_height\ rounded\ to\ multiple\ of\ 4)}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ orig\_width;\ \ \ \textcolor{comment}{//\ Original\ width\ (big-\/endian)}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ orig\_height;\ \ \textcolor{comment}{//\ Original\ height\ (big-\/endian)}}
+\DoxyCodeLine{00330\ \ \ \ \ \}\ pkm\_header;}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{comment}{//\ Formats\ list}}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{comment}{//\ version\ 10:\ format:\ 0=ETC1\_RGB,\ [1=ETC1\_RGBA,\ 2=ETC1\_RGB\_MIP,\ 3=ETC1\_RGBA\_MIP]\ (not\ used)}}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{comment}{//\ version\ 20:\ format:\ 0=ETC1\_RGB,\ 1=ETC2\_RGB,\ 2=ETC2\_RGBA\_OLD,\ 3=ETC2\_RGBA,\ 4=ETC2\_RGBA1,\ 5=ETC2\_R,\ 6=ETC2\_RG,\ 7=ETC2\_SIGNED\_R,\ 8=ETC2\_SIGNED\_R}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ The\ extended\ width\ and\ height\ are\ the\ widths\ rounded\ up\ to\ a\ multiple\ of\ 4.}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ ETC\ is\ always\ 4bit\ per\ pixel\ (64\ bit\ for\ each\ 4x4\ block\ of\ pixels)}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_data\_ptr\ !=\ NULL)}
+\DoxyCodeLine{00340\ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ pkm\_header\ *header\ =\ (pkm\_header\ *)file\_data\_ptr;}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>id[0]\ !=\ \textcolor{charliteral}{'P'})\ ||\ (header-\/>id[1]\ !=\ \textcolor{charliteral}{'K'})\ ||\ (header-\/>id[2]\ !=\ \textcolor{charliteral}{'M'})\ ||\ (header-\/>id[3]\ !=\ \textcolor{charliteral}{'\ '}))}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ PKM\ file\ data\ not\ valid"{}});}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(pkm\_header);\ \ \ \textcolor{comment}{//\ Skip\ header}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ format,\ width\ and\ height\ come\ as\ big-\/endian,\ data\ must\ be\ swapped\ to\ little-\/endian}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>format\ =\ ((header-\/>format\ \&\ 0x00FF)\ <<\ 8)\ |\ ((header-\/>format\ \&\ 0xFF00)\ >>\ 8);}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>width\ =\ ((header-\/>width\ \&\ 0x00FF)\ <<\ 8)\ |\ ((header-\/>width\ \&\ 0xFF00)\ >>\ 8);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>height\ =\ ((header-\/>height\ \&\ 0x00FF)\ <<\ 8)\ |\ ((header-\/>height\ \&\ 0xFF00)\ >>\ 8);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ *width\ =\ header-\/>width;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ *height\ =\ header-\/>height;}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ *mips\ =\ 1;}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ bpp\ =\ 4;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>format\ ==\ 3)\ bpp\ =\ 8;}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ (*width)*(*height)*bpp/8;\ \ \textcolor{comment}{//\ Total\ data\ size\ in\ bytes}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>format\ ==\ 0)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC1\_RGB;}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>format\ ==\ 1)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC2\_RGB;}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>format\ ==\ 3)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC2\_EAC\_RGBA;}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ \ \ \ \ \}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_data;}
+\DoxyCodeLine{00376\ \}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SUPPORT\_KTX)}}
+\DoxyCodeLine{00380\ \textcolor{comment}{//\ Load\ KTX\ compressed\ image\ data\ (ETC1/ETC2\ compression)}}
+\DoxyCodeLine{00381\ \textcolor{comment}{//\ TODO:\ Review\ KTX\ loading,\ many\ things\ changed!}}
+\DoxyCodeLine{00382\ \textcolor{keywordtype}{void}\ *rl\_load\_ktx\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips)}
+\DoxyCodeLine{00383\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordtype}{void}\ *image\_data\ =\ NULL;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ data\ pointer}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)file\_data;}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{comment}{//\ Required\ extensions:}}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{comment}{//\ GL\_OES\_compressed\_ETC1\_RGB8\_texture\ \ (ETC1)}}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{comment}{//\ GL\_ARB\_ES3\_compatibility\ \ (ETC2/EAC)}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{comment}{//\ Supported\ tokens\ (defined\ by\ extensions)}}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{//\ GL\_ETC1\_RGB8\_OES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x8D64}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGB8\_ETC2\ \ \ \ \ \ \ \ \ \ 0x9274}}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA8\_ETC2\_EAC\ \ \ \ \ 0x9278}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{comment}{//\ KTX\ file\ Header\ (64\ bytes)}}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{comment}{//\ v1.1\ -\/\ https://www.khronos.org/opengles/sdk/tools/KTX/file\_format\_spec/}}
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{comment}{//\ v2.0\ -\/\ http://github.khronos.org/KTX-\/Specification/}}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{comment}{//\ KTX\ 1.1\ Header}}
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{comment}{//\ TODO:\ Support\ KTX\ 2.2\ specs!}}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id}[12];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Identifier:\ "{}«KTX\ 11»\(\backslash\)r\(\backslash\)n\(\backslash\)x1A\(\backslash\)n"{}}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ endianness;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Little\ endian:\ 0x01\ 0x02\ 0x03\ 0x04}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ textures,\ glType\ must\ equal\ 0}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_type\_size;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ texture\ data,\ usually\ 1}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_format;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ textures\ is\ 0}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_internal\_format;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compressed\ internal\ format}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_base\_internal\_format;\ \ \ \textcolor{comment}{//\ Same\ as\ glFormat\ (RGB,\ RGBA,\ ALPHA...)}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ image\ width\ in\ pixels}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ image\ height\ in\ pixels}}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ depth;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ 2D\ textures\ is\ 0}}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ elements;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ array\ elements,\ usually\ 0}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ faces;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cubemap\ faces,\ for\ no-\/cubemap\ =\ 1}}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ mipmap\_levels;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Non-\/mipmapped\ textures\ =\ 1}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ key\_value\_data\_size;\ \ \ \ \ \ \ \textcolor{comment}{//\ Used\ to\ encode\ any\ arbitrary\ data...}}
+\DoxyCodeLine{00418\ \ \ \ \ \}\ ktx\_header;}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Before\ start\ of\ every\ mipmap\ data\ block,\ we\ have:\ unsigned\ int\ data\_size}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_data\_ptr\ !=\ NULL)}
+\DoxyCodeLine{00423\ \ \ \ \ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ ktx\_header\ *header\ =\ (ktx\_header\ *)file\_data\_ptr;}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>id[1]\ !=\ \textcolor{charliteral}{'K'})\ ||\ (header-\/>id[2]\ !=\ \textcolor{charliteral}{'T'})\ ||\ (header-\/>id[3]\ !=\ \textcolor{charliteral}{'X'})\ ||}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ (header-\/>id[4]\ !=\ \textcolor{charliteral}{'\ '})\ ||\ (header-\/>id[5]\ !=\ \textcolor{charliteral}{'1'})\ ||\ (header-\/>id[6]\ !=\ \textcolor{charliteral}{'1'}))}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ KTX\ file\ data\ not\ valid"{}});}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(ktx\_header);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ file\ data\ pointer}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ *width\ =\ header-\/>width;}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ *height\ =\ header-\/>height;}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ *mips\ =\ header-\/>mipmap\_levels;}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ header-\/>key\_value\_data\_size;\ \textcolor{comment}{//\ Skip\ value\ data\ size}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ ((\textcolor{keywordtype}{int}\ *)file\_data\_ptr)[0];}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(int);}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>gl\_internal\_format\ ==\ 0x8D64)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC1\_RGB;}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>gl\_internal\_format\ ==\ 0x9274)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC2\_RGB;}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>gl\_internal\_format\ ==\ 0x9278)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ETC2\_EAC\_RGBA;}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO:\ Support\ uncompressed\ data\ formats?\ Right\ now\ it\ returns\ format\ =\ 0!}}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00454\ \ \ \ \ \}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_data;}
+\DoxyCodeLine{00457\ \}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \textcolor{comment}{//\ Save\ image\ data\ as\ KTX\ file}}
+\DoxyCodeLine{00460\ \textcolor{comment}{//\ NOTE:\ By\ default\ KTX\ 1.1\ spec\ is\ used,\ 2.0\ is\ still\ on\ draft\ (01Oct2018)}}
+\DoxyCodeLine{00461\ \textcolor{comment}{//\ TODO:\ Review\ KTX\ saving,\ many\ things\ changed!}}
+\DoxyCodeLine{00462\ \textcolor{keywordtype}{int}\ rl\_save\_ktx(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_name,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ format,\ \textcolor{keywordtype}{int}\ mipmaps)}
+\DoxyCodeLine{00463\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{comment}{//\ KTX\ file\ Header\ (64\ bytes)}}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{comment}{//\ v1.1\ -\/\ https://www.khronos.org/opengles/sdk/tools/KTX/file\_format\_spec/}}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{comment}{//\ v2.0\ -\/\ http://github.khronos.org/KTX-\/Specification/\ -\/\ Final\ specs\ by\ 2021-\/04-\/18}}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id}[12];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Identifier:\ "{}«KTX\ 11»\(\backslash\)r\(\backslash\)n\(\backslash\)x1A\(\backslash\)n"{}\ \ \ \ \ \ \ \ \ //\ KTX\ 2.0:\ "{}«KTX\ 22»\(\backslash\)r\(\backslash\)n\(\backslash\)x1A\(\backslash\)n"{}}}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ endianness;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Little\ endian:\ 0x01\ 0x02\ 0x03\ 0x04}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ textures,\ glType\ must\ equal\ 0}}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_type\_size;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ texture\ data,\ usually\ 1}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_format;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ compressed\ textures\ is\ 0}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_internal\_format;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compressed\ internal\ format}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ gl\_base\_internal\_format;\ \ \ \textcolor{comment}{//\ Same\ as\ glFormat\ (RGB,\ RGBA,\ ALPHA...)\ \ \ //\ KTX\ 2.0:\ UInt32\ vkFormat}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ image\ width\ in\ pixels}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ image\ height\ in\ pixels}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ depth;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ 2D\ textures\ is\ 0}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ elements;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ array\ elements,\ usually\ 0}}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ faces;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cubemap\ faces,\ for\ no-\/cubemap\ =\ 1}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ mipmap\_levels;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Non-\/mipmapped\ textures\ =\ 1}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ key\_value\_data\_size;\ \ \ \ \ \ \ \textcolor{comment}{//\ Used\ to\ encode\ any\ arbitrary\ data...\ \ \ \ \ //\ KTX\ 2.0:\ UInt32\ levelOrder\ -\/\ ordering\ of\ the\ mipmap\ levels,\ usually\ 0}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ KTX\ 2.0:\ UInt32\ supercompressionScheme\ -\/\ 0\ (None),\ 1\ (Crunch\ CRN),\ 2\ (Zlib\ DEFLATE)...}}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ KTX\ 2.0\ defines\ additional\ header\ elements...}}
+\DoxyCodeLine{00484\ \ \ \ \ \}\ ktx\_header;}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{comment}{//\ Calculate\ file\ data\_size\ required}}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ \textcolor{keyword}{sizeof}(ktx\_header);}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0,\ w\ =\ width,\ h\ =\ height;\ i\ <\ mipmaps;\ i++)}
+\DoxyCodeLine{00490\ \ \ \ \ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ data\_size\ +=\ get\_pixel\_data\_size(w,\ h,\ format);}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ w\ /=\ 2;\ h\ /=\ 2;}
+\DoxyCodeLine{00493\ \ \ \ \ \}}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\ =\ RL\_CALLOC(data\_size,\ 1);}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ file\_data;}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ ktx\_header\ header\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{comment}{//\ KTX\ identifier\ (v1.1)}}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{comment}{//unsigned\ char\ id[12]\ =\ \{\ '«',\ 'K',\ 'T',\ 'X',\ '\ ',\ '1',\ '1',\ '»',\ '\(\backslash\)r',\ '\(\backslash\)n',\ '\(\backslash\)x1A',\ '\(\backslash\)n'\ \};}}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{comment}{//unsigned\ char\ id[12]\ =\ \{\ 0xAB,\ 0x4B,\ 0x54,\ 0x58,\ 0x20,\ 0x31,\ 0x31,\ 0xBB,\ 0x0D,\ 0x0A,\ 0x1A,\ 0x0A\ \};}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ ktx\_identifier[12]\ =\ \{\ 0xAB,\ \textcolor{charliteral}{'K'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'\ '},\ \textcolor{charliteral}{'1'},\ \textcolor{charliteral}{'1'},\ 0xBB,\ \textcolor{charliteral}{'\(\backslash\)r'},\ \textcolor{charliteral}{'\(\backslash\)n'},\ 0x1A,\ \textcolor{charliteral}{'\(\backslash\)n'}\ \};}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{comment}{//\ Get\ the\ image\ header}}
+\DoxyCodeLine{00507\ \ \ \ \ memcpy(header.id,\ ktx\_identifier,\ 12);\ \ \textcolor{comment}{//\ KTX\ 1.1\ signature}}
+\DoxyCodeLine{00508\ \ \ \ \ header.endianness\ =\ 0;}
+\DoxyCodeLine{00509\ \ \ \ \ header.gl\_type\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Obtained\ from\ format}}
+\DoxyCodeLine{00510\ \ \ \ \ header.gl\_type\_size\ =\ 1;}
+\DoxyCodeLine{00511\ \ \ \ \ header.gl\_format\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Obtained\ from\ format}}
+\DoxyCodeLine{00512\ \ \ \ \ header.gl\_internal\_format\ =\ 0;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Obtained\ from\ format}}
+\DoxyCodeLine{00513\ \ \ \ \ header.gl\_base\_internal\_format\ =\ 0;}
+\DoxyCodeLine{00514\ \ \ \ \ header.width\ =\ width;}
+\DoxyCodeLine{00515\ \ \ \ \ header.height\ =\ height;}
+\DoxyCodeLine{00516\ \ \ \ \ header.depth\ =\ 0;}
+\DoxyCodeLine{00517\ \ \ \ \ header.elements\ =\ 0;}
+\DoxyCodeLine{00518\ \ \ \ \ header.faces\ =\ 1;}
+\DoxyCodeLine{00519\ \ \ \ \ header.mipmap\_levels\ =\ mipmaps;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ was\ 0,\ it\ means\ mipmaps\ should\ be\ generated\ on\ loading\ (not\ for\ compressed\ formats)}}
+\DoxyCodeLine{00520\ \ \ \ \ header.key\_value\_data\_size\ =\ 0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ extra\ data\ after\ the\ header}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ rlGetGlTextureFormats(format,\ \&header.gl\_internal\_format,\ \&header.gl\_format,\ \&header.gl\_type);\ \ \ \textcolor{comment}{//\ rlgl\ module\ function}}
+\DoxyCodeLine{00523\ \ \ \ \ header.gl\_base\_internal\_format\ =\ header.gl\_format;\ \ \ \ \textcolor{comment}{//\ KTX\ 1.1\ only}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ We\ can\ save\ into\ a\ .ktx\ all\ PixelFormats\ supported\ by\ raylib,\ including\ compressed\ formats\ like\ DXT,\ ETC\ or\ ASTC}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keywordflow}{if}\ (header.gl\_format\ ==\ -\/1)\ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ GL\ format\ not\ supported\ for\ KTX\ export\ (\%i)"{}},\ header.gl\_format);}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00529\ \ \ \ \ \{}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ memcpy(file\_data\_ptr,\ \&header,\ \textcolor{keyword}{sizeof}(ktx\_header));}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(ktx\_header);}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ temp\_width\ =\ width;}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ temp\_height\ =\ height;}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_offset\ =\ 0;}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ all\ mipmaps\ data}}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ mipmaps;\ i++)}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ data\_size\ =\ get\_pixel\_data\_size(temp\_width,\ temp\_height,\ format);}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(file\_data\_ptr,\ \&data\_size,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(file\_data\_ptr\ +\ 4,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)data\ +\ data\_offset,\ data\_size);}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_width\ /=\ 2;}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_height\ /=\ 2;}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ data\_offset\ +=\ data\_size;}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ (4\ +\ data\_size);}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00550\ \ \ \ \ \}}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{comment}{//\ Save\ file\ data\ to\ file}}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordtype}{int}\ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00554\ \ \ \ \ FILE\ *file\ =\ fopen(file\_name,\ \textcolor{stringliteral}{"{}wb"{}});}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\ !=\ NULL)}
+\DoxyCodeLine{00557\ \ \ \ \ \{}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count\ =\ (\textcolor{keywordtype}{unsigned}\ int)fwrite(file\_data,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}),\ data\_size,\ file);}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 0)\ LOG(\textcolor{stringliteral}{"{}WARNING:\ FILEIO:\ [\%s]\ Failed\ to\ write\ file"{}},\ file\_name);}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (count\ !=\ data\_size)\ LOG(\textcolor{stringliteral}{"{}WARNING:\ FILEIO:\ [\%s]\ File\ partially\ written"{}},\ file\_name);}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ LOG(\textcolor{stringliteral}{"{}INFO:\ FILEIO:\ [\%s]\ File\ saved\ successfully"{}},\ file\_name);}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ result\ =\ fclose(file);}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ 0)\ success\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00566\ \ \ \ \ \}}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keywordflow}{else}\ LOG(\textcolor{stringliteral}{"{}WARNING:\ FILEIO:\ [\%s]\ Failed\ to\ open\ file"{}},\ file\_name);}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \ \ \ \ RL\_FREE(file\_data);\ \ \ \ \textcolor{comment}{//\ Free\ file\ data\ buffer}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{comment}{//\ If\ all\ data\ has\ been\ written\ correctly\ to\ file,\ success\ =\ 1}}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordflow}{return}\ success;}
+\DoxyCodeLine{00573\ \}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SUPPORT\_PVR)}}
+\DoxyCodeLine{00577\ \textcolor{comment}{//\ Loading\ PVR\ image\ data\ (uncompressed\ or\ PVRT\ compression)}}
+\DoxyCodeLine{00578\ \textcolor{comment}{//\ NOTE:\ PVR\ v2\ not\ supported,\ use\ PVR\ v3\ instead}}
+\DoxyCodeLine{00579\ \textcolor{keywordtype}{void}\ *rl\_load\_pvr\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips)}
+\DoxyCodeLine{00580\ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keywordtype}{void}\ *image\_data\ =\ NULL;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ data\ pointer}}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)file\_data;}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{comment}{//\ Required\ extension:}}
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{comment}{//\ GL\_IMG\_texture\_compression\_pvrtc}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{comment}{//\ Supported\ tokens\ (defined\ by\ extensions)}}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGB\_PVRTC\_4BPPV1\_IMG\ \ \ \ \ \ \ 0x8C00}}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_PVRTC\_4BPPV1\_IMG\ \ \ \ \ \ 0x8C02}}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#if\ 0\ \ \ }\textcolor{comment}{//\ Not\ used...}}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{comment}{//\ PVR\ file\ v2\ Header\ (52\ bytes)}}
+\DoxyCodeLine{00594\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ headerLength;}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height;}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width;}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numMipmaps;}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags;}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dataLength;}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bpp;}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bitmaskRed;}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bitmaskGreen;}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bitmaskBlue;}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bitmaskAlpha;}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pvrTag;}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numSurfs;}
+\DoxyCodeLine{00608\ \ \ \ \ \}\ PVRHeaderV2;}
+\DoxyCodeLine{00609\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{comment}{//\ PVR\ file\ v3\ Header\ (52\ bytes)}}
+\DoxyCodeLine{00612\ \ \ \ \ \textcolor{comment}{//\ NOTE:\ After\ it\ could\ be\ metadata\ (15\ bytes?)}}
+\DoxyCodeLine{00613\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags;}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ channels[4];\ \ \ \ \ \ \textcolor{comment}{//\ pixelFormat\ high\ part}}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ channel\_depth[4];\ \ \textcolor{comment}{//\ pixelFormat\ low\ part}}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ color\_space;}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ channel\_type;}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height;}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width;}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ depth;}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num\_surfaces;}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num\_faces;}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num\_mipmaps;}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ metadata\_size;}
+\DoxyCodeLine{00627\ \ \ \ \ \}\ pvr\_header;}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ \textcolor{preprocessor}{\#if\ 0\ \ \ }\textcolor{comment}{//\ Not\ used...}}
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{comment}{//\ Metadata\ (usually\ 15\ bytes)}}
+\DoxyCodeLine{00631\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ devFOURCC;}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ key;}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ data\_size;\ \ \ \ \ \ \textcolor{comment}{//\ Not\ used?}}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ used?}}
+\DoxyCodeLine{00636\ \ \ \ \ \}\ PVRMetadata;}
+\DoxyCodeLine{00637\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_data\_ptr\ !=\ NULL)}
+\DoxyCodeLine{00640\ \ \ \ \ \{}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ PVR\ image\ version}}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pvr\_version\ =\ file\_data\_ptr[0];}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Load\ different\ PVR\ data\ formats}}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pvr\_version\ ==\ 0x50)}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ pvr\_header\ *header\ =\ (pvr\_header\ *)file\_data\_ptr;}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>id[0]\ !=\ \textcolor{charliteral}{'P'})\ ||\ (header-\/>id[1]\ !=\ \textcolor{charliteral}{'V'})\ ||\ (header-\/>id[2]\ !=\ \textcolor{charliteral}{'R'})\ ||\ (header-\/>id[3]\ !=\ 3))}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ PVR\ file\ data\ not\ valid"{}});}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(pvr\_header);\ \ \ \textcolor{comment}{//\ Skip\ header}}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *width\ =\ header-\/>width;}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *height\ =\ header-\/>height;}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *mips\ =\ header-\/>num\_mipmaps;}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ data\ format}}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((header-\/>channels[0]\ ==\ \textcolor{charliteral}{'l'})\ \&\&\ (header-\/>channels[1]\ ==\ 0))\ \&\&\ (header-\/>channel\_depth[0]\ ==\ 8))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_GRAYSCALE;}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (((header-\/>channels[0]\ ==\ \textcolor{charliteral}{'l'})\ \&\&\ (header-\/>channels[1]\ ==\ \textcolor{charliteral}{'a'}))\ \&\&\ ((header-\/>channel\_depth[0]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 8)))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_GRAY\_ALPHA;}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>channels[0]\ ==\ \textcolor{charliteral}{'r'})\ \&\&\ (header-\/>channels[1]\ ==\ \textcolor{charliteral}{'g'})\ \&\&\ (header-\/>channels[2]\ ==\ \textcolor{charliteral}{'b'}))}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>channels[3]\ ==\ \textcolor{charliteral}{'a'})}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>channel\_depth[0]\ ==\ 5)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 5)\ \&\&\ (header-\/>channel\_depth[2]\ ==\ 5)\ \&\&\ (header-\/>channel\_depth[3]\ ==\ 1))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R5G5B5A1;}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>channel\_depth[0]\ ==\ 4)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 4)\ \&\&\ (header-\/>channel\_depth[2]\ ==\ 4)\ \&\&\ (header-\/>channel\_depth[3]\ ==\ 4))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R4G4B4A4;}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>channel\_depth[0]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[2]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[3]\ ==\ 8))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8A8;}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>channels[3]\ ==\ 0)}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>channel\_depth[0]\ ==\ 5)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 6)\ \&\&\ (header-\/>channel\_depth[2]\ ==\ 5))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R5G6B5;}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((header-\/>channel\_depth[0]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[1]\ ==\ 8)\ \&\&\ (header-\/>channel\_depth[2]\ ==\ 8))\ *format\ =\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>channels[0]\ ==\ 2)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGB;}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (header-\/>channels[0]\ ==\ 3)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGBA;}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ header-\/>metadata\_size;\ \ \ \ \textcolor{comment}{//\ Skip\ meta\ data\ header}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ data\ size\ (depends\ on\ format)}}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ bpp\ =\ 0;}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (*format)}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_GRAYSCALE:\ bpp\ =\ 8;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_GRAY\_ALPHA:}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R5G5B5A1:}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R5G6B5:}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R4G4B4A4:\ bpp\ =\ 16;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8A8:\ bpp\ =\ 32;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8:\ bpp\ =\ 24;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGB:}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGBA:\ bpp\ =\ 4;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ (*width)*(*height)*bpp/8;\ \ \textcolor{comment}{//\ Total\ data\ size\ in\ bytes}}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pvr\_version\ ==\ 52)\ LOG(\textcolor{stringliteral}{"{}INFO:\ IMAGE:\ PVRv2\ format\ not\ supported,\ update\ your\ files\ to\ PVRv3"{}});}
+\DoxyCodeLine{00706\ \ \ \ \ \}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_data;}
+\DoxyCodeLine{00709\ \}}
+\DoxyCodeLine{00710\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \textcolor{preprocessor}{\#if\ defined(RL\_GPUTEX\_SUPPORT\_ASTC)}}
+\DoxyCodeLine{00713\ \textcolor{comment}{//\ Load\ ASTC\ compressed\ image\ data\ (ASTC\ compression)}}
+\DoxyCodeLine{00714\ \textcolor{keywordtype}{void}\ *rl\_load\_astc\_from\_memory(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ file\_size,\ \textcolor{keywordtype}{int}\ *width,\ \textcolor{keywordtype}{int}\ *height,\ \textcolor{keywordtype}{int}\ *format,\ \textcolor{keywordtype}{int}\ *mips)}
+\DoxyCodeLine{00715\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \textcolor{keywordtype}{void}\ *image\_data\ =\ NULL;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ data\ pointer}}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *file\_data\_ptr\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)file\_data;}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{comment}{//\ Required\ extensions:}}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{comment}{//\ GL\_KHR\_texture\_compression\_astc\_hdr}}
+\DoxyCodeLine{00722\ \ \ \ \ \textcolor{comment}{//\ GL\_KHR\_texture\_compression\_astc\_ldr}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \ \ \ \ \textcolor{comment}{//\ Supported\ tokens\ (defined\ by\ extensions)}}
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_ASTC\_4x4\_KHR\ \ \ \ \ \ 0x93b0}}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{comment}{//\ GL\_COMPRESSED\_RGBA\_ASTC\_8x8\_KHR\ \ \ \ \ \ 0x93b7}}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \ \ \textcolor{comment}{//\ ASTC\ file\ Header\ (16\ bytes)}}
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id}[4];\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Signature:\ 0x13\ 0xAB\ 0xA1\ 0x5C}}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ blockX;\ \ \ \ \ \ \ \textcolor{comment}{//\ Block\ X\ dimensions}}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ blockY;\ \ \ \ \ \ \ \textcolor{comment}{//\ Block\ Y\ dimensions}}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ blockZ;\ \ \ \ \ \ \ \textcolor{comment}{//\ Block\ Z\ dimensions\ (1\ for\ 2D\ images)}}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ width[3];\ \ \ \ \ \textcolor{comment}{//\ void\ *width\ in\ pixels\ (24bit\ value)}}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ height[3];\ \ \ \ \textcolor{comment}{//\ void\ *height\ in\ pixels\ (24bit\ value)}}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ length[3];\ \ \ \ \textcolor{comment}{//\ void\ *Z-\/size\ (1\ for\ 2D\ images)}}
+\DoxyCodeLine{00737\ \ \ \ \ \}\ astc\_header;}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_data\_ptr\ !=\ NULL)}
+\DoxyCodeLine{00740\ \ \ \ \ \{}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ astc\_header\ *header\ =\ (astc\_header\ *)file\_data\_ptr;}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((header-\/>id[3]\ !=\ 0x5c)\ ||\ (header-\/>id[2]\ !=\ 0xa1)\ ||\ (header-\/>id[1]\ !=\ 0xab)\ ||\ (header-\/>id[0]\ !=\ 0x13))}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ ASTC\ file\ data\ not\ valid"{}});}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ file\_data\_ptr\ +=\ \textcolor{keyword}{sizeof}(astc\_header);\ \ \ \textcolor{comment}{//\ Skip\ header}}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Assuming\ Little\ Endian\ (could\ it\ be\ wrong?)}}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ *width\ =\ 0x00000000\ |\ ((int)header-\/>width[2]\ <<\ 16)\ |\ ((int)header-\/>width[1]\ <<\ 8)\ |\ ((int)header-\/>width[0]);}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \ \ \ \ *height\ =\ 0x00000000\ |\ ((int)header-\/>height[2]\ <<\ 16)\ |\ ((int)header-\/>height[1]\ <<\ 8)\ |\ ((int)header-\/>height[0]);}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ *mips\ =\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ ASTC\ format\ only\ contains\ one\ mipmap\ level}}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Each\ block\ is\ always\ stored\ in\ 128bit\ so\ we\ can\ calculate\ the\ bpp}}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ bpp\ =\ 128/(header-\/>blockX*header-\/>blockY);}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Currently\ we\ only\ support\ 2\ blocks\ configurations:\ 4x4\ and\ 8x8}}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((bpp\ ==\ 8)\ ||\ (bpp\ ==\ 2))}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ (*width)*(*height)*bpp/8;\ \ \textcolor{comment}{//\ Data\ size\ in\ bytes}}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_data\ =\ RL\_MALLOC(data\_size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(image\_data,\ file\_data\_ptr,\ data\_size);}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bpp\ ==\ 8)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ASTC\_4x4\_RGBA;}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (bpp\ ==\ 2)\ *format\ =\ PIXELFORMAT\_COMPRESSED\_ASTC\_8x8\_RGBA;}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ LOG(\textcolor{stringliteral}{"{}WARNING:\ IMAGE:\ ASTC\ block\ size\ configuration\ not\ supported"{}});}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00773\ \ \ \ \ \}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_data;}
+\DoxyCodeLine{00776\ \}}
+\DoxyCodeLine{00777\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00780\ \textcolor{comment}{//\ Module\ Internal\ Functions\ Definition}}
+\DoxyCodeLine{00781\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00782\ \textcolor{comment}{//\ Get\ pixel\ data\ size\ in\ bytes\ for\ certain\ pixel\ format}}
+\DoxyCodeLine{00783\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ get\_pixel\_data\_size(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ format)}
+\DoxyCodeLine{00784\ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \textcolor{keywordtype}{int}\ data\_size\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ Size\ in\ bytes}}
+\DoxyCodeLine{00786\ \ \ \ \ \textcolor{keywordtype}{int}\ bpp\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bits\ per\ pixel}}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00788\ \ \ \ \ \textcolor{keywordflow}{switch}\ (format)}
+\DoxyCodeLine{00789\ \ \ \ \ \{}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_GRAYSCALE:\ bpp\ =\ 8;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_GRAY\_ALPHA:}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R5G6B5:}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R5G5B5A1:}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R4G4B4A4:\ bpp\ =\ 16;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8A8:\ bpp\ =\ 32;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R8G8B8:\ bpp\ =\ 24;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R32:\ bpp\ =\ 32;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R32G32B32:\ bpp\ =\ 32*3;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_UNCOMPRESSED\_R32G32B32A32:\ bpp\ =\ 32*4;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_DXT1\_RGB:}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_DXT1\_RGBA:}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_ETC1\_RGB:}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_ETC2\_RGB:}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGB:}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_PVRT\_RGBA:\ bpp\ =\ 4;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_DXT3\_RGBA:}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_DXT5\_RGBA:}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_ETC2\_EAC\_RGBA:}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_ASTC\_4x4\_RGBA:\ bpp\ =\ 8;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PIXELFORMAT\_COMPRESSED\_ASTC\_8x8\_RGBA:\ bpp\ =\ 2;\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00812\ \ \ \ \ \}}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00814\ \ \ \ \ data\_size\ =\ width*height*bpp/8;\ \ \textcolor{comment}{//\ Total\ data\ size\ in\ bytes}}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \ \ \ \ \textcolor{comment}{//\ Most\ compressed\ formats\ works\ on\ 4x4\ blocks,}}
+\DoxyCodeLine{00817\ \ \ \ \ \textcolor{comment}{//\ if\ texture\ is\ smaller,\ minimum\ dataSize\ is\ 8\ or\ 16}}
+\DoxyCodeLine{00818\ \ \ \ \ \textcolor{keywordflow}{if}\ ((width\ <\ 4)\ \&\&\ (height\ <\ 4))}
+\DoxyCodeLine{00819\ \ \ \ \ \{}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((format\ >=\ PIXELFORMAT\_COMPRESSED\_DXT1\_RGB)\ \&\&\ (format\ <\ PIXELFORMAT\_COMPRESSED\_DXT3\_RGBA))\ data\_size\ =\ 8;}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((format\ >=\ PIXELFORMAT\_COMPRESSED\_DXT3\_RGBA)\ \&\&\ (format\ <\ PIXELFORMAT\_COMPRESSED\_ASTC\_8x8\_RGBA))\ data\_size\ =\ 16;}
+\DoxyCodeLine{00822\ \ \ \ \ \}}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ \textcolor{keywordflow}{return}\ data\_size;}
+\DoxyCodeLine{00825\ \}}
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RL\_GPUTEX\_IMPLEMENTATION}}
+
+\end{DoxyCode}

@@ -1,0 +1,9 @@
+<map id="VkBindImageMemoryDeviceGroupInfo" name="VkBindImageMemoryDeviceGroupInfo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,181,277,207"/>
+<area shape="rect" id="Node000002" href="$structVkRect2D.html" title=" " alt="" coords="98,93,185,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,133,144,181,139,181,139,133"/>
+<area shape="rect" id="Node000003" href="$structVkOffset2D.html" title=" " alt="" coords="33,5,129,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,41,135,91,131,94,95,44"/>
+<area shape="rect" id="Node000004" href="$structVkExtent2D.html" title=" " alt="" coords="153,5,252,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="188,44,152,94,148,91,184,41"/>
+</map>

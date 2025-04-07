@@ -1,0 +1,45 @@
+\doxysection{Clipboard}
+\hypertarget{group__Clipboard}{}\label{group__Clipboard}\index{Clipboard@{Clipboard}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__Clipboard_ga38e4eefa581916b9459f06a23da4d08e}\label{group__Clipboard_ga38e4eefa581916b9459f06a23da4d08e} 
+typedef ptrdiff\+\_\+t {\bfseries RGFW\+\_\+ssize\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Clipboard_ga8dc0a4b9144cd7e9de02f31b2b421723}{RGFW\+\_\+read\+Clipboard}} (size\+\_\+t \texorpdfstring{$\ast$}{*}size)
+\item 
+RGFWDEF RGFW\+\_\+ssize\+\_\+t \mbox{\hyperlink{group__Clipboard_gacfd9952aecc02d5adc34d795c7a284ae}{RGFW\+\_\+read\+Clipboard\+Ptr}} (char \texorpdfstring{$\ast$}{*}str, size\+\_\+t str\+Capacity)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Clipboard_ga0de2f0466a3ae4cc9986101de14dbdee}{RGFW\+\_\+write\+Clipboard}} (const char \texorpdfstring{$\ast$}{*}text, u32 text\+Len)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__Clipboard_ga8dc0a4b9144cd7e9de02f31b2b421723}\label{group__Clipboard_ga8dc0a4b9144cd7e9de02f31b2b421723} 
+\index{Clipboard@{Clipboard}!RGFW\_readClipboard@{RGFW\_readClipboard}}
+\index{RGFW\_readClipboard@{RGFW\_readClipboard}!Clipboard@{Clipboard}}
+\doxysubsubsection{\texorpdfstring{RGFW\_readClipboard()}{RGFW\_readClipboard()}}
+{\footnotesize\ttfamily RGFWDEF const char \texorpdfstring{$\ast$}{*} RGFW\+\_\+read\+Clipboard (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{size }\end{DoxyParamCaption})}
+
+read clipboard data \Hypertarget{group__Clipboard_gacfd9952aecc02d5adc34d795c7a284ae}\label{group__Clipboard_gacfd9952aecc02d5adc34d795c7a284ae} 
+\index{Clipboard@{Clipboard}!RGFW\_readClipboardPtr@{RGFW\_readClipboardPtr}}
+\index{RGFW\_readClipboardPtr@{RGFW\_readClipboardPtr}!Clipboard@{Clipboard}}
+\doxysubsubsection{\texorpdfstring{RGFW\_readClipboardPtr()}{RGFW\_readClipboardPtr()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+ssize\+\_\+t RGFW\+\_\+read\+Clipboard\+Ptr (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str,  }\item[{size\+\_\+t}]{str\+Capacity }\end{DoxyParamCaption})}
+
+read clipboard data or send a NULL str to just get the length of the clipboard data \Hypertarget{group__Clipboard_ga0de2f0466a3ae4cc9986101de14dbdee}\label{group__Clipboard_ga0de2f0466a3ae4cc9986101de14dbdee} 
+\index{Clipboard@{Clipboard}!RGFW\_writeClipboard@{RGFW\_writeClipboard}}
+\index{RGFW\_writeClipboard@{RGFW\_writeClipboard}!Clipboard@{Clipboard}}
+\doxysubsubsection{\texorpdfstring{RGFW\_writeClipboard()}{RGFW\_writeClipboard()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+write\+Clipboard (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{text,  }\item[{u32}]{text\+Len }\end{DoxyParamCaption})}
+
+write text to the clipboard 

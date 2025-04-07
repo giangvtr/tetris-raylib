@@ -1,0 +1,11 @@
+<map id="VkCopyImageInfo2" name="VkCopyImageInfo2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="207,196,353,221"/>
+<area shape="rect" id="Node000002" href="$structVkImageCopy2.html" title=" " alt="" coords="219,108,341,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,147,283,195,277,195,277,147"/>
+<area shape="rect" id="Node000003" href="$structVkImageSubresourceLayers.html" title=" " alt="" coords="5,5,208,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="126,40,146,62,171,82,198,95,227,105,226,110,196,100,168,86,142,66,122,44"/>
+<area shape="rect" id="Node000004" href="$structVkOffset3D.html" title=" " alt="" coords="232,5,328,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="283,45,283,108,277,108,277,45"/>
+<area shape="rect" id="Node000005" href="$structVkExtent3D.html" title=" " alt="" coords="352,5,451,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="389,44,372,65,351,86,310,110,308,106,348,82,368,62,384,41"/>
+</map>

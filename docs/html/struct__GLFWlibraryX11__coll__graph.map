@@ -1,0 +1,19 @@
+<map id="_GLFWlibraryX11" name="_GLFWlibraryX11">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,200,140,225"/>
+<area shape="rect" id="Node000002" href="$struct__GLFWwindow.html" title=" " alt="" coords="158,95,275,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,123,102,134,86,141,76,148,70,160,68,174,72,200,66,200,63,174,65,159,72,145,83,136,100,129,144,117"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="290,99,302,108,294,116,276,119,275,114,291,111,297,108,288,104"/>
+<area shape="rect" id="Node000004" href="$struct__GLFWmonitor.html" title=" " alt="" coords="327,200,445,225"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="273,123,316,145,330,159,343,174,372,198,368,202,339,178,326,162,312,149,271,128"/>
+<area shape="rect" id="Node000003" href="$structGLFWvidmode.html" title="Video mode type." alt="" coords="423,5,541,31"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="435,37,252,98,251,93,434,32"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="498,41,512,71,522,107,523,144,518,162,508,178,480,199,446,210,445,205,477,194,504,174,513,160,518,144,517,108,507,73,493,44"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="312,204,283,194,256,178,232,150,218,122,223,120,237,147,260,174,286,189,314,199"/>
+<area shape="rect" id="Node000005" href="$structGLFWgammaramp.html" title="Gamma ramp." alt="" coords="357,95,501,121"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="421,135,393,201,388,199,416,133"/>
+<area shape="rect" id="Node000006" href="$struct__GLFWcursor.html" title=" " alt="" coords="9,5,115,31"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="95,35,198,93,195,98,93,40"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="130,9,142,18,134,26,116,29,115,23,131,21,137,18,128,14"/>
+<area shape="rect" id="Node000007" href="$struct__GLFWcontext.html" title=" " alt="" coords="197,5,313,31"/>
+<area shape="poly" id="edge10_Node000002_Node000007" title=" " alt="" coords="247,44,224,96,219,94,242,42"/>
+</map>

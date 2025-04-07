@@ -1,0 +1,9 @@
+<map id="VkSparseImageMemoryBind" name="VkSparseImageMemoryBind">
+<area shape="rect" id="Node000001" title=" " alt="" coords="134,93,341,119"/>
+<area shape="rect" id="Node000002" href="$structVkImageSubresource.html" title=" " alt="" coords="5,5,165,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,38,149,67,203,91,200,96,147,72,106,42"/>
+<area shape="rect" id="Node000003" href="$structVkOffset3D.html" title=" " alt="" coords="189,5,285,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,45,240,93,235,93,235,45"/>
+<area shape="rect" id="Node000004" href="$structVkExtent3D.html" title=" " alt="" coords="309,5,408,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="332,41,255,95,252,91,329,37"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="cgltf_camera" name="cgltf_camera">
+<area shape="rect" id="Node000001" title=" " alt="" coords="248,181,355,207"/>
+<area shape="rect" id="Node000002" href="$structcgltf__camera__perspective.html" title=" " alt="" coords="72,93,262,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,124,285,179,282,183,195,128"/>
+<area shape="rect" id="Node000003" href="$structcgltf__extras.html" title=" " alt="" coords="118,5,216,31"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="105,37,64,51,28,70,16,80,10,92,9,104,16,117,30,130,53,141,114,160,184,175,248,184,248,189,183,180,113,165,51,146,27,134,11,120,4,105,4,90,12,77,25,65,62,46,104,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,45,170,93,164,93,164,45"/>
+<area shape="rect" id="Node000004" href="$structcgltf__camera__orthographic.html" title=" " alt="" coords="286,93,482,119"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="210,33,356,91,354,96,208,38"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="365,131,315,183,311,179,362,127"/>
+<area shape="rect" id="Node000005" href="$structcgltf__extension.html" title=" " alt="" coords="507,93,630,119"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="530,126,440,160,352,184,351,179,438,155,528,121"/>
+</map>

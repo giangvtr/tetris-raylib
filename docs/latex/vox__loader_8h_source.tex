@@ -1,0 +1,716 @@
+\doxysection{vox\+\_\+loader.\+h}
+\hypertarget{vox__loader_8h_source}{}\label{vox__loader_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/vox\_loader.h@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/vox\_loader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ The\ MIT\ License\ (MIT)}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ Copyright\ (c)\ 2021\ Johann\ Nadalutti.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ \ THE\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ vox\_loader\ -\/\ v1.01}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ no\ warranty\ implied;\ use\ at\ your\ own\ risk}}
+\DoxyCodeLine{00027\ \textcolor{comment}{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ Do\ this:}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \#define\ VOX\_LOADER\_INCLUDE\_\_H}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ before\ you\ include\ this\ file\ in*\ one*\ C\ or\ C++\ file\ to\ create\ the\ implementation.}}
+\DoxyCodeLine{00031\ \textcolor{comment}{}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ //\ i.e.\ it\ should\ look\ like\ this:}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \#include\ ...}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \#include\ ...}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ \#include\ ...}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \#define\ VOX\_LOADER\_INCLUDE\_\_H}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \#include\ "{}vox\_loader.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{comment}{}}
+\DoxyCodeLine{00039\ \textcolor{comment}{revision\ history:}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ 1.00\ \ (2021-\/09-\/03)\ \ first\ released\ version}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ 1.01\ \ (2021-\/09-\/07)\ \ Support\ custom\ memory\ allocators}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Removed\ Raylib\ dependencies}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Changed\ Vox\_LoadFileName\ to\ Vox\_LoadFromMemory}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ 1.02\ \ (2021-\/09-\/10)\ \ @raysan5:\ Reviewed\ some\ formating}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ 1.03\ \ (2021-\/10-\/02)\ \ @catmanl:\ Reduce\ warnings\ on\ gcc}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ \ 1.04\ \ (2021-\/10-\/17)\ \ @warzes:\ Fixing\ the\ error\ of\ loading\ VOX\ models}}
+\DoxyCodeLine{00047\ \textcolor{comment}{}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ VOX\_LOADER\_H}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ VOX\_LOADER\_H}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ Allow\ custom\ memory\ allocators}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifndef\ VOX\_MALLOC}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOX\_MALLOC(sz)\ \ \ \ \ malloc(sz)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifndef\ VOX\_CALLOC}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOX\_CALLOC(n,sz)\ \ \ calloc(n,sz)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifndef\ VOX\_REALLOC}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOX\_REALLOC(n,sz)\ \ realloc(n,sz)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifndef\ VOX\_FREE}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOX\_FREE(p)\ \ \ \ \ \ \ \ free(p)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ VOX\_SUCCESS\ (0)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ VOX\_ERROR\_FILE\_NOT\_FOUND\ (-\/1)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ VOX\_ERROR\_INVALID\_FORMAT\ (-\/2)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ VOX\_ERROR\_FILE\_VERSION\_NOT\_MATCH\ (-\/3)}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ VoxColor,\ 4\ components,\ R8G8B8A8\ (32bit)}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ r,\ g,\ b,\ a;}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{structVoxColor}{VoxColor}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ VoxVector3,\ 3\ components}}
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{float}\ x,\ y,\ z;}
+\DoxyCodeLine{00080\ \}\ \mbox{\hyperlink{structVoxVector3}{VoxVector3}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}*\ array;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ used,\ size;}
+\DoxyCodeLine{00085\ \}\ \mbox{\hyperlink{structArrayVector3}{ArrayVector3}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{structVoxColor}{VoxColor}}*\ array;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ used,\ size;}
+\DoxyCodeLine{00090\ \}\ \mbox{\hyperlink{structArrayColor}{ArrayColor}};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}*\ array;}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ used,\ size;}
+\DoxyCodeLine{00095\ \}\ \mbox{\hyperlink{structArrayUShort}{ArrayUShort}};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ A\ chunk\ that\ contain\ voxels}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ m\_array;\ \textcolor{comment}{//If\ Sparse\ !=\ null}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{int}\ arraySize;\ \textcolor{comment}{//Size\ for\ m\_array\ in\ bytes\ (DEBUG\ ONLY)}}
+\DoxyCodeLine{00101\ \}\ \mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ Array\ for\ voxels}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ Array\ is\ divised\ into\ chunks\ of\ CHUNKSIZE*CHUNKSIZE*CHUNKSIZE\ voxels\ size}}
+\DoxyCodeLine{00105\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ Array\ size\ in\ voxels}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{int}\ sizeX;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{int}\ sizeY;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{int}\ sizeZ;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{//\ Chunks\ size\ into\ array\ (array\ is\ divised\ into\ chunks)}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ chunksSizeX;}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{int}\ chunksSizeY;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{int}\ chunksSizeZ;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Chunks\ array}}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}}*\ m\_arrayChunks;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{int}\ arrayChunksSize;\ \textcolor{comment}{//\ Size\ for\ m\_arrayChunks\ in\ bytes\ (DEBUG\ ONLY)}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{int}\ ChunkFlattenOffset;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{int}\ chunksAllocated;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{int}\ chunksTotal;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ Arrays\ for\ mesh\ build}}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{structArrayVector3}{ArrayVector3}}\ vertices;}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{structArrayVector3}{ArrayVector3}}\ normals;}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{structArrayUShort}{ArrayUShort}}\ indices;}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{structArrayColor}{ArrayColor}}\ colors;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//Palette\ for\ voxels}}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{structVoxColor}{VoxColor}}\ palette[256];}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \}\ \mbox{\hyperlink{structVoxArray3D}{VoxArray3D}};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00136\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prevents\ name\ mangling\ of\ functions}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ Functions}}
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{int}\ Vox\_LoadFromMemory(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ pvoxData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ voxDataSize,\ \mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxarray);}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ Vox\_FreeArrays(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ voxarray);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ VOX\_LOADER\_H}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Implementation}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#ifdef\ VOX\_LOADER\_IMPLEMENTATION}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ ArrayUShort\ helper}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initArrayUShort(\mbox{\hyperlink{structArrayUShort}{ArrayUShort}}*\ a,\ \textcolor{keywordtype}{int}\ initialSize)}
+\DoxyCodeLine{00167\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ a-\/>array\ =\ VOX\_MALLOC(initialSize\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}));}
+\DoxyCodeLine{00169\ \ \ \ \ a-\/>used\ =\ 0;}
+\DoxyCodeLine{00170\ \ \ \ \ a-\/>size\ =\ initialSize;}
+\DoxyCodeLine{00171\ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ insertArrayUShort(\mbox{\hyperlink{structArrayUShort}{ArrayUShort}}*\ a,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ element)}
+\DoxyCodeLine{00174\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{if}\ (a-\/>used\ ==\ a-\/>size)}
+\DoxyCodeLine{00176\ \ \ \ \ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ a-\/>size\ *=\ 2;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ a-\/>array\ =\ VOX\_REALLOC(a-\/>array,\ a-\/>size\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}));}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ a-\/>array[a-\/>used++]\ =\ element;}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ freeArrayUShort(\mbox{\hyperlink{structArrayUShort}{ArrayUShort}}*\ a)}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ VOX\_FREE(a-\/>array);}
+\DoxyCodeLine{00186\ \ \ \ \ a-\/>array\ =\ NULL;}
+\DoxyCodeLine{00187\ \ \ \ \ a-\/>used\ =\ a-\/>size\ =\ 0;}
+\DoxyCodeLine{00188\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ ArrayVector3\ helper}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initArrayVector3(\mbox{\hyperlink{structArrayVector3}{ArrayVector3}}*\ a,\ \textcolor{keywordtype}{int}\ initialSize)}
+\DoxyCodeLine{00196\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ a-\/>array\ =\ VOX\_MALLOC(initialSize\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structVoxVector3}{VoxVector3}}));}
+\DoxyCodeLine{00198\ \ \ \ \ a-\/>used\ =\ 0;}
+\DoxyCodeLine{00199\ \ \ \ \ a-\/>size\ =\ initialSize;}
+\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ insertArrayVector3(\mbox{\hyperlink{structArrayVector3}{ArrayVector3}}*\ a,\ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ element)}
+\DoxyCodeLine{00203\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{if}\ (a-\/>used\ ==\ a-\/>size)}
+\DoxyCodeLine{00205\ \ \ \ \ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ a-\/>size\ *=\ 2;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ a-\/>array\ =\ VOX\_REALLOC(a-\/>array,\ a-\/>size\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structVoxVector3}{VoxVector3}}));}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ a-\/>array[a-\/>used++]\ =\ element;}
+\DoxyCodeLine{00210\ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ freeArrayVector3(\mbox{\hyperlink{structArrayVector3}{ArrayVector3}}*\ a)}
+\DoxyCodeLine{00213\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ VOX\_FREE(a-\/>array);}
+\DoxyCodeLine{00215\ \ \ \ \ a-\/>array\ =\ NULL;}
+\DoxyCodeLine{00216\ \ \ \ \ a-\/>used\ =\ a-\/>size\ =\ 0;}
+\DoxyCodeLine{00217\ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ ArrayColor\ helper}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initArrayColor(\mbox{\hyperlink{structArrayColor}{ArrayColor}}*\ a,\ \textcolor{keywordtype}{int}\ initialSize)}
+\DoxyCodeLine{00224\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ a-\/>array\ =\ VOX\_MALLOC(initialSize\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structVoxColor}{VoxColor}}));}
+\DoxyCodeLine{00226\ \ \ \ \ a-\/>used\ =\ 0;}
+\DoxyCodeLine{00227\ \ \ \ \ a-\/>size\ =\ initialSize;}
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ insertArrayColor(\mbox{\hyperlink{structArrayColor}{ArrayColor}}*\ a,\ \mbox{\hyperlink{structVoxColor}{VoxColor}}\ element)}
+\DoxyCodeLine{00231\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}\ (a-\/>used\ ==\ a-\/>size)}
+\DoxyCodeLine{00233\ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ a-\/>size\ *=\ 2;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ a-\/>array\ =\ VOX\_REALLOC(a-\/>array,\ a-\/>size\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structVoxColor}{VoxColor}}));}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ a-\/>array[a-\/>used++]\ =\ element;}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ freeArrayColor(\mbox{\hyperlink{structArrayColor}{ArrayColor}}*\ a)}
+\DoxyCodeLine{00241\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ VOX\_FREE(a-\/>array);}
+\DoxyCodeLine{00243\ \ \ \ \ a-\/>array\ =\ NULL;}
+\DoxyCodeLine{00244\ \ \ \ \ a-\/>used\ =\ a-\/>size\ =\ 0;}
+\DoxyCodeLine{00245\ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00249\ \textcolor{comment}{//\ Vox\ Loader}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ CHUNKSIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 16\ \ \ \ \ \ }\textcolor{comment}{//\ chunk\ size\ (CHUNKSIZE*CHUNKSIZE*CHUNKSIZE)\ in\ voxels\ }}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ CHUNKSIZE\_OPSHIFT\ \ \ \ \ \ \ \ \ \ \ \ 4\ \ \ \ \ \ }\textcolor{comment}{//\ 1<<4=16\ -\/>\ Warning\ depend\ of\ CHUNKSIZE}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ CHUNK\_FLATTENOFFSET\_OPSHIFT\ \ 8\ \ \ \ \ \ }\textcolor{comment}{//\ Warning\ depend\ of\ CHUNKSIZE}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{//}}
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ used\ right\ handed\ system\ and\ CCW\ face}}
+\DoxyCodeLine{00258\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00259\ \textcolor{comment}{//\ indexes\ for\ voxelcoords,\ per\ face\ orientation}}
+\DoxyCodeLine{00260\ \textcolor{comment}{//}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\#\ \ \ \ \ \ Y}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\#\ \ \ \ \ \ |}}
+\DoxyCodeLine{00264\ \textcolor{comment}{//\#\ \ \ \ \ \ o-\/-\/-\/-\/X}}
+\DoxyCodeLine{00265\ \textcolor{comment}{//\#\ \ \ \ \ /}}
+\DoxyCodeLine{00266\ \textcolor{comment}{//\#\ \ \ \ Z\ \ \ \ \ 2-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/3}}
+\DoxyCodeLine{00267\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ \ /|\ \ \ \ \ \ \ \ \ \ \ /|}}
+\DoxyCodeLine{00268\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ 6-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/7\ |}}
+\DoxyCodeLine{00269\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ |\ |}}
+\DoxyCodeLine{00270\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ |0\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/\ 1}}
+\DoxyCodeLine{00271\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ |/\ \ \ \ \ \ \ \ \ \ \ |/}}
+\DoxyCodeLine{00272\ \textcolor{comment}{//\#\ \ \ \ \ \ \ \ 4-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/5}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00275\ \textcolor{comment}{//\ CCW}}
+\DoxyCodeLine{00276\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ fv[6][4]\ =\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \{0,\ 2,\ 6,\ 4\ \},\ \textcolor{comment}{//-\/X}}
+\DoxyCodeLine{00278\ \ \ \ \ \{5,\ 7,\ 3,\ 1\ \},\ \textcolor{comment}{//+X}}
+\DoxyCodeLine{00279\ \ \ \ \ \{0,\ 4,\ 5,\ 1\ \},\ \textcolor{comment}{//-\/y}}
+\DoxyCodeLine{00280\ \ \ \ \ \{6,\ 2,\ 3,\ 7\ \},\ \textcolor{comment}{//+y}}
+\DoxyCodeLine{00281\ \ \ \ \ \{1,\ 3,\ 2,\ 0\ \},\ \textcolor{comment}{//-\/Z}}
+\DoxyCodeLine{00282\ \ \ \ \ \{4,\ 6,\ 7,\ 5\ \}\ \ \textcolor{comment}{//+Z}}
+\DoxyCodeLine{00283\ \};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ SolidVertex[]\ =\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \{0,\ 0,\ 0\},\ \ \ \textcolor{comment}{//0}}
+\DoxyCodeLine{00287\ \ \ \ \ \{1,\ 0,\ 0\},\ \ \ \textcolor{comment}{//1}}
+\DoxyCodeLine{00288\ \ \ \ \ \{0,\ 1,\ 0\},\ \ \ \textcolor{comment}{//2}}
+\DoxyCodeLine{00289\ \ \ \ \ \{1,\ 1,\ 0\},\ \ \ \textcolor{comment}{//3}}
+\DoxyCodeLine{00290\ \ \ \ \ \{0,\ 0,\ 1\},\ \ \ \textcolor{comment}{//4}}
+\DoxyCodeLine{00291\ \ \ \ \ \{1,\ 0,\ 1\},\ \ \ \textcolor{comment}{//5}}
+\DoxyCodeLine{00292\ \ \ \ \ \{0,\ 1,\ 1\},\ \ \ \textcolor{comment}{//6}}
+\DoxyCodeLine{00293\ \ \ \ \ \{1,\ 1,\ 1\}\ \ \ \ \textcolor{comment}{//7}}
+\DoxyCodeLine{00294\ \ \};}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ FacesPerSideNormal[]\ =\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \{\ -\/1,\ 0,\ 0\ \},\ \textcolor{comment}{//-\/X}}
+\DoxyCodeLine{00298\ \ \ \ \ \{1,\ 0,\ 0\ \},\ \ \ \textcolor{comment}{//+X}}
+\DoxyCodeLine{00299\ \ \ \ \ \{0,-\/1,\ 0\},\ \ \ \ \textcolor{comment}{//-\/Y}}
+\DoxyCodeLine{00300\ \ \ \ \ \{0,\ 1,\ 0\},\ \ \ \ \textcolor{comment}{//+Y}}
+\DoxyCodeLine{00301\ \ \ \ \ \{0,\ 0,\ -\/1\},\ \ \ \textcolor{comment}{//-\/Z}}
+\DoxyCodeLine{00302\ \ \ \ \ \{0,\ 0,\ \ 1\},\ \ \textcolor{comment}{//+Z}}
+\DoxyCodeLine{00303\ \};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{comment}{//\ Allocated\ VoxArray3D\ size}}
+\DoxyCodeLine{00307\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Vox\_AllocArray(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxarray,\ \textcolor{keywordtype}{int}\ \_sx,\ \textcolor{keywordtype}{int}\ \_sy,\ \textcolor{keywordtype}{int}\ \_sz)}
+\DoxyCodeLine{00308\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{int}\ sx\ =\ \_sx\ +\ ((CHUNKSIZE\ -\/\ (\_sx\ \%\ CHUNKSIZE))\ \%\ CHUNKSIZE);}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{int}\ sy\ =\ \_sy\ +\ ((CHUNKSIZE\ -\/\ (\_sy\ \%\ CHUNKSIZE))\ \%\ CHUNKSIZE);}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{int}\ sz\ =\ \_sz\ +\ ((CHUNKSIZE\ -\/\ (\_sz\ \%\ CHUNKSIZE))\ \%\ CHUNKSIZE);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordtype}{int}\ chx\ =\ sx\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//Chunks\ Count\ in\ X}}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordtype}{int}\ chy\ =\ sy\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//Chunks\ Count\ in\ Y}}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{int}\ chz\ =\ sz\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//Chunks\ Count\ in\ Z}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{//VoxArray3D*\ parray\ =\ (VoxArray3D*)VOX\_MALLOC(sizeof(VoxArray3D));}}
+\DoxyCodeLine{00318\ \ \ \ \ pvoxarray-\/>sizeX\ =\ sx;}
+\DoxyCodeLine{00319\ \ \ \ \ pvoxarray-\/>sizeY\ =\ sy;}
+\DoxyCodeLine{00320\ \ \ \ \ pvoxarray-\/>sizeZ\ =\ sz;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ pvoxarray-\/>chunksSizeX\ =\ chx;}
+\DoxyCodeLine{00323\ \ \ \ \ pvoxarray-\/>chunksSizeY\ =\ chy;}
+\DoxyCodeLine{00324\ \ \ \ \ pvoxarray-\/>chunksSizeZ\ =\ chz;}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ pvoxarray-\/>ChunkFlattenOffset\ =\ (chy\ *\ chz);\ \textcolor{comment}{//m\_arrayChunks[(x\ *\ (sy*sz))\ +\ (z\ *\ sy)\ +\ y]}}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{comment}{//\ Alloc\ chunks\ array}}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}})\ *\ chx\ *\ chy\ *\ chz;}
+\DoxyCodeLine{00330\ \ \ \ \ pvoxarray-\/>m\_arrayChunks\ =\ VOX\_MALLOC(size);}
+\DoxyCodeLine{00331\ \ \ \ \ pvoxarray-\/>arrayChunksSize\ =\ size;}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{comment}{//\ Init\ chunks\ array}}
+\DoxyCodeLine{00334\ \ \ \ \ size\ =\ chx\ *\ chy\ *\ chz;}
+\DoxyCodeLine{00335\ \ \ \ \ pvoxarray-\/>chunksTotal\ =\ size;}
+\DoxyCodeLine{00336\ \ \ \ \ pvoxarray-\/>chunksAllocated\ =\ 0;}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)}
+\DoxyCodeLine{00339\ \ \ \ \ \{}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ pvoxarray-\/>m\_arrayChunks[i].m\_array\ =\ 0;}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ pvoxarray-\/>m\_arrayChunks[i].arraySize\ =\ 0;}
+\DoxyCodeLine{00342\ \ \ \ \ \}}
+\DoxyCodeLine{00343\ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{comment}{//\ Set\ voxel\ ID\ from\ its\ position\ into\ VoxArray3D}}
+\DoxyCodeLine{00346\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Vox\_SetVoxel(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxarray,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ z,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00347\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ Get\ chunk\ from\ array\ pos}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{int}\ chX\ =\ x\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//x\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordtype}{int}\ chY\ =\ y\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//y\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordtype}{int}\ chZ\ =\ z\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//z\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ (chX\ *\ pvoxarray-\/>ChunkFlattenOffset)\ +\ (chZ\ *\ pvoxarray-\/>chunksSizeY)\ +\ chY;}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{//if\ (offset\ >\ voxarray-\/>arrayChunksSize)}}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{comment}{//\ \ TraceLog(LOG\_ERROR,\ "{}Out\ of\ array"{});}}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}}*\ chunk\ =\ \&pvoxarray-\/>m\_arrayChunks[offset];}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{comment}{//\ Set\ Chunk}}
+\DoxyCodeLine{00362\ \ \ \ \ chX\ =\ x\ -\/\ (chX\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//x\ -\/\ (bx\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00363\ \ \ \ \ chY\ =\ y\ -\/\ (chY\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//y\ -\/\ (by\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00364\ \ \ \ \ chZ\ =\ z\ -\/\ (chZ\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//z\ -\/\ (bz\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{if}\ (chunk-\/>m\_array\ ==\ 0)}
+\DoxyCodeLine{00367\ \ \ \ \ \{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ CHUNKSIZE\ *\ CHUNKSIZE\ *\ CHUNKSIZE;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ chunk-\/>m\_array\ =\ VOX\_MALLOC(size);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ chunk-\/>arraySize\ =\ size;}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ memset(chunk-\/>m\_array,\ 0,\ size);}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ pvoxarray-\/>chunksAllocated++;}
+\DoxyCodeLine{00374\ \ \ \ \ \}}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ offset\ =\ (chX\ <<\ CHUNK\_FLATTENOFFSET\_OPSHIFT)\ +\ (chZ\ <<\ CHUNKSIZE\_OPSHIFT)\ +\ chY;}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{comment}{//if\ (offset\ >\ chunk-\/>arraySize)}}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{comment}{//\ \ TraceLog(LOG\_ERROR,\ "{}Out\ of\ array"{});}}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ chunk-\/>m\_array[offset]\ =\ id;}
+\DoxyCodeLine{00384\ \}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \textcolor{comment}{//\ Get\ voxel\ ID\ from\ its\ position\ into\ VoxArray3D}}
+\DoxyCodeLine{00387\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ Vox\_GetVoxel(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxarray,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ z)}
+\DoxyCodeLine{00388\ \{}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <\ 0\ ||\ y\ <\ 0\ ||\ z\ <\ 0)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >=\ pvoxarray-\/>sizeX\ ||\ y\ >=\ pvoxarray-\/>sizeY\ ||\ z\ >=\ pvoxarray-\/>sizeZ)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{//\ Get\ chunk\ from\ array\ pos}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordtype}{int}\ chX\ =\ x\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//x\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordtype}{int}\ chY\ =\ y\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//y\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordtype}{int}\ chZ\ =\ z\ >>\ CHUNKSIZE\_OPSHIFT;\ \textcolor{comment}{//z\ /\ CHUNKSIZE;}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ (chX\ *\ pvoxarray-\/>ChunkFlattenOffset)\ +\ (chZ\ *\ pvoxarray-\/>chunksSizeY)\ +\ chY;}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{comment}{//if\ (offset\ >\ voxarray-\/>arrayChunksSize)}}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{comment}{//\ \ TraceLog(LOG\_ERROR,\ "{}Out\ of\ array"{});}}
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}}*\ chunk\ =\ \&pvoxarray-\/>m\_arrayChunks[offset];}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{comment}{//\ Set\ Chunk}}
+\DoxyCodeLine{00407\ \ \ \ \ chX\ =\ x\ -\/\ (chX\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//x\ -\/\ (bx\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00408\ \ \ \ \ chY\ =\ y\ -\/\ (chY\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//y\ -\/\ (by\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00409\ \ \ \ \ chZ\ =\ z\ -\/\ (chZ\ <<\ CHUNKSIZE\_OPSHIFT);\ \textcolor{comment}{//z\ -\/\ (bz\ *\ CHUNKSIZE);}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordflow}{if}\ (chunk-\/>m\_array\ ==\ 0)}
+\DoxyCodeLine{00412\ \ \ \ \ \{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00414\ \ \ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ offset\ =\ (chX\ <<\ CHUNK\_FLATTENOFFSET\_OPSHIFT)\ +\ (chZ\ <<\ CHUNKSIZE\_OPSHIFT)\ +\ chY;}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{comment}{//if\ (offset\ >\ chunk-\/>arraySize)}}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{comment}{//\ \ TraceLog(LOG\_ERROR,\ "{}Out\ of\ array"{});}}
+\DoxyCodeLine{00421\ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordflow}{return}\ chunk-\/>m\_array[offset];}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \textcolor{comment}{//\ Calc\ visibles\ faces\ from\ a\ voxel\ position}}
+\DoxyCodeLine{00427\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ Vox\_CalcFacesVisible(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxArray,\ \textcolor{keywordtype}{int}\ cx,\ \textcolor{keywordtype}{int}\ cy,\ \textcolor{keywordtype}{int}\ cz)}
+\DoxyCodeLine{00428\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idXm1\ =\ Vox\_GetVoxel(pvoxArray,\ cx\ -\/\ 1,\ cy,\ cz);}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idXp1\ =\ Vox\_GetVoxel(pvoxArray,\ cx\ +\ 1,\ cy,\ cz);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idYm1\ =\ Vox\_GetVoxel(pvoxArray,\ cx,\ cy\ -\/\ 1,\ cz);}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idYp1\ =\ Vox\_GetVoxel(pvoxArray,\ cx,\ cy\ +\ 1,\ cz);}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idZm1\ =\ Vox\_GetVoxel(pvoxArray,\ cx,\ cy,\ cz\ -\/\ 1);}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ idZp1\ =\ Vox\_GetVoxel(pvoxArray,\ cx,\ cy,\ cz\ +\ 1);}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ byVFMask\ =\ 0;}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{comment}{//\#-\/x}}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keywordflow}{if}\ (idXm1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 0);}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{comment}{//\#+x}}
+\DoxyCodeLine{00444\ \ \ \ \ \textcolor{keywordflow}{if}\ (idXp1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 1);}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{comment}{//\#-\/y}}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keywordflow}{if}\ (idYm1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 2);}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{comment}{//\#+y}}
+\DoxyCodeLine{00450\ \ \ \ \ \textcolor{keywordflow}{if}\ (idYp1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 3);}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{comment}{//\#-\/z}}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keywordflow}{if}\ (idZm1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 4);}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{comment}{//\#+z}}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{if}\ (idZp1\ ==\ 0)\ byVFMask\ |=\ (1\ <<\ 5);}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keywordflow}{return}\ byVFMask;}
+\DoxyCodeLine{00459\ \}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{comment}{//\ Get\ a\ vertex\ position\ from\ a\ voxel's\ corner}}
+\DoxyCodeLine{00462\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ Vox\_GetVertexPosition(\textcolor{keywordtype}{int}\ \_wcx,\ \textcolor{keywordtype}{int}\ \_wcy,\ \textcolor{keywordtype}{int}\ \_wcz,\ \textcolor{keywordtype}{int}\ \_nNumVertex)}
+\DoxyCodeLine{00463\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ 0.25;}
+\DoxyCodeLine{00465\ \ \ \ \ }
+\DoxyCodeLine{00466\ \ \ \ \ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ vtx\ =\ SolidVertex[\_nNumVertex];}
+\DoxyCodeLine{00467\ \ \ \ \ vtx.x\ =\ (vtx.x\ +\ \_wcx)\ *\ scale;}
+\DoxyCodeLine{00468\ \ \ \ \ vtx.y\ =\ (vtx.y\ +\ \_wcy)\ *\ scale;}
+\DoxyCodeLine{00469\ \ \ \ \ vtx.z\ =\ (vtx.z\ +\ \_wcz)\ *\ scale;}
+\DoxyCodeLine{00470\ \ \ \ \ }
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keywordflow}{return}\ vtx;}
+\DoxyCodeLine{00472\ \}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \textcolor{comment}{//\ Build\ a\ voxel\ vertices/colors/indices}}
+\DoxyCodeLine{00475\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Vox\_Build\_Voxel(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxArray,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ z,\ \textcolor{keywordtype}{int}\ matID)}
+\DoxyCodeLine{00476\ \{}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ byVFMask\ =\ Vox\_CalcFacesVisible(pvoxArray,\ x,\ y,\ z);}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordflow}{if}\ (byVFMask\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{00482\ \ \ \ \ \mbox{\hyperlink{structVoxVector3}{VoxVector3}}\ vertComputed[8];}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordtype}{int}\ bVertexComputed[8];}
+\DoxyCodeLine{00484\ \ \ \ \ memset(vertComputed,\ 0,\ \textcolor{keyword}{sizeof}(vertComputed));}
+\DoxyCodeLine{00485\ \ \ \ \ memset(bVertexComputed,\ 0,\ \textcolor{keyword}{sizeof}(bVertexComputed));}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{comment}{//For\ each\ Cube's\ faces}}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ 6;\ i++)\ \textcolor{comment}{//\ 6\ faces}}
+\DoxyCodeLine{00489\ \ \ \ \ \{}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((byVFMask\ \&\ (1\ <<\ i))\ !=\ 0)\ \textcolor{comment}{//If\ face\ is\ visible}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <\ 4;\ j++)\ \ \ \textcolor{comment}{//\ 4\ corners}}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ nNumVertex\ =\ fv[i][j];\ \ \textcolor{comment}{//Face,Corner}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bVertexComputed[nNumVertex]\ ==\ 0)\ \textcolor{comment}{//if\ never\ calc}}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bVertexComputed[nNumVertex]\ =\ 1;}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertComputed[nNumVertex]\ =\ Vox\_GetVertexPosition(x,\ y,\ z,\ nNumVertex);}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{comment}{//Add\ face}}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ 6;\ i++)\textcolor{comment}{//\ 6\ faces}}
+\DoxyCodeLine{00506\ \ \ \ \ \{}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((byVFMask\ \&\ (1\ <<\ i))\ ==\ 0)}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//Face\ invisible}}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v0\ =\ fv[i][0];\ \ \textcolor{comment}{//Face,\ Corner}}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v1\ =\ fv[i][1];\ \ \textcolor{comment}{//Face,\ Corner}}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v2\ =\ fv[i][2];\ \ \textcolor{comment}{//Face,\ Corner}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v3\ =\ fv[i][3];\ \ \textcolor{comment}{//Face,\ Corner}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Arrays}}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ pvoxArray-\/>vertices.used;}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>vertices,\ vertComputed[v0]);}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>vertices,\ vertComputed[v1]);}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>vertices,\ vertComputed[v2]);}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>vertices,\ vertComputed[v3]);}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>normals,\ FacesPerSideNormal[i]);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>normals,\ FacesPerSideNormal[i]);}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>normals,\ FacesPerSideNormal[i]);}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ insertArrayVector3(\&pvoxArray-\/>normals,\ FacesPerSideNormal[i]);}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structVoxColor}{VoxColor}}\ col\ =\ pvoxArray-\/>palette[matID];}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ insertArrayColor(\&pvoxArray-\/>colors,\ col);}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ insertArrayColor(\&pvoxArray-\/>colors,\ col);}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ insertArrayColor(\&pvoxArray-\/>colors,\ col);}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ insertArrayColor(\&pvoxArray-\/>colors,\ col);}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \textcolor{comment}{//v0\ -\/\ v1\ -\/\ v2,\ v0\ -\/\ v2\ -\/\ v3}}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 0);}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 2);}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 1);}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 0);}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 3);}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ insertArrayUShort(\&pvoxArray-\/>indices,\ idx\ +\ 2);}
+\DoxyCodeLine{00543\ \ \ \ \ \}}
+\DoxyCodeLine{00544\ \}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{comment}{//\ MagicaVoxel\ *.vox\ file\ format\ Loader}}
+\DoxyCodeLine{00547\ \textcolor{keywordtype}{int}\ Vox\_LoadFromMemory(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ pvoxData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ voxDataSize,\ \mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ pvoxarray)}
+\DoxyCodeLine{00548\ \{}
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{comment}{//\ Read\ VOX\ file}}
+\DoxyCodeLine{00551\ \ \ \ \ \textcolor{comment}{//\ 4\ bytes:\ magic\ number\ ('V'\ 'O'\ 'X'\ 'space')}}
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{comment}{//\ 4\ bytes:\ version\ number\ (current\ version\ is\ 150)}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{comment}{//\ @raysan5:\ Reviewed\ (unsigned\ long)\ -\/>\ (unsigned\ int),\ possible\ issue\ with\ Ubuntu\ 18.04\ 64bit}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{comment}{//\ @raysan5:\ reviewed\ signature\ loading}}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ fileData\ =\ pvoxData;}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ fileDataPtr\ =\ fileData;}
+\DoxyCodeLine{00560\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ endfileDataPtr\ =\ fileData\ +\ voxDataSize;}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{keywordflow}{if}\ (strncmp((\textcolor{keywordtype}{char}*)fileDataPtr,\ \textcolor{stringliteral}{"{}VOX\ "{}},\ 4)\ !=\ 0)}
+\DoxyCodeLine{00563\ \ \ \ \ \{}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VOX\_ERROR\_INVALID\_FORMAT;\ \textcolor{comment}{//"{}Not\ an\ MagicaVoxel\ File\ format"{}}}
+\DoxyCodeLine{00565\ \ \ \ \ \}}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \ \ \ \ fileDataPtr\ +=\ 4;}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{comment}{//\ @raysan5:\ reviewed\ version\ loading}}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ version\ =\ 0;}
+\DoxyCodeLine{00571\ \ \ \ \ version\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr)[0];}
+\DoxyCodeLine{00572\ \ \ \ \ fileDataPtr\ +=\ 4;}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keywordflow}{if}\ (version\ !=\ 150\ \&\&\ version\ !=\ 200)}
+\DoxyCodeLine{00575\ \ \ \ \ \{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VOX\_ERROR\_FILE\_VERSION\_NOT\_MATCH;\ \textcolor{comment}{//"{}MagicaVoxel\ version\ doesn't\ match"{}}}
+\DoxyCodeLine{00577\ \ \ \ \ \}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \ \ \textcolor{comment}{//\ header}}
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{comment}{//4\ bytes:\ chunk\ id}}
+\DoxyCodeLine{00582\ \ \ \ \ \textcolor{comment}{//4\ bytes:\ size\ of\ chunk\ contents\ (n)}}
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{comment}{//4\ bytes:\ total\ size\ of\ children\ chunks(m)}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{comment}{//n\ bytes:\ chunk\ contents}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{comment}{//\{\ child\ chunk\ 0\ \}}}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{comment}{//\{\ child\ chunk\ 1\ \}}}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sizeX,\ sizeY,\ sizeZ;}
+\DoxyCodeLine{00592\ \ \ \ \ sizeX\ =\ sizeY\ =\ sizeZ\ =\ 0;}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numVoxels\ =\ 0;}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordflow}{while}\ (fileDataPtr\ <\ endfileDataPtr)}
+\DoxyCodeLine{00596\ \ \ \ \ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ szChunkName[5];}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ memcpy(szChunkName,\ fileDataPtr,\ 4);}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ szChunkName[4]\ =\ 0;}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ 4;}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ chunkSize\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr);}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{comment}{//unsigned\ long\ chunkTotalChildSize\ =\ *((unsigned\ long*)fileDataPtr);}}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp(szChunkName,\ \textcolor{stringliteral}{"{}SIZE"{}})\ ==\ 0)}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//(4\ bytes\ x\ 3\ :\ x,\ y,\ z\ )\ }}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ sizeX\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr);}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ sizeY\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr);}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ sizeZ\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr);}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Alloc\ vox\ array}}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ Vox\_AllocArray(pvoxarray,\ sizeX,\ sizeZ,\ sizeY);\ \textcolor{comment}{//Reverse\ Y<>Z\ for\ left\ to\ right\ handed\ system}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(szChunkName,\ \textcolor{stringliteral}{"{}XYZI"{}})\ ==\ 0)}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ vx,\ vy,\ vz,\ vi;}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//(numVoxels\ :\ 4\ bytes\ )}}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//(each\ voxel:\ 1\ byte\ x\ 4\ :\ x,\ y,\ z,\ colorIndex\ )\ x\ numVoxels}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ numVoxels\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*)fileDataPtr);}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (numVoxels\ >\ 0)}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vx\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vy\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vz\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vi\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vox\_SetVoxel(pvoxarray,\ vx,\ vz,\ pvoxarray-\/>sizeZ-\/vy-\/1,\ vi);\ \textcolor{comment}{//Reverse\ Y<>Z\ for\ left\ to\ right\ handed\ system}}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numVoxels-\/-\/;}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(szChunkName,\ \textcolor{stringliteral}{"{}RGBA"{}})\ ==\ 0)}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structVoxColor}{VoxColor}}\ col;}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//(each\ pixel:\ 1\ byte\ x\ 4\ :\ r,\ g,\ b,\ a\ )\ x\ 256}}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 256\ -\/\ 1;\ i++)}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col.r\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col.g\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col.b\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col.a\ =\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)fileDataPtr++);}
+\DoxyCodeLine{00655\ }
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pvoxarray-\/>palette[i\ +\ 1]\ =\ col;}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ fileDataPtr\ +=\ chunkSize;}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00664\ \ \ \ \ \}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{comment}{//\ Building\ Mesh}}
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{comment}{//\ \ \ TODO\ compute\ globals\ indices\ array}}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{comment}{//\ Init\ Arrays}}
+\DoxyCodeLine{00671\ \ \ \ \ initArrayVector3(\&pvoxarray-\/>vertices,\ 3\ *\ 1024);}
+\DoxyCodeLine{00672\ \ \ \ \ initArrayVector3(\&pvoxarray-\/>normals,\ 3\ *\ 1024);}
+\DoxyCodeLine{00673\ \ \ \ \ initArrayUShort(\&pvoxarray-\/>indices,\ 3\ *\ 1024);}
+\DoxyCodeLine{00674\ \ \ \ \ initArrayColor(\&pvoxarray-\/>colors,\ 3\ *\ 1024);}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \ \ \ \ \textcolor{comment}{//\ Create\ vertices\ and\ indices\ buffers}}
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{keywordtype}{int}\ x,\ y,\ z;}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00679\ \ \ \ \ \textcolor{keywordflow}{for}\ (x\ =\ 0;\ x\ <=\ pvoxarray-\/>sizeX;\ x++)}
+\DoxyCodeLine{00680\ \ \ \ \ \{}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (z\ =\ 0;\ z\ <=\ pvoxarray-\/>sizeZ;\ z++)}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (y\ =\ 0;\ y\ <=\ pvoxarray-\/>sizeY;\ y++)}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ matID\ =\ Vox\_GetVoxel(pvoxarray,\ x,\ y,\ z);}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (matID\ !=\ 0)}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vox\_Build\_Voxel(pvoxarray,\ x,\ y,\ z,\ matID);}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00690\ \ \ \ \ \}}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{keywordflow}{return}\ VOX\_SUCCESS;}
+\DoxyCodeLine{00693\ \}}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \textcolor{keywordtype}{void}\ Vox\_FreeArrays(\mbox{\hyperlink{structVoxArray3D}{VoxArray3D}}*\ voxarray)}
+\DoxyCodeLine{00696\ \{}
+\DoxyCodeLine{00697\ \ \ \ \ \textcolor{comment}{//\ Free\ chunks}}
+\DoxyCodeLine{00698\ \ \ \ \ \textcolor{keywordflow}{if}\ (voxarray-\/>m\_arrayChunks\ !=\ 0)}
+\DoxyCodeLine{00699\ \ \ \ \ \{}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ voxarray-\/>chunksTotal;\ i++)}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCubeChunk3D}{CubeChunk3D}}*\ chunk\ =\ \&voxarray-\/>m\_arrayChunks[i];}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (chunk-\/>m\_array\ !=\ 0)}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chunk-\/>arraySize\ =\ 0;}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VOX\_FREE(chunk-\/>m\_array);}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ VOX\_FREE(voxarray-\/>m\_arrayChunks);}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ voxarray-\/>m\_arrayChunks\ =\ 0;}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ voxarray-\/>arrayChunksSize\ =\ 0;}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ voxarray-\/>chunksSizeX\ =\ voxarray-\/>chunksSizeY\ =\ voxarray-\/>chunksSizeZ\ =\ 0;}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ voxarray-\/>chunksTotal\ =\ 0;}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ voxarray-\/>chunksAllocated\ =\ 0;}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ voxarray-\/>ChunkFlattenOffset\ =\ 0;}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ voxarray-\/>sizeX\ =\ voxarray-\/>sizeY\ =\ voxarray-\/>sizeZ\ =\ 0;}
+\DoxyCodeLine{00719\ \ \ \ \ \}}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{comment}{//\ Free\ arrays}}
+\DoxyCodeLine{00722\ \ \ \ \ freeArrayVector3(\&voxarray-\/>vertices);}
+\DoxyCodeLine{00723\ \ \ \ \ freeArrayUShort(\&voxarray-\/>indices);}
+\DoxyCodeLine{00724\ \ \ \ \ freeArrayColor(\&voxarray-\/>colors);}
+\DoxyCodeLine{00725\ \}}
+\DoxyCodeLine{00726\ }
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//VOX\_LOADER\_IMPLEMENTATION}}
+
+\end{DoxyCode}

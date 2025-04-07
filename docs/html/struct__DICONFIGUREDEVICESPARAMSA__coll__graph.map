@@ -1,0 +1,9 @@
+<map id="_DICONFIGUREDEVICESPARAMSA" name="_DICONFIGUREDEVICESPARAMSA">
+<area shape="rect" id="Node000001" title=" " alt="" coords="41,181,283,207"/>
+<area shape="rect" id="Node000002" href="$struct__DIACTIONFORMATA.html" title=" " alt="" coords="5,93,161,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,127,153,179,149,183,101,131"/>
+<area shape="rect" id="Node000003" href="$struct__DIACTIONA.html" title=" " alt="" coords="32,5,135,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,45,86,93,81,93,81,45"/>
+<area shape="rect" id="Node000004" href="$struct__DICOLORSET.html" title=" " alt="" coords="186,93,298,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="233,132,215,159,184,183,181,179,211,156,229,129"/>
+</map>

@@ -1,0 +1,1172 @@
+\doxysection{window.\+c}
+\hypertarget{window_8c_source}{}\label{window_8c_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/window.c@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/window.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ GLFW\ 3.4\ -\/\ www.glfw.org}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ 2002-\/2006\ Marcus\ Geelnard}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Copyright\ (c)\ 2006-\/2019\ Camilla\ Löwy\ <elmindreda@glfw.org>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ 2012\ Torsten\ Walluhn\ <tw@mad-\/cad.net>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ This\ software\ is\ provided\ 'as-\/is',\ without\ any\ express\ or\ implied}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ warranty.\ In\ no\ event\ will\ the\ authors\ be\ held\ liable\ for\ any\ damages}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ including\ commercial\ applications,\ and\ to\ alter\ it\ and\ redistribute\ it}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ claim\ that\ you\ wrote\ the\ original\ software.\ If\ you\ use\ this\ software}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ in\ a\ product,\ an\ acknowledgment\ in\ the\ product\ documentation\ would}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ \ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ be\ misrepresented\ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ \ distribution.}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}internal.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <float.h>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ lost\ or\ received\ input\ focus}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//}}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \_glfwInputWindowFocus(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ focused)}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00046\ \ \ \ \ assert(focused\ ==\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ ||\ focused\ ==\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.focus)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ window-\/>callbacks.focus((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ focused);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (!focused)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ key,\ button;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (key\ =\ 0;\ \ key\ <=\ GLFW\_KEY\_LAST;\ \ key++)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>keys[key]\ ==\ \mbox{\hyperlink{group__input_ga2485743d0b59df3791c45951c4195265}{GLFW\_PRESS}})}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ scancode\ =\ \_glfw.platform.getKeyScancode(key);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputKey(window,\ key,\ scancode,\ \mbox{\hyperlink{group__input_gada11d965c4da13090ad336e030e4d11f}{GLFW\_RELEASE}},\ 0);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (button\ =\ 0;\ \ button\ <=\ GLFW\_MOUSE\_BUTTON\_LAST;\ \ button++)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>mouseButtons[button]\ ==\ \mbox{\hyperlink{group__input_ga2485743d0b59df3791c45951c4195265}{GLFW\_PRESS}})}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputMouseClick(window,\ button,\ \mbox{\hyperlink{group__input_gada11d965c4da13090ad336e030e4d11f}{GLFW\_RELEASE}},\ 0);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ moved}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ The\ position\ is\ specified\ in\ content\ area\ relative\ screen\ coordinates}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//}}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ \_glfwInputWindowPos(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.pos)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ window-\/>callbacks.pos((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ x,\ y);}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ been\ resized}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ The\ size\ is\ specified\ in\ screen\ coordinates}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//}}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ \_glfwInputWindowSize(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00089\ \ \ \ \ assert(width\ >=\ 0);}
+\DoxyCodeLine{00090\ \ \ \ \ assert(height\ >=\ 0);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.size)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ window-\/>callbacks.size((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ width,\ height);}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ been\ iconified\ or\ restored}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//}}
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \_glfwInputWindowIconify(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ iconified)}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00101\ \ \ \ \ assert(iconified\ ==\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ ||\ iconified\ ==\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}});}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.iconify)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ window-\/>callbacks.iconify((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ iconified);}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ been\ maximized\ or\ restored}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//}}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ \_glfwInputWindowMaximize(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ GLFWbool\ maximized)}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00112\ \ \ \ \ assert(maximized\ ==\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ ||\ maximized\ ==\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.maximize)}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ window-\/>callbacks.maximize((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ maximized);}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ framebuffer\ has\ been\ resized}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ The\ size\ is\ specified\ in\ pixels}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//}}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ \_glfwInputFramebufferSize(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)}
+\DoxyCodeLine{00122\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00124\ \ \ \ \ assert(width\ >=\ 0);}
+\DoxyCodeLine{00125\ \ \ \ \ assert(height\ >=\ 0);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.fbsize)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ window-\/>callbacks.fbsize((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ width,\ height);}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ content\ scale\ has\ changed}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ The\ scale\ is\ specified\ as\ the\ ratio\ between\ the\ current\ and\ default\ DPI}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{void}\ \_glfwInputWindowContentScale(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \textcolor{keywordtype}{float}\ xscale,\ \textcolor{keywordtype}{float}\ yscale)}
+\DoxyCodeLine{00135\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00137\ \ \ \ \ assert(xscale\ >\ 0.f);}
+\DoxyCodeLine{00138\ \ \ \ \ assert(xscale\ <\ FLT\_MAX);}
+\DoxyCodeLine{00139\ \ \ \ \ assert(yscale\ >\ 0.f);}
+\DoxyCodeLine{00140\ \ \ \ \ assert(yscale\ <\ FLT\_MAX);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.scale)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ window-\/>callbacks.scale((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window,\ xscale,\ yscale);}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ the\ window\ contents\ needs\ updating}}
+\DoxyCodeLine{00147\ \textcolor{comment}{//}}
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ \_glfwInputWindowDamage(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window)}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.refresh)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ window-\/>callbacks.refresh((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window);}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ the\ user\ wishes\ to\ close\ a\ window}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//}}
+\DoxyCodeLine{00158\ \textcolor{keywordtype}{void}\ \_glfwInputWindowCloseRequest(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window)}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ window-\/>shouldClose\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>callbacks.close)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ window-\/>callbacks.close((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window);}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ Notifies\ shared\ code\ that\ a\ window\ has\ changed\ its\ desired\ monitor}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//}}
+\DoxyCodeLine{00170\ \textcolor{keywordtype}{void}\ \_glfwInputWindowMonitor(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window,\ \mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor)}
+\DoxyCodeLine{00171\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00173\ \ \ \ \ window-\/>monitor\ =\ monitor;}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ GLFWAPI\ \mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ \mbox{\hyperlink{group__window_gaaccd00fafe81e2db94e8cdf55721e055}{glfwCreateWindow}}(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__monitor_ga8d9efd1cde9426692c73fe40437d0ae3}{GLFWmonitor}}*\ monitor,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ share)}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{struct__GLFWfbconfig}{\_GLFWfbconfig}}\ fbconfig;}
+\DoxyCodeLine{00186\ \ \ \ \ \mbox{\hyperlink{struct__GLFWctxconfig}{\_GLFWctxconfig}}\ ctxconfig;}
+\DoxyCodeLine{00187\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwndconfig}{\_GLFWwndconfig}}\ wndconfig;}
+\DoxyCodeLine{00188\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ assert(title\ !=\ NULL);}
+\DoxyCodeLine{00191\ \ \ \ \ assert(width\ >=\ 0);}
+\DoxyCodeLine{00192\ \ \ \ \ assert(height\ >=\ 0);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{if}\ (width\ <=\ 0\ ||\ height\ <=\ 0)}
+\DoxyCodeLine{00197\ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ window\ size\ \%ix\%i"{}},}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width,\ height);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ fbconfig\ \ =\ \_glfw.hints.framebuffer;}
+\DoxyCodeLine{00206\ \ \ \ \ ctxconfig\ =\ \_glfw.hints.context;}
+\DoxyCodeLine{00207\ \ \ \ \ wndconfig\ =\ \_glfw.hints.window;}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ wndconfig.width\ \ \ =\ width;}
+\DoxyCodeLine{00210\ \ \ \ \ wndconfig.height\ \ =\ height;}
+\DoxyCodeLine{00211\ \ \ \ \ wndconfig.title\ \ \ =\ title;}
+\DoxyCodeLine{00212\ \ \ \ \ ctxconfig.share\ \ \ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ share;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwIsValidContextConfig(\&ctxconfig))}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ window\ =\ \_glfw\_calloc(1,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}));}
+\DoxyCodeLine{00218\ \ \ \ \ window-\/>next\ =\ \_glfw.windowListHead;}
+\DoxyCodeLine{00219\ \ \ \ \ \_glfw.windowListHead\ =\ window;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a698dcb200562051a7249cb6ae154c71d}{width}}\ \ \ \ \ \ \ =\ width;}
+\DoxyCodeLine{00222\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_ac65942a5f6981695517437a9d571d03c}{height}}\ \ \ \ \ \ =\ height;}
+\DoxyCodeLine{00223\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a6066c4ecd251098700062d3b735dba1b}{redBits}}\ \ \ \ \ =\ fbconfig.redBits;}
+\DoxyCodeLine{00224\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a292fdd281f3485fb3ff102a5bda43faa}{greenBits}}\ \ \ =\ fbconfig.greenBits;}
+\DoxyCodeLine{00225\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_af310977f58d2e3b188175b6e3d314047}{blueBits}}\ \ \ \ =\ fbconfig.blueBits;}
+\DoxyCodeLine{00226\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a791bdd6c7697b09f7e9c97054bf05649}{refreshRate}}\ =\ \_glfw.hints.refreshRate;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ window-\/>monitor\ \ \ \ \ \ \ \ \ \ =\ (\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*)\ monitor;}
+\DoxyCodeLine{00229\ \ \ \ \ window-\/>resizable\ \ \ \ \ \ \ \ =\ wndconfig.resizable;}
+\DoxyCodeLine{00230\ \ \ \ \ window-\/>decorated\ \ \ \ \ \ \ \ =\ wndconfig.decorated;}
+\DoxyCodeLine{00231\ \ \ \ \ window-\/>autoIconify\ \ \ \ \ \ =\ wndconfig.autoIconify;}
+\DoxyCodeLine{00232\ \ \ \ \ window-\/>floating\ \ \ \ \ \ \ \ \ =\ wndconfig.floating;}
+\DoxyCodeLine{00233\ \ \ \ \ window-\/>focusOnShow\ \ \ \ \ \ =\ wndconfig.focusOnShow;}
+\DoxyCodeLine{00234\ \ \ \ \ window-\/>mousePassthrough\ =\ wndconfig.mousePassthrough;}
+\DoxyCodeLine{00235\ \ \ \ \ window-\/>cursorMode\ \ \ \ \ \ \ =\ GLFW\_CURSOR\_NORMAL;}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ window-\/>doublebuffer\ =\ fbconfig.doublebuffer;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ window-\/>minwidth\ \ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00240\ \ \ \ \ window-\/>minheight\ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00241\ \ \ \ \ window-\/>maxwidth\ \ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00242\ \ \ \ \ window-\/>maxheight\ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00243\ \ \ \ \ window-\/>numer\ \ \ \ \ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00244\ \ \ \ \ window-\/>denom\ \ \ \ \ \ \ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00245\ \ \ \ \ window-\/>title\ \ \ \ \ \ \ =\ \_glfw\_strdup(title);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.platform.createWindow(window,\ \&wndconfig,\ \&ctxconfig,\ \&fbconfig))}
+\DoxyCodeLine{00248\ \ \ \ \ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga806747476b7247d292be3711c323ea10}{glfwDestroyWindow}}((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00251\ \ \ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ window;}
+\DoxyCodeLine{00254\ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga8050ddceed9dc6bd9d3aa35666195cd4}{glfwDefaultWindowHints}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00257\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{comment}{//\ The\ default\ is\ OpenGL\ with\ minimum\ version\ 1.0}}
+\DoxyCodeLine{00261\ \ \ \ \ memset(\&\_glfw.hints.context,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw.hints.context));}
+\DoxyCodeLine{00262\ \ \ \ \ \_glfw.hints.context.client\ =\ GLFW\_OPENGL\_API;}
+\DoxyCodeLine{00263\ \ \ \ \ \_glfw.hints.context.source\ =\ GLFW\_NATIVE\_CONTEXT\_API;}
+\DoxyCodeLine{00264\ \ \ \ \ \_glfw.hints.context.major\ \ =\ 1;}
+\DoxyCodeLine{00265\ \ \ \ \ \_glfw.hints.context.minor\ \ =\ 0;}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{comment}{//\ The\ default\ is\ a\ focused,\ visible,\ resizable\ window\ with\ decorations}}
+\DoxyCodeLine{00268\ \ \ \ \ memset(\&\_glfw.hints.window,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw.hints.window));}
+\DoxyCodeLine{00269\ \ \ \ \ \_glfw.hints.window.resizable\ \ \ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00270\ \ \ \ \ \_glfw.hints.window.visible\ \ \ \ \ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00271\ \ \ \ \ \_glfw.hints.window.decorated\ \ \ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00272\ \ \ \ \ \_glfw.hints.window.focused\ \ \ \ \ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00273\ \ \ \ \ \_glfw.hints.window.autoIconify\ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00274\ \ \ \ \ \_glfw.hints.window.centerCursor\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00275\ \ \ \ \ \_glfw.hints.window.focusOnShow\ \ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00276\ \ \ \ \ \_glfw.hints.window.xpos\ \ \ \ \ \ \ \ \ =\ GLFW\_ANY\_POSITION;}
+\DoxyCodeLine{00277\ \ \ \ \ \_glfw.hints.window.ypos\ \ \ \ \ \ \ \ \ =\ GLFW\_ANY\_POSITION;}
+\DoxyCodeLine{00278\ \ \ \ \ \_glfw.hints.window.scaleFramebuffer\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//\ The\ default\ is\ 24\ bits\ of\ color,\ 24\ bits\ of\ depth\ and\ 8\ bits\ of\ stencil,}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{comment}{//\ double\ buffered}}
+\DoxyCodeLine{00282\ \ \ \ \ memset(\&\_glfw.hints.framebuffer,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw.hints.framebuffer));}
+\DoxyCodeLine{00283\ \ \ \ \ \_glfw.hints.framebuffer.redBits\ \ \ \ \ \ =\ 8;}
+\DoxyCodeLine{00284\ \ \ \ \ \_glfw.hints.framebuffer.greenBits\ \ \ \ =\ 8;}
+\DoxyCodeLine{00285\ \ \ \ \ \_glfw.hints.framebuffer.blueBits\ \ \ \ \ =\ 8;}
+\DoxyCodeLine{00286\ \ \ \ \ \_glfw.hints.framebuffer.alphaBits\ \ \ \ =\ 8;}
+\DoxyCodeLine{00287\ \ \ \ \ \_glfw.hints.framebuffer.depthBits\ \ \ \ =\ 24;}
+\DoxyCodeLine{00288\ \ \ \ \ \_glfw.hints.framebuffer.stencilBits\ \ =\ 8;}
+\DoxyCodeLine{00289\ \ \ \ \ \_glfw.hints.framebuffer.doublebuffer\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{comment}{//\ The\ default\ is\ to\ select\ the\ highest\ available\ refresh\ rate}}
+\DoxyCodeLine{00292\ \ \ \ \ \_glfw.hints.refreshRate\ =\ GLFW\_DONT\_CARE;}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga69c40728499720bef8a49aa925ea0efa}{glfwWindowHint}}(\textcolor{keywordtype}{int}\ hint,\ \textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00296\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{switch}\ (hint)}
+\DoxyCodeLine{00300\ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gaf78ed8e417dbcc1e354906cc2708c982}{GLFW\_RED\_BITS}}:}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.redBits\ =\ value;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafba3b72638c914e5fb8a237dd4c50d4d}{GLFW\_GREEN\_BITS}}:}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.greenBits\ =\ value;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gab292ea403db6d514537b515311bf9ae3}{GLFW\_BLUE\_BITS}}:}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.blueBits\ =\ value;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafed79a3f468997877da86c449bd43e8c}{GLFW\_ALPHA\_BITS}}:}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.alphaBits\ =\ value;}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga318a55eac1fee57dfe593b6d38149d07}{GLFW\_DEPTH\_BITS}}:}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.depthBits\ =\ value;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5339890a45a1fb38e93cb9fcc5fd069d}{GLFW\_STENCIL\_BITS}}:}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.stencilBits\ =\ value;}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gaead34a9a683b2bc20eecf30ba738bfc6}{GLFW\_ACCUM\_RED\_BITS}}:}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.accumRedBits\ =\ value;}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga65713cee1326f8e9d806fdf93187b471}{GLFW\_ACCUM\_GREEN\_BITS}}:}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.accumGreenBits\ =\ value;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga22bbe9104a8ce1f8b88fb4f186aa36ce}{GLFW\_ACCUM\_BLUE\_BITS}}:}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.accumBlueBits\ =\ value;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gae829b55591c18169a40ab4067a041b1f}{GLFW\_ACCUM\_ALPHA\_BITS}}:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.accumAlphaBits\ =\ value;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gab05108c5029443b371112b031d1fa174}{GLFW\_AUX\_BUFFERS}}:}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.auxBuffers\ =\ value;}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga83d991efca02537e2d69969135b77b03}{GLFW\_STEREO}}:}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.stereo\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga714a5d569e8a274ea58fdfa020955339}{GLFW\_DOUBLEBUFFER}}:}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.doublebuffer\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga60a0578c3b9449027d683a9c6abb9f14}{GLFW\_TRANSPARENT\_FRAMEBUFFER}}:}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.transparent\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga2cdf86fdcb7722fb8829c4e201607535}{GLFW\_SAMPLES}}:}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.samples\ =\ value;}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga444a8f00414a63220591f9fdb7b5642b}{GLFW\_SRGB\_CAPABLE}}:}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.framebuffer.sRGB\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gadba13c7a1b3aa40831eb2beedbd5bd1d}{GLFW\_RESIZABLE}}:}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.resizable\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga21b854d36314c94d65aed84405b2f25e}{GLFW\_DECORATED}}:}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.decorated\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga54ddb14825a1541a56e22afb5f832a9e}{GLFW\_FOCUSED}}:}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.focused\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga9d9874fc928200136a6dcdad726aa252}{GLFW\_AUTO\_ICONIFY}}:}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.autoIconify\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga7fb0be51407783b41adbf5bec0b09d80}{GLFW\_FLOATING}}:}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.floating\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gad8ccb396253ad0b72c6d4c917eb38a03}{GLFW\_MAXIMIZED}}:}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.maximized\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafb3cdc45297e06d8f1eb13adc69ca6c4}{GLFW\_VISIBLE}}:}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.visible\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gaededa6b208b8e31343da56bb349c6fb2}{GLFW\_POSITION\_X}}:}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.xpos\ =\ value;}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga6b3ccf63683c81f479e2a98f5027200e}{GLFW\_POSITION\_Y}}:}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.ypos\ =\ value;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ GLFW\_WIN32\_KEYBOARD\_MENU:}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.win32.keymenu\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gace10f3846571de62243b46f75d978487}{GLFW\_WIN32\_SHOWDEFAULT}}:}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.win32.showDefault\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga53c84ed2ddd94e15bbd44b1f6f7feafc}{GLFW\_COCOA\_GRAPHICS\_SWITCHING}}:}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.nsgl.offline\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga620bc4280c7eab81ac9f02204500ed47}{GLFW\_SCALE\_TO\_MONITOR}}:}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.scaleToMonitor\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gaa5a9c6b4722670fd33d6e8a88f2e21bc}{GLFW\_SCALE\_FRAMEBUFFER}}:}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gab6ef2d02eb55800d249ccf1af253c35e}{GLFW\_COCOA\_RETINA\_FRAMEBUFFER}}:}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.scaleFramebuffer\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5ac0847c0aa0b3619f2855707b8a7a77}{GLFW\_CENTER\_CURSOR}}:}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.centerCursor\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafa94b1da34bfd6488c0d709761504dfc}{GLFW\_FOCUS\_ON\_SHOW}}:}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.focusOnShow\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga88981797d29800808ec242274ab5c03a}{GLFW\_MOUSE\_PASSTHROUGH}}:}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.window.mousePassthrough\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga649309cf72a3d3de5b1348ca7936c95b}{GLFW\_CLIENT\_API}}:}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.client\ =\ value;}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5154cebfcd831c1cc63a4d5ac9bb4486}{GLFW\_CONTEXT\_CREATION\_API}}:}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.source\ =\ value;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafe5e4922de1f9932d7e9849bb053b0c0}{GLFW\_CONTEXT\_VERSION\_MAJOR}}:}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.major\ =\ value;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga31aca791e4b538c4e4a771eb95cc2d07}{GLFW\_CONTEXT\_VERSION\_MINOR}}:}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.minor\ =\ value;}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gade3593916b4c507900aa2d6844810e00}{GLFW\_CONTEXT\_ROBUSTNESS}}:}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.robustness\ =\ value;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga13d24b12465da8b28985f46c8557925b}{GLFW\_OPENGL\_FORWARD\_COMPAT}}:}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.forward\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga8d55e3afec73c7de0509c3b7ad1d9e3f}{GLFW\_CONTEXT\_DEBUG}}:}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.debug\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5a52fdfd46d8249c211f923675728082}{GLFW\_CONTEXT\_NO\_ERROR}}:}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.noerror\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga44f3a6b4261fbe351e0b950b0f372e12}{GLFW\_OPENGL\_PROFILE}}:}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.profile\ =\ value;}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga72b648a8378fe3310c7c7bbecc0f7be6}{GLFW\_CONTEXT\_RELEASE\_BEHAVIOR}}:}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.context.release\ =\ value;}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga0f20825e6e47ee8ba389024519682212}{GLFW\_REFRESH\_RATE}}:}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.hints.refreshRate\ =\ value;}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00434\ \ \ \ \ \}}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ window\ hint\ 0x\%08X"{}},\ hint);}
+\DoxyCodeLine{00437\ \}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga3c2270562d7ba13d92680ba1090adafe}{glfwWindowHintString}}(\textcolor{keywordtype}{int}\ hint,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value)}
+\DoxyCodeLine{00440\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ assert(value\ !=\ NULL);}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordflow}{switch}\ (hint)}
+\DoxyCodeLine{00446\ \ \ \ \ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga70fa0fbc745de6aa824df79a580e84b5}{GLFW\_COCOA\_FRAME\_NAME}}:}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(\_glfw.hints.window.ns.frameName,\ value,}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\_glfw.hints.window.ns.frameName)\ -\/\ 1);}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gae5a9ea2fccccd92edbd343fc56461114}{GLFW\_X11\_CLASS\_NAME}}:}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(\_glfw.hints.window.x11.className,\ value,}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\_glfw.hints.window.x11.className)\ -\/\ 1);}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga494c3c0d911e4b860b946530a3e389e8}{GLFW\_X11\_INSTANCE\_NAME}}:}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(\_glfw.hints.window.x11.instanceName,\ value,}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\_glfw.hints.window.x11.instanceName)\ -\/\ 1);}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafbf1ce7a4362c75e602a4df9e1bdecd3}{GLFW\_WAYLAND\_APP\_ID}}:}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(\_glfw.hints.window.wl.appId,\ value,}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\_glfw.hints.window.wl.appId)\ -\/\ 1);}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00463\ \ \ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ window\ hint\ string\ 0x\%08X"{}},\ hint);}
+\DoxyCodeLine{00466\ \}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga806747476b7247d292be3711c323ea10}{glfwDestroyWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00469\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{comment}{//\ Allow\ closing\ of\ NULL\ (to\ match\ the\ behavior\ of\ free)}}
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keywordflow}{if}\ (window\ ==\ NULL)}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{comment}{//\ Clear\ all\ callbacks\ to\ avoid\ exposing\ a\ half\ torn-\/down\ window\ object}}
+\DoxyCodeLine{00479\ \ \ \ \ memset(\&window-\/>callbacks,\ 0,\ \textcolor{keyword}{sizeof}(window-\/>callbacks));}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{comment}{//\ The\ window's\ context\ must\ not\ be\ current\ on\ another\ thread\ when\ the}}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{comment}{//\ window\ is\ destroyed}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{if}\ (window\ ==\ \_glfwPlatformGetTls(\&\_glfw.contextSlot))}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__context_gafd76c93e15ec8b0b90506a9936a46185}{glfwMakeContextCurrent}}(NULL);}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \_glfw.platform.destroyWindow(window);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{comment}{//\ Unlink\ window\ from\ global\ linked\ list}}
+\DoxyCodeLine{00489\ \ \ \ \ \{}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}**\ prev\ =\ \&\_glfw.windowListHead;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (*prev\ !=\ window)}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ prev\ =\ \&((*prev)-\/>next);}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ *prev\ =\ window-\/>next;}
+\DoxyCodeLine{00496\ \ \ \ \ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \_glfw\_free(window-\/>title);}
+\DoxyCodeLine{00499\ \ \ \ \ \_glfw\_free(window);}
+\DoxyCodeLine{00500\ \}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__window_gaa6162f67dfa38b8beda2fea623649332}{glfwWindowShouldClose}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00503\ \{}
+\DoxyCodeLine{00504\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00505\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(0);}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>shouldClose;}
+\DoxyCodeLine{00509\ \}}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga1cadeda7a1e2f224e06a8415d30741aa}{glfwSetWindowShouldClose}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00512\ \{}
+\DoxyCodeLine{00513\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00514\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00517\ \ \ \ \ window-\/>shouldClose\ =\ value;}
+\DoxyCodeLine{00518\ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ GLFWAPI\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{group__window_ga950a05eb8b012928ffaecdd1d41a62b4}{glfwGetWindowTitle}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00521\ \{}
+\DoxyCodeLine{00522\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00523\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>title;}
+\DoxyCodeLine{00528\ \}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga861ed3414ab8120e2f74151a666ed1dc}{glfwSetWindowTitle}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title)}
+\DoxyCodeLine{00531\ \{}
+\DoxyCodeLine{00532\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00533\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00534\ \ \ \ \ assert(title\ !=\ NULL);}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{keywordtype}{char}*\ prev\ =\ window-\/>title;}
+\DoxyCodeLine{00539\ \ \ \ \ window-\/>title\ =\ \_glfw\_strdup(title);}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \ \ \ \ \_glfw.platform.setWindowTitle(window,\ title);}
+\DoxyCodeLine{00542\ \ \ \ \ \_glfw\_free(prev);}
+\DoxyCodeLine{00543\ \}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga182987a1a62a41a924842b9473d560df}{glfwSetWindowIcon}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ count,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGLFWimage}{GLFWimage}}*\ images)}
+\DoxyCodeLine{00547\ \{}
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00549\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00552\ \ \ \ \ assert(count\ >=\ 0);}
+\DoxyCodeLine{00553\ \ \ \ \ assert(count\ ==\ 0\ ||\ images\ !=\ NULL);}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ <\ 0)}
+\DoxyCodeLine{00558\ \ \ \ \ \{}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},\ \textcolor{stringliteral}{"{}Invalid\ image\ count\ for\ window\ icon"{}});}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00561\ \ \ \ \ \}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ count;\ i++)}
+\DoxyCodeLine{00564\ \ \ \ \ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ assert(images[i].pixels\ !=\ NULL);}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (images[i].width\ <=\ 0\ ||\ images[i].height\ <=\ 0)}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ image\ dimensions\ for\ window\ icon"{}});}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00573\ \ \ \ \ \}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \_glfw.platform.setWindowIcon(window,\ count,\ images);}
+\DoxyCodeLine{00576\ \}}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga0076a8591ef7494d359730cf2250b45b}{glfwGetWindowPos}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}*\ xpos,\ \textcolor{keywordtype}{int}*\ ypos)}
+\DoxyCodeLine{00579\ \{}
+\DoxyCodeLine{00580\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00581\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keywordflow}{if}\ (xpos)}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ *xpos\ =\ 0;}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordflow}{if}\ (ypos)}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ *ypos\ =\ 0;}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00589\ \ \ \ \ \_glfw.platform.getWindowPos(window,\ xpos,\ ypos);}
+\DoxyCodeLine{00590\ \}}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga0dc8d880a0d87be16d3ea8114561f6f0}{glfwSetWindowPos}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ xpos,\ \textcolor{keywordtype}{int}\ ypos)}
+\DoxyCodeLine{00593\ \{}
+\DoxyCodeLine{00594\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00595\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor)}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ \_glfw.platform.setWindowPos(window,\ xpos,\ ypos);}
+\DoxyCodeLine{00603\ \}}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga7feb769ebb3f3d21579b5a3fb07be76e}{glfwGetWindowSize}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height)}
+\DoxyCodeLine{00606\ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00608\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \ \ \textcolor{keywordflow}{if}\ (width)}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ *width\ =\ 0;}
+\DoxyCodeLine{00612\ \ \ \ \ \textcolor{keywordflow}{if}\ (height)}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ *height\ =\ 0;}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00616\ \ \ \ \ \_glfw.platform.getWindowSize(window,\ width,\ height);}
+\DoxyCodeLine{00617\ \}}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gae54d1f4915ded15e267ddd3f41496cd2}{glfwSetWindowSize}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)}
+\DoxyCodeLine{00620\ \{}
+\DoxyCodeLine{00621\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00622\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00623\ \ \ \ \ assert(width\ >=\ 0);}
+\DoxyCodeLine{00624\ \ \ \ \ assert(height\ >=\ 0);}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00627\ }
+\DoxyCodeLine{00628\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a698dcb200562051a7249cb6ae154c71d}{width}}\ \ =\ width;}
+\DoxyCodeLine{00629\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_ac65942a5f6981695517437a9d571d03c}{height}}\ =\ height;}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \ \ \_glfw.platform.setWindowSize(window,\ width,\ height);}
+\DoxyCodeLine{00632\ \}}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga8af814fc98d786d1de2505b40b707de8}{glfwSetWindowSizeLimits}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ minwidth,\ \textcolor{keywordtype}{int}\ minheight,}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ maxwidth,\ \textcolor{keywordtype}{int}\ maxheight)}
+\DoxyCodeLine{00637\ \{}
+\DoxyCodeLine{00638\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00639\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordflow}{if}\ (minwidth\ !=\ GLFW\_DONT\_CARE\ \&\&\ minheight\ !=\ GLFW\_DONT\_CARE)}
+\DoxyCodeLine{00644\ \ \ \ \ \{}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (minwidth\ <\ 0\ ||\ minheight\ <\ 0)}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ window\ minimum\ size\ \%ix\%i"{}},}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minwidth,\ minheight);}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00652\ \ \ \ \ \}}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{keywordflow}{if}\ (maxwidth\ !=\ GLFW\_DONT\_CARE\ \&\&\ maxheight\ !=\ GLFW\_DONT\_CARE)}
+\DoxyCodeLine{00655\ \ \ \ \ \{}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxwidth\ <\ 0\ ||\ maxheight\ <\ 0\ ||}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ maxwidth\ <\ minwidth\ ||\ maxheight\ <\ minheight)}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ window\ maximum\ size\ \%ix\%i"{}},}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxwidth,\ maxheight);}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00664\ \ \ \ \ \}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ window-\/>minwidth\ \ =\ minwidth;}
+\DoxyCodeLine{00667\ \ \ \ \ window-\/>minheight\ =\ minheight;}
+\DoxyCodeLine{00668\ \ \ \ \ window-\/>maxwidth\ \ =\ maxwidth;}
+\DoxyCodeLine{00669\ \ \ \ \ window-\/>maxheight\ =\ maxheight;}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor\ ||\ !window-\/>resizable)}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ \ \ \ \ \_glfw.platform.setWindowSizeLimits(window,}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minwidth,\ minheight,}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxwidth,\ maxheight);}
+\DoxyCodeLine{00677\ \}}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00679\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gad2ae94a2c5ee1c46a36e13a8f4ac68ac}{glfwSetWindowAspectRatio}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ numer,\ \textcolor{keywordtype}{int}\ denom)}
+\DoxyCodeLine{00680\ \{}
+\DoxyCodeLine{00681\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00682\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00683\ \ \ \ \ assert(numer\ !=\ 0);}
+\DoxyCodeLine{00684\ \ \ \ \ assert(denom\ !=\ 0);}
+\DoxyCodeLine{00685\ }
+\DoxyCodeLine{00686\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{keywordflow}{if}\ (numer\ !=\ GLFW\_DONT\_CARE\ \&\&\ denom\ !=\ GLFW\_DONT\_CARE)}
+\DoxyCodeLine{00689\ \ \ \ \ \{}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (numer\ <=\ 0\ ||\ denom\ <=\ 0)}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ window\ aspect\ ratio\ \%i:\%i"{}},}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numer,\ denom);}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00697\ \ \ \ \ \}}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \ \ \ \ window-\/>numer\ =\ numer;}
+\DoxyCodeLine{00700\ \ \ \ \ window-\/>denom\ =\ denom;}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00702\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor\ ||\ !window-\/>resizable)}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \ \ \ \ \_glfw.platform.setWindowAspectRatio(window,\ numer,\ denom);}
+\DoxyCodeLine{00706\ \}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gaf7d17f3534b4b6dc9a6f905e3a240b7e}{glfwGetFramebufferSize}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height)}
+\DoxyCodeLine{00709\ \{}
+\DoxyCodeLine{00710\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00711\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \textcolor{keywordflow}{if}\ (width)}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ *width\ =\ 0;}
+\DoxyCodeLine{00715\ \ \ \ \ \textcolor{keywordflow}{if}\ (height)}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ *height\ =\ 0;}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00719\ \ \ \ \ \_glfw.platform.getFramebufferSize(window,\ width,\ height);}
+\DoxyCodeLine{00720\ \}}
+\DoxyCodeLine{00721\ }
+\DoxyCodeLine{00722\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gaad46cdaae2eb732f68d3a1499a7c5409}{glfwGetWindowFrameSize}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ left,\ \textcolor{keywordtype}{int}*\ top,}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ right,\ \textcolor{keywordtype}{int}*\ bottom)}
+\DoxyCodeLine{00725\ \{}
+\DoxyCodeLine{00726\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00727\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{keywordflow}{if}\ (left)}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ *left\ =\ 0;}
+\DoxyCodeLine{00731\ \ \ \ \ \textcolor{keywordflow}{if}\ (top)}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ *top\ =\ 0;}
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keywordflow}{if}\ (right)}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ *right\ =\ 0;}
+\DoxyCodeLine{00735\ \ \ \ \ \textcolor{keywordflow}{if}\ (bottom)}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ *bottom\ =\ 0;}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00739\ \ \ \ \ \_glfw.platform.getWindowFrameSize(window,\ left,\ top,\ right,\ bottom);}
+\DoxyCodeLine{00740\ \}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga72718c983a9fffaa27f786bfe7d1c9ee}{glfwGetWindowContentScale}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ xscale,\ \textcolor{keywordtype}{float}*\ yscale)}
+\DoxyCodeLine{00744\ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00746\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{keywordflow}{if}\ (xscale)}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ *xscale\ =\ 0.f;}
+\DoxyCodeLine{00750\ \ \ \ \ \textcolor{keywordflow}{if}\ (yscale)}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ *yscale\ =\ 0.f;}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00754\ \ \ \ \ \_glfw.platform.getWindowContentScale(window,\ xscale,\ yscale);}
+\DoxyCodeLine{00755\ \}}
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ GLFWAPI\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{group__window_gad124d57a1c1c519f60c9765cd0c2a89c}{glfwGetWindowOpacity}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00758\ \{}
+\DoxyCodeLine{00759\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00760\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(0.f);}
+\DoxyCodeLine{00763\ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.getWindowOpacity(window);}
+\DoxyCodeLine{00764\ \}}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga62a784fe328f227727cbcd0d07480ff3}{glfwSetWindowOpacity}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{float}\ opacity)}
+\DoxyCodeLine{00767\ \{}
+\DoxyCodeLine{00768\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00769\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00770\ \ \ \ \ assert(opacity\ ==\ opacity);}
+\DoxyCodeLine{00771\ \ \ \ \ assert(opacity\ >=\ 0.f);}
+\DoxyCodeLine{00772\ \ \ \ \ assert(opacity\ <=\ 1.f);}
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00775\ }
+\DoxyCodeLine{00776\ \ \ \ \ \textcolor{keywordflow}{if}\ (opacity\ !=\ opacity\ ||\ opacity\ <\ 0.f\ ||\ opacity\ >\ 1.f)}
+\DoxyCodeLine{00777\ \ \ \ \ \{}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},\ \textcolor{stringliteral}{"{}Invalid\ window\ opacity\ \%f"{}},\ opacity);}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00780\ \ \ \ \ \}}
+\DoxyCodeLine{00781\ }
+\DoxyCodeLine{00782\ \ \ \ \ \_glfw.platform.setWindowOpacity(window,\ opacity);}
+\DoxyCodeLine{00783\ \}}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00785\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga24274e3c6ecd44e11fec5e6b66e4d7f3}{glfwIconifyWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00786\ \{}
+\DoxyCodeLine{00787\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00788\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00791\ \ \ \ \ \_glfw.platform.iconifyWindow(window);}
+\DoxyCodeLine{00792\ \}}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga1e29caf0b819f578b04db52fff17256c}{glfwRestoreWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00795\ \{}
+\DoxyCodeLine{00796\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00797\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00800\ \ \ \ \ \_glfw.platform.restoreWindow(window);}
+\DoxyCodeLine{00801\ \}}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga4f825a55367d3fabde3d06e7f30128e8}{glfwMaximizeWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00804\ \{}
+\DoxyCodeLine{00805\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00806\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00807\ }
+\DoxyCodeLine{00808\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor)}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00812\ }
+\DoxyCodeLine{00813\ \ \ \ \ \_glfw.platform.maximizeWindow(window);}
+\DoxyCodeLine{00814\ \}}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga7945bcdff9e5e058cf36505d6873ed8c}{glfwShowWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00817\ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00819\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00820\ }
+\DoxyCodeLine{00821\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00822\ }
+\DoxyCodeLine{00823\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor)}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00826\ \ \ \ \ \_glfw.platform.showWindow(window);}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>focusOnShow)}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \_glfw.platform.focusWindow(window);}
+\DoxyCodeLine{00830\ \}}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gad0c9629abb49447bedd28080642b8538}{glfwRequestWindowAttention}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00833\ \{}
+\DoxyCodeLine{00834\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00835\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ \ \ \ \ \_glfw.platform.requestWindowAttention(window);}
+\DoxyCodeLine{00840\ \}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gaa17e287d521544bdeceafa09ac036e20}{glfwHideWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00843\ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00845\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00848\ }
+\DoxyCodeLine{00849\ \ \ \ \ \textcolor{keywordflow}{if}\ (window-\/>monitor)}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ \ \ \ \ \_glfw.platform.hideWindow(window);}
+\DoxyCodeLine{00853\ \}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00855\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga0da0e3daaa2d100f44a115c09077b510}{glfwFocusWindow}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00856\ \{}
+\DoxyCodeLine{00857\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00858\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00861\ }
+\DoxyCodeLine{00862\ \ \ \ \ \_glfw.platform.focusWindow(window);}
+\DoxyCodeLine{00863\ \}}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__window_ga1bb0c7e100418e284dbb800789c63d40}{glfwGetWindowAttrib}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ attrib)}
+\DoxyCodeLine{00866\ \{}
+\DoxyCodeLine{00867\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00868\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00869\ }
+\DoxyCodeLine{00870\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(0);}
+\DoxyCodeLine{00871\ }
+\DoxyCodeLine{00872\ \ \ \ \ \textcolor{keywordflow}{switch}\ (attrib)}
+\DoxyCodeLine{00873\ \ \ \ \ \{}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga54ddb14825a1541a56e22afb5f832a9e}{GLFW\_FOCUSED}}:}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.windowFocused(window);}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga39d44b7c056e55e581355a92d240b58a}{GLFW\_ICONIFIED}}:}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.windowIconified(window);}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafb3cdc45297e06d8f1eb13adc69ca6c4}{GLFW\_VISIBLE}}:}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.windowVisible(window);}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gad8ccb396253ad0b72c6d4c917eb38a03}{GLFW\_MAXIMIZED}}:}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.windowMaximized(window);}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga8665c71c6fa3d22425c6a0e8a3f89d8a}{GLFW\_HOVERED}}:}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.windowHovered(window);}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafa94b1da34bfd6488c0d709761504dfc}{GLFW\_FOCUS\_ON\_SHOW}}:}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>focusOnShow;}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga88981797d29800808ec242274ab5c03a}{GLFW\_MOUSE\_PASSTHROUGH}}:}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>mousePassthrough;}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga60a0578c3b9449027d683a9c6abb9f14}{GLFW\_TRANSPARENT\_FRAMEBUFFER}}:}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.framebufferTransparent(window);}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gadba13c7a1b3aa40831eb2beedbd5bd1d}{GLFW\_RESIZABLE}}:}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>resizable;}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga21b854d36314c94d65aed84405b2f25e}{GLFW\_DECORATED}}:}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>decorated;}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga7fb0be51407783b41adbf5bec0b09d80}{GLFW\_FLOATING}}:}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>floating;}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga9d9874fc928200136a6dcdad726aa252}{GLFW\_AUTO\_ICONIFY}}:}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>autoIconify;}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga714a5d569e8a274ea58fdfa020955339}{GLFW\_DOUBLEBUFFER}}:}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>doublebuffer;}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga649309cf72a3d3de5b1348ca7936c95b}{GLFW\_CLIENT\_API}}:}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.client;}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5154cebfcd831c1cc63a4d5ac9bb4486}{GLFW\_CONTEXT\_CREATION\_API}}:}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.source;}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafe5e4922de1f9932d7e9849bb053b0c0}{GLFW\_CONTEXT\_VERSION\_MAJOR}}:}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.major;}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga31aca791e4b538c4e4a771eb95cc2d07}{GLFW\_CONTEXT\_VERSION\_MINOR}}:}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.minor;}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafb9475071aa77c6fb05ca5a5c8678a08}{GLFW\_CONTEXT\_REVISION}}:}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.revision;}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gade3593916b4c507900aa2d6844810e00}{GLFW\_CONTEXT\_ROBUSTNESS}}:}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.robustness;}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga13d24b12465da8b28985f46c8557925b}{GLFW\_OPENGL\_FORWARD\_COMPAT}}:}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.forward;}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga8d55e3afec73c7de0509c3b7ad1d9e3f}{GLFW\_CONTEXT\_DEBUG}}:}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.debug;}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga44f3a6b4261fbe351e0b950b0f372e12}{GLFW\_OPENGL\_PROFILE}}:}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.profile;}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga72b648a8378fe3310c7c7bbecc0f7be6}{GLFW\_CONTEXT\_RELEASE\_BEHAVIOR}}:}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.release;}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga5a52fdfd46d8249c211f923675728082}{GLFW\_CONTEXT\_NO\_ERROR}}:}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>context.noerror;}
+\DoxyCodeLine{00922\ \ \ \ \ \}}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ window\ attribute\ 0x\%08X"{}},\ attrib);}
+\DoxyCodeLine{00925\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00926\ \}}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gad39f43f07856efcf3d656426a9284c75}{glfwSetWindowAttrib}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{int}\ attrib,\ \textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00929\ \{}
+\DoxyCodeLine{00930\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00931\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00934\ }
+\DoxyCodeLine{00935\ \ \ \ \ value\ =\ value\ ?\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}\ :\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00936\ }
+\DoxyCodeLine{00937\ \ \ \ \ \textcolor{keywordflow}{switch}\ (attrib)}
+\DoxyCodeLine{00938\ \ \ \ \ \{}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga9d9874fc928200136a6dcdad726aa252}{GLFW\_AUTO\_ICONIFY}}:}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>autoIconify\ =\ value;}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gadba13c7a1b3aa40831eb2beedbd5bd1d}{GLFW\_RESIZABLE}}:}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>resizable\ =\ value;}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!window-\/>monitor)}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.platform.setWindowResizable(window,\ value);}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga21b854d36314c94d65aed84405b2f25e}{GLFW\_DECORATED}}:}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>decorated\ =\ value;}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!window-\/>monitor)}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.platform.setWindowDecorated(window,\ value);}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga7fb0be51407783b41adbf5bec0b09d80}{GLFW\_FLOATING}}:}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>floating\ =\ value;}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!window-\/>monitor)}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.platform.setWindowFloating(window,\ value);}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_gafa94b1da34bfd6488c0d709761504dfc}{GLFW\_FOCUS\_ON\_SHOW}}:}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>focusOnShow\ =\ value;}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00964\ }
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__window_ga88981797d29800808ec242274ab5c03a}{GLFW\_MOUSE\_PASSTHROUGH}}:}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ window-\/>mousePassthrough\ =\ value;}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.platform.setWindowMousePassthrough(window,\ value);}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00969\ \ \ \ \ \}}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ window\ attribute\ 0x\%08X"{}},\ attrib);}
+\DoxyCodeLine{00972\ \}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ GLFWAPI\ \mbox{\hyperlink{group__monitor_ga8d9efd1cde9426692c73fe40437d0ae3}{GLFWmonitor}}*\ \mbox{\hyperlink{group__window_gad441645a53bc9274a0ee163d40f0c637}{glfwGetWindowMonitor}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{00975\ \{}
+\DoxyCodeLine{00976\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{00977\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{00980\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{group__monitor_ga8d9efd1cde9426692c73fe40437d0ae3}{GLFWmonitor}}*)\ window-\/>monitor;}
+\DoxyCodeLine{00981\ \}}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00983\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga12fabf78575e59c00f822f323ae0b6ae}{glfwSetWindowMonitor}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ wh,}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__monitor_ga8d9efd1cde9426692c73fe40437d0ae3}{GLFWmonitor}}*\ mh,}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ xpos,\ \textcolor{keywordtype}{int}\ ypos,}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ refreshRate)}
+\DoxyCodeLine{00988\ \{}
+\DoxyCodeLine{00989\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ wh;}
+\DoxyCodeLine{00990\ \ \ \ \ \mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor\ =\ (\mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*)\ mh;}
+\DoxyCodeLine{00991\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{00992\ \ \ \ \ assert(width\ >=\ 0);}
+\DoxyCodeLine{00993\ \ \ \ \ assert(height\ >=\ 0);}
+\DoxyCodeLine{00994\ }
+\DoxyCodeLine{00995\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{00997\ \ \ \ \ \textcolor{keywordflow}{if}\ (width\ <=\ 0\ ||\ height\ <=\ 0)}
+\DoxyCodeLine{00998\ \ \ \ \ \{}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ window\ size\ \%ix\%i"{}},}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width,\ height);}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01003\ \ \ \ \ \}}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01005\ \ \ \ \ \textcolor{keywordflow}{if}\ (refreshRate\ <\ 0\ \&\&\ refreshRate\ !=\ GLFW\_DONT\_CARE)}
+\DoxyCodeLine{01006\ \ \ \ \ \{}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ refresh\ rate\ \%i"{}},}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ refreshRate);}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01011\ \ \ \ \ \}}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01013\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a698dcb200562051a7249cb6ae154c71d}{width}}\ \ \ \ \ \ \ =\ width;}
+\DoxyCodeLine{01014\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_ac65942a5f6981695517437a9d571d03c}{height}}\ \ \ \ \ \ =\ height;}
+\DoxyCodeLine{01015\ \ \ \ \ window-\/>videoMode.\mbox{\hyperlink{structGLFWvidmode_a791bdd6c7697b09f7e9c97054bf05649}{refreshRate}}\ =\ refreshRate;}
+\DoxyCodeLine{01016\ }
+\DoxyCodeLine{01017\ \ \ \ \ \_glfw.platform.setWindowMonitor(window,\ monitor,}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xpos,\ ypos,\ width,\ height,}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ refreshRate);}
+\DoxyCodeLine{01020\ \}}
+\DoxyCodeLine{01021\ }
+\DoxyCodeLine{01022\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gacc9e68faee3c1763b54cd9bc405cf43e}{glfwSetWindowUserPointer}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,\ \textcolor{keywordtype}{void}*\ pointer)}
+\DoxyCodeLine{01023\ \{}
+\DoxyCodeLine{01024\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01025\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01027\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{01028\ \ \ \ \ window-\/>userPointer\ =\ pointer;}
+\DoxyCodeLine{01029\ \}}
+\DoxyCodeLine{01030\ }
+\DoxyCodeLine{01031\ GLFWAPI\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{group__window_gad07c1ae8809c4f47e55ad8cc3f60e794}{glfwGetWindowUserPointer}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle)}
+\DoxyCodeLine{01032\ \{}
+\DoxyCodeLine{01033\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01034\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01037\ \ \ \ \ \textcolor{keywordflow}{return}\ window-\/>userPointer;}
+\DoxyCodeLine{01038\ \}}
+\DoxyCodeLine{01039\ }
+\DoxyCodeLine{01040\ GLFWAPI\ \mbox{\hyperlink{group__window_gabe287973a21a8f927cde4db06b8dcbe9}{GLFWwindowposfun}}\ \mbox{\hyperlink{group__window_ga517b6e80b982efa06e9b8ca89d4a75a6}{glfwSetWindowPosCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_gabe287973a21a8f927cde4db06b8dcbe9}{GLFWwindowposfun}}\ cbfun)}
+\DoxyCodeLine{01042\ \{}
+\DoxyCodeLine{01043\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01044\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01045\ }
+\DoxyCodeLine{01046\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01047\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_gabe287973a21a8f927cde4db06b8dcbe9}{GLFWwindowposfun}},\ window-\/>callbacks.pos,\ cbfun);}
+\DoxyCodeLine{01048\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01049\ \}}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01051\ GLFWAPI\ \mbox{\hyperlink{group__window_gaec0282944bb810f6f3163ec02da90350}{GLFWwindowsizefun}}\ \mbox{\hyperlink{group__window_gab0754f8d5c7c4d5cae2a9937a0e00bc5}{glfwSetWindowSizeCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_gaec0282944bb810f6f3163ec02da90350}{GLFWwindowsizefun}}\ cbfun)}
+\DoxyCodeLine{01053\ \{}
+\DoxyCodeLine{01054\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01055\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01056\ }
+\DoxyCodeLine{01057\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01058\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_gaec0282944bb810f6f3163ec02da90350}{GLFWwindowsizefun}},\ window-\/>callbacks.size,\ cbfun);}
+\DoxyCodeLine{01059\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01060\ \}}
+\DoxyCodeLine{01061\ }
+\DoxyCodeLine{01062\ GLFWAPI\ \mbox{\hyperlink{group__window_gabf859b936d80961b7d39013a9694cc3e}{GLFWwindowclosefun}}\ \mbox{\hyperlink{group__window_ga693d778815971a06e1a5a7bcdeff3d36}{glfwSetWindowCloseCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_gabf859b936d80961b7d39013a9694cc3e}{GLFWwindowclosefun}}\ cbfun)}
+\DoxyCodeLine{01064\ \{}
+\DoxyCodeLine{01065\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01066\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01067\ }
+\DoxyCodeLine{01068\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01069\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_gabf859b936d80961b7d39013a9694cc3e}{GLFWwindowclosefun}},\ window-\/>callbacks.close,\ cbfun);}
+\DoxyCodeLine{01070\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01071\ \}}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01073\ GLFWAPI\ \mbox{\hyperlink{group__window_ga431663a1427d2eb3a273bc398b6737b5}{GLFWwindowrefreshfun}}\ \mbox{\hyperlink{group__window_ga62bfa902c07a03b8ad9be37da31a4be7}{glfwSetWindowRefreshCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga431663a1427d2eb3a273bc398b6737b5}{GLFWwindowrefreshfun}}\ cbfun)}
+\DoxyCodeLine{01075\ \{}
+\DoxyCodeLine{01076\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01077\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01079\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01080\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_ga431663a1427d2eb3a273bc398b6737b5}{GLFWwindowrefreshfun}},\ window-\/>callbacks.refresh,\ cbfun);}
+\DoxyCodeLine{01081\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01082\ \}}
+\DoxyCodeLine{01083\ }
+\DoxyCodeLine{01084\ GLFWAPI\ \mbox{\hyperlink{group__window_gabc58c47e9d93f6eb1862d615c3680f46}{GLFWwindowfocusfun}}\ \mbox{\hyperlink{group__window_gacce1c4dd273b5c4c60b05599f8725b4e}{glfwSetWindowFocusCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_gabc58c47e9d93f6eb1862d615c3680f46}{GLFWwindowfocusfun}}\ cbfun)}
+\DoxyCodeLine{01086\ \{}
+\DoxyCodeLine{01087\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01088\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01090\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01091\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_gabc58c47e9d93f6eb1862d615c3680f46}{GLFWwindowfocusfun}},\ window-\/>callbacks.focus,\ cbfun);}
+\DoxyCodeLine{01092\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01093\ \}}
+\DoxyCodeLine{01094\ }
+\DoxyCodeLine{01095\ GLFWAPI\ \mbox{\hyperlink{group__window_ga35c658cccba236f26e7adee0e25f6a4f}{GLFWwindowiconifyfun}}\ \mbox{\hyperlink{group__window_ga3e9f355edb6b9247149ddea2335eda69}{glfwSetWindowIconifyCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga35c658cccba236f26e7adee0e25f6a4f}{GLFWwindowiconifyfun}}\ cbfun)}
+\DoxyCodeLine{01097\ \{}
+\DoxyCodeLine{01098\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01099\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01101\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01102\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_ga35c658cccba236f26e7adee0e25f6a4f}{GLFWwindowiconifyfun}},\ window-\/>callbacks.iconify,\ cbfun);}
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01104\ \}}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01106\ GLFWAPI\ \mbox{\hyperlink{group__window_ga3017196fdaec33ac3e095765176c2a90}{GLFWwindowmaximizefun}}\ \mbox{\hyperlink{group__window_gae77b3960dcd40514fb7b2b8a6eb98137}{glfwSetWindowMaximizeCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga3017196fdaec33ac3e095765176c2a90}{GLFWwindowmaximizefun}}\ cbfun)}
+\DoxyCodeLine{01108\ \{}
+\DoxyCodeLine{01109\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01110\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01113\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_ga3017196fdaec33ac3e095765176c2a90}{GLFWwindowmaximizefun}},\ window-\/>callbacks.maximize,\ cbfun);}
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01115\ \}}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01117\ GLFWAPI\ \mbox{\hyperlink{group__window_gae18026e294dde685ed2e5f759533144d}{GLFWframebuffersizefun}}\ \mbox{\hyperlink{group__window_ga41d69f9f263d7b33ea03cf58772b4ea0}{glfwSetFramebufferSizeCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_gae18026e294dde685ed2e5f759533144d}{GLFWframebuffersizefun}}\ cbfun)}
+\DoxyCodeLine{01119\ \{}
+\DoxyCodeLine{01120\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01121\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01124\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_gae18026e294dde685ed2e5f759533144d}{GLFWframebuffersizefun}},\ window-\/>callbacks.fbsize,\ cbfun);}
+\DoxyCodeLine{01125\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01126\ \}}
+\DoxyCodeLine{01127\ }
+\DoxyCodeLine{01128\ GLFWAPI\ \mbox{\hyperlink{group__window_ga77f288a2d04bb3c77c7d9615d08cf70e}{GLFWwindowcontentscalefun}}\ \mbox{\hyperlink{group__window_gac6edcddbe785445d0d2b7b7be500836e}{glfwSetWindowContentScaleCallback}}(\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*\ handle,}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga77f288a2d04bb3c77c7d9615d08cf70e}{GLFWwindowcontentscalefun}}\ cbfun)}
+\DoxyCodeLine{01130\ \{}
+\DoxyCodeLine{01131\ \ \ \ \ \mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*\ window\ =\ (\mbox{\hyperlink{struct__GLFWwindow}{\_GLFWwindow}}*)\ handle;}
+\DoxyCodeLine{01132\ \ \ \ \ assert(window\ !=\ NULL);}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(NULL);}
+\DoxyCodeLine{01135\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__window_ga77f288a2d04bb3c77c7d9615d08cf70e}{GLFWwindowcontentscalefun}},\ window-\/>callbacks.scale,\ cbfun);}
+\DoxyCodeLine{01136\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{01137\ \}}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga872d16e4c77f58c0436f356255920cfc}{glfwPollEvents}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{01140\ \{}
+\DoxyCodeLine{01141\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{01142\ \ \ \ \ \_glfw.platform.pollEvents();}
+\DoxyCodeLine{01143\ \}}
+\DoxyCodeLine{01144\ }
+\DoxyCodeLine{01145\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga6e042d05823c11e11c7339b81a237738}{glfwWaitEvents}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{01146\ \{}
+\DoxyCodeLine{01147\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{01148\ \ \ \ \ \_glfw.platform.waitEvents();}
+\DoxyCodeLine{01149\ \}}
+\DoxyCodeLine{01150\ }
+\DoxyCodeLine{01151\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_ga05223a0a4c5e50f10f289e60398153aa}{glfwWaitEventsTimeout}}(\textcolor{keywordtype}{double}\ timeout)}
+\DoxyCodeLine{01152\ \{}
+\DoxyCodeLine{01153\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{01154\ \ \ \ \ assert(timeout\ ==\ timeout);}
+\DoxyCodeLine{01155\ \ \ \ \ assert(timeout\ >=\ 0.0);}
+\DoxyCodeLine{01156\ \ \ \ \ assert(timeout\ <=\ DBL\_MAX);}
+\DoxyCodeLine{01157\ }
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keywordflow}{if}\ (timeout\ !=\ timeout\ ||\ timeout\ <\ 0.0\ ||\ timeout\ >\ DBL\_MAX)}
+\DoxyCodeLine{01159\ \ \ \ \ \{}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},\ \textcolor{stringliteral}{"{}Invalid\ time\ \%f"{}},\ timeout);}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01162\ \ \ \ \ \}}
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01164\ \ \ \ \ \_glfw.platform.waitEventsTimeout(timeout);}
+\DoxyCodeLine{01165\ \}}
+\DoxyCodeLine{01166\ }
+\DoxyCodeLine{01167\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__window_gad6f6b997278c91c43b35970eb9713d7e}{glfwPostEmptyEvent}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{01168\ \{}
+\DoxyCodeLine{01169\ \ \ \ \ \_GLFW\_REQUIRE\_INIT();}
+\DoxyCodeLine{01170\ \ \ \ \ \_glfw.platform.postEmptyEvent();}
+\DoxyCodeLine{01171\ \}}
+\DoxyCodeLine{01172\ }
+
+\end{DoxyCode}

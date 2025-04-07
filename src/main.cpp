@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include "grid.h"
 
 int main(){
 
@@ -12,9 +13,12 @@ int main(){
 	while(WindowShouldClose()==false){
 		BeginDrawing();
 		ClearBackground(DARKBLUE);
-
+		
 		EndDrawing();
 	}
 
 	CloseWindow();
+	Grid myGrid;
+	myGrid.Initialize();
+	myGrid.Print();
 }

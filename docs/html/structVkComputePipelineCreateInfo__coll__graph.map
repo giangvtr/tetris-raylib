@@ -1,0 +1,9 @@
+<map id="VkComputePipelineCreateInfo" name="VkComputePipelineCreateInfo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,269,235,295"/>
+<area shape="rect" id="Node000002" href="$structVkPipelineShaderStageCreateInfo.html" title=" " alt="" coords="5,181,247,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,221,129,269,123,269,123,221"/>
+<area shape="rect" id="Node000003" href="$structVkSpecializationInfo.html" title=" " alt="" coords="49,93,203,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,133,129,181,123,181,123,133"/>
+<area shape="rect" id="Node000004" href="$structVkSpecializationMapEntry.html" title=" " alt="" coords="30,5,222,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="129,45,129,93,123,93,123,45"/>
+</map>

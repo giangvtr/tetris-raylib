@@ -1,0 +1,7 @@
+<map id="VkPipelineVertexInputStateCreateInfo" name="VkPipelineVertexInputStateCreateInfo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="156,93,356,133"/>
+<area shape="rect" id="Node000002" href="$structVkVertexInputBindingDescription.html" title=" " alt="" coords="5,5,243,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,39,176,67,216,91,213,95,173,71,142,43"/>
+<area shape="rect" id="Node000003" href="$structVkVertexInputAttributeDescription.html" title=" " alt="" coords="267,5,512,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="382,45,362,71,322,96,319,91,358,67,377,42"/>
+</map>

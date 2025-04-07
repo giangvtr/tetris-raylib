@@ -1,0 +1,7 @@
+<map id="VkPhysicalDeviceMemoryProperties" name="VkPhysicalDeviceMemoryProperties">
+<area shape="rect" id="Node000001" title=" " alt="" coords="12,93,271,119"/>
+<area shape="rect" id="Node000002" href="$structVkMemoryType.html" title=" " alt="" coords="5,5,128,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,42,91,68,121,91,117,95,87,71,72,45"/>
+<area shape="rect" id="Node000003" href="$structVkMemoryHeap.html" title=" " alt="" coords="153,5,279,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,44,189,71,161,95,157,91,185,68,202,41"/>
+</map>

@@ -1,0 +1,380 @@
+\doxysection{win32\+\_\+clipboard.\+h}
+\hypertarget{win32__clipboard_8h_source}{}\label{win32__clipboard_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/win32\_clipboard.h@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/win32\_clipboard.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#if\ !defined(\_WIN32)}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#\ \ \ error\ "{}This\ module\ is\ only\ made\ for\ Windows\ OS"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ WIN32\_CLIPBOARD\_}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ WIN32\_CLIPBOARD\_}}
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ Win32GetClipboardImageData(\textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ *dataSize);}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIN32\_CLIPBOARD\_}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ WIN32\_CLIPBOARD\_IMPLEMENTATION}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ NOTE:\ These\ search\ for\ architecture\ is\ taken\ from\ "{}Windows.h"{},\ and\ it's\ necessary\ if\ we\ really\ don't\ wanna\ import\ windows.h\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ and\ still\ make\ it\ compile\ on\ msvc,\ because\ import\ indirectly\ importing\ "{}winnt.h"{}\ (e.g.\ <minwindef.h>)\ can\ cause\ problems\ is\ these\ are\ not\ defined.}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ !defined(\_X86\_)\ \&\&\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_IX86)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ \_X86\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ !defined(\_CHPE\_X86\_ARM64\_)\ \&\&\ defined(\_M\_HYBRID)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ \_CHPE\_X86\_ARM64\_}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ !defined(\_AMD64\_)\ \&\&\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ (defined(\_M\_AMD64)\ ||\ defined(\_M\_ARM64EC))}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \_AMD64\_}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ !defined(\_ARM\_)\ \&\&\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_ARM)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \_ARM\_}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ !defined(\_ARM64\_)\ \&\&\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_ARM64)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ \_ARM64\_}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#if\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_ARM64EC)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ \_ARM64EC\_}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#if\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_M68K)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ \_68K\_}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#if\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_IA64\_)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_MPPC)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ \_MPPC\_}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ !defined(\_IA64\_)\ \&\&\ !defined(\_68K\_)\ \&\&\ !defined(\_MPPC\_)\ \&\&\ !defined(\_X86\_)\ \&\&\ !defined(\_M\_IX86)\ \&\&\ !defined(\_AMD64\_)\ \&\&\ !defined(\_ARM\_)\ \&\&\ !defined(\_ARM64\_)\ \&\&\ !defined(\_ARM64EC\_)\ \&\&\ defined(\_M\_IA64)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ \_IA64\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \#include\ <sdkddkver.h>}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ \#include\ <windows.h>}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \#include\ <winuser.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <minwindef.h>}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \#include\ <minwinbase.h>}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#ifndef\ WINAPI}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#if\ defined(\_ARM\_)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ WINAPI}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ WINAPI\ \_\_stdcall}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#ifndef\ WINAPI}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#if\ defined(\_ARM\_)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ WINAPI}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ WINAPI\ \_\_stdcall}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifndef\ WINBASEAPI}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifndef\ \_KERNEL32\_}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ WINBASEAPI\ DECLSPEC\_IMPORT}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ WINBASEAPI}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifndef\ WINUSERAPI}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#ifndef\ \_USER32\_}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ WINUSERAPI\ \_\_declspec\ (dllimport)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ WINUSERAPI}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ WINBOOL;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ typedef\ HANDLE\ HGLOBAL;}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifndef\ HWND}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ HWND\ void*}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#if\ !defined(\_WINUSER\_)\ ||\ !defined(WINUSER\_ALREADY\_INCLUDED)}}
+\DoxyCodeLine{00105\ WINUSERAPI\ WINBOOL\ WINAPI\ OpenClipboard(HWND\ hWndNewOwner);}
+\DoxyCodeLine{00106\ WINUSERAPI\ WINBOOL\ WINAPI\ CloseClipboard(VOID);}
+\DoxyCodeLine{00107\ WINUSERAPI\ DWORD\ \ \ WINAPI\ GetClipboardSequenceNumber(VOID);}
+\DoxyCodeLine{00108\ WINUSERAPI\ HWND\ \ \ \ WINAPI\ GetClipboardOwner(VOID);}
+\DoxyCodeLine{00109\ WINUSERAPI\ HWND\ \ \ \ WINAPI\ SetClipboardViewer(HWND\ hWndNewViewer);}
+\DoxyCodeLine{00110\ WINUSERAPI\ HWND\ \ \ \ WINAPI\ GetClipboardViewer(VOID);}
+\DoxyCodeLine{00111\ WINUSERAPI\ WINBOOL\ WINAPI\ ChangeClipboardChain(HWND\ hWndRemove,\ HWND\ hWndNewNext);}
+\DoxyCodeLine{00112\ WINUSERAPI\ HANDLE\ \ WINAPI\ SetClipboardData(UINT\ uFormat,\ HANDLE\ hMem);}
+\DoxyCodeLine{00113\ WINUSERAPI\ HANDLE\ \ WINAPI\ GetClipboardData(UINT\ uFormat);}
+\DoxyCodeLine{00114\ WINUSERAPI\ UINT\ \ \ \ WINAPI\ RegisterClipboardFormatA(LPCSTR\ \ lpszFormat);}
+\DoxyCodeLine{00115\ WINUSERAPI\ UINT\ \ \ \ WINAPI\ RegisterClipboardFormatW(LPCWSTR\ lpszFormat);}
+\DoxyCodeLine{00116\ WINUSERAPI\ \textcolor{keywordtype}{int}\ \ \ \ \ WINAPI\ CountClipboardFormats(VOID);}
+\DoxyCodeLine{00117\ WINUSERAPI\ UINT\ \ \ \ WINAPI\ EnumClipboardFormats(UINT\ format);}
+\DoxyCodeLine{00118\ WINUSERAPI\ \textcolor{keywordtype}{int}\ \ \ \ \ WINAPI\ GetClipboardFormatNameA(UINT\ format,\ LPSTR\ \ lpszFormatName,\ \textcolor{keywordtype}{int}\ cchMaxCount);}
+\DoxyCodeLine{00119\ WINUSERAPI\ \textcolor{keywordtype}{int}\ \ \ \ \ WINAPI\ GetClipboardFormatNameW(UINT\ format,\ LPWSTR\ lpszFormatName,\ \textcolor{keywordtype}{int}\ cchMaxCount);}
+\DoxyCodeLine{00120\ WINUSERAPI\ WINBOOL\ WINAPI\ EmptyClipboard(VOID);}
+\DoxyCodeLine{00121\ WINUSERAPI\ WINBOOL\ WINAPI\ IsClipboardFormatAvailable(UINT\ format);}
+\DoxyCodeLine{00122\ WINUSERAPI\ \textcolor{keywordtype}{int}\ \ \ \ \ WINAPI\ GetPriorityClipboardFormat(UINT\ *paFormatPriorityList,\ \textcolor{keywordtype}{int}\ cFormats);}
+\DoxyCodeLine{00123\ WINUSERAPI\ HWND\ \ \ \ WINAPI\ GetOpenClipboardWindow(VOID);}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#ifndef\ HGLOBAL}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ HGLOBAL\ void*}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#if\ !defined(\_WINBASE\_)\ ||\ !defined(WINBASE\_ALREADY\_INCLUDED)}}
+\DoxyCodeLine{00131\ WINBASEAPI\ SIZE\_T\ \ WINAPI\ GlobalSize\ (HGLOBAL\ hMem);}
+\DoxyCodeLine{00132\ WINBASEAPI\ LPVOID\ \ WINAPI\ GlobalLock\ (HGLOBAL\ hMem);}
+\DoxyCodeLine{00133\ WINBASEAPI\ WINBOOL\ WINAPI\ GlobalUnlock\ (HGLOBAL\ hMem);}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#if\ !defined(\_WINGDI\_)\ ||\ !defined(WINGDI\_ALREADY\_INCLUDED)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifndef\ BITMAPINFOHEADER\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ BITMAPINFOHEADER\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ Does\ this\ header\ need\ to\ be\ packed\ ?\ by\ the\ windowps\ header\ it\ doesnt\ seem\ to\ be}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#pragma\ pack(push,\ 1)}}
+\DoxyCodeLine{00142\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }tagBITMAPINFOHEADER\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ DWORD\ biSize;}
+\DoxyCodeLine{00144\ \ \ \ \ LONG\ biWidth;}
+\DoxyCodeLine{00145\ \ \ \ \ LONG\ biHeight;}
+\DoxyCodeLine{00146\ \ \ \ \ WORD\ biPlanes;}
+\DoxyCodeLine{00147\ \ \ \ \ WORD\ biBitCount;}
+\DoxyCodeLine{00148\ \ \ \ \ DWORD\ biCompression;}
+\DoxyCodeLine{00149\ \ \ \ \ DWORD\ biSizeImage;}
+\DoxyCodeLine{00150\ \ \ \ \ LONG\ biXPelsPerMeter;}
+\DoxyCodeLine{00151\ \ \ \ \ LONG\ biYPelsPerMeter;}
+\DoxyCodeLine{00152\ \ \ \ \ DWORD\ biClrUsed;}
+\DoxyCodeLine{00153\ \ \ \ \ DWORD\ biClrImportant;}
+\DoxyCodeLine{00154\ \}\ BITMAPINFOHEADER,*LPBITMAPINFOHEADER,*PBITMAPINFOHEADER;}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#ifndef\ BITMAPFILEHEADER\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ BITMAPFILEHEADER\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#pragma\ pack(push,\ 1)}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }tagBITMAPFILEHEADER\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ WORD\ bfType;}
+\DoxyCodeLine{00163\ \ \ \ \ DWORD\ bfSize;}
+\DoxyCodeLine{00164\ \ \ \ \ WORD\ bfReserved1;}
+\DoxyCodeLine{00165\ \ \ \ \ WORD\ bfReserved2;}
+\DoxyCodeLine{00166\ \ \ \ \ DWORD\ bfOffBits;}
+\DoxyCodeLine{00167\ \}\ BITMAPFILEHEADER,*LPBITMAPFILEHEADER,*PBITMAPFILEHEADER;}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#ifndef\ RGBQUAD\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ RGBQUAD\_ALREADY\_DEFINED}}
+\DoxyCodeLine{00173\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }tagRGBQUAD\ \{}
+\DoxyCodeLine{00174\ \ \ BYTE\ rgbBlue;}
+\DoxyCodeLine{00175\ \ \ BYTE\ rgbGreen;}
+\DoxyCodeLine{00176\ \ \ BYTE\ rgbRed;}
+\DoxyCodeLine{00177\ \ \ BYTE\ rgbReserved;}
+\DoxyCodeLine{00178\ \}\ RGBQUAD,\ *LPRGBQUAD;}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ https://learn.microsoft.com/en-\/us/openspecs/windows\_protocols/ms-\/wmf/4e588f70-\/bd92-\/4a6f-\/b77f-\/35d0feaf7a57}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ BI\_RGB\ \ \ \ \ \ \ 0x0000}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ BI\_RLE8\ \ \ \ \ \ 0x0001}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ BI\_RLE4\ \ \ \ \ \ 0x0002}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ BI\_BITFIELDS\ 0x0003}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ BI\_JPEG\ \ \ \ \ \ 0x0004}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ BI\_PNG\ \ \ \ \ \ \ 0x0005}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ BI\_CMYK\ \ \ \ \ \ 0x000B}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ BI\_CMYKRLE8\ \ 0x000C}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ BI\_CMYKRLE4\ \ 0x000D}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ https://learn.microsoft.com/en-\/us/windows/win32/dataxchg/standard-\/clipboard-\/formats}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ CF\_DIB\ 8}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ https://learn.microsoft.com/en-\/us/windows/win32/api/winuser/nf-\/winuser-\/setsystemcursor}}
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ \#define\ OCR\_NORMAL\ \ \ \ \ \ 32512\ //\ Normal\ \ \ \ \ select}}
+\DoxyCodeLine{00200\ \textcolor{comment}{//\ \#define\ OCR\_IBEAM\ \ \ \ \ \ \ 32513\ //\ Text\ \ \ \ \ \ \ select}}
+\DoxyCodeLine{00201\ \textcolor{comment}{//\ \#define\ OCR\_WAIT\ \ \ \ \ \ \ \ 32514\ //\ Busy}}
+\DoxyCodeLine{00202\ \textcolor{comment}{//\ \#define\ OCR\_CROSS\ \ \ \ \ \ \ 32515\ //\ Precision\ \ select}}
+\DoxyCodeLine{00203\ \textcolor{comment}{//\ \#define\ OCR\_UP\ \ \ \ \ \ \ \ \ \ 32516\ //\ Alternate\ \ select}}
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ \#define\ OCR\_SIZENWSE\ \ \ \ 32642\ //\ Diagonal\ \ \ resize\ 1}}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ \#define\ OCR\_SIZENESW\ \ \ \ 32643\ //\ Diagonal\ \ \ resize\ 2}}
+\DoxyCodeLine{00206\ \textcolor{comment}{//\ \#define\ OCR\_SIZEWE\ \ \ \ \ \ 32644\ //\ Horizontal\ resize}}
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ \#define\ OCR\_SIZENS\ \ \ \ \ \ 32645\ //\ Vertical\ \ \ resize}}
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ \#define\ OCR\_SIZEALL\ \ \ \ \ 32646\ //\ Move}}
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ \#define\ OCR\_NO\ \ \ \ \ \ \ \ \ \ 32648\ //\ Unavailable}}
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ \#define\ OCR\_HAND\ \ \ \ \ \ \ \ 32649\ //\ Link\ \ \ \ \ \ \ select}}
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ \#define\ OCR\_APPSTARTING\ 32650\ //}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00215\ \textcolor{comment}{//\ Module\ Internal\ Functions\ Declaration}}
+\DoxyCodeLine{00216\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{keyword}{static}\ BOOL\ \ \ \ \ \ \ \ \ \ \ OpenClipboardRetrying(HWND\ handle);\ \textcolor{comment}{//\ Open\ clipboard\ with\ a\ number\ of\ retries}}
+\DoxyCodeLine{00220\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ GetPixelDataOffset(BITMAPINFOHEADER\ bih);}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ Win32GetClipboardImageData(\textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ *dataSize)}
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ HWND\ win\ =\ NULL;\ \textcolor{comment}{//\ Get\ from\ somewhere\ but\ is\ doesnt\ seem\ to\ matter}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msgString\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{int}\ severity\ =\ LOG\_INFO;}
+\DoxyCodeLine{00227\ \ \ \ \ BYTE*\ bmpData\ =\ NULL;}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{if}\ (!OpenClipboardRetrying(win))\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ severity\ =\ LOG\_ERROR;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ msgString\ =\ \textcolor{stringliteral}{"{}Couldn't\ open\ clipboard"{}};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ end;}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ HGLOBAL\ clipHandle\ =\ (HGLOBAL)GetClipboardData(CF\_DIB);}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{if}\ (!clipHandle)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ severity\ =\ LOG\_ERROR;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ msgString\ =\ \textcolor{stringliteral}{"{}Clipboard\ data\ is\ not\ an\ Image"{}};}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ close;}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ BITMAPINFOHEADER\ *bmpInfoHeader\ =\ (BITMAPINFOHEADER\ *)GlobalLock(clipHandle);}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{if}\ (!bmpInfoHeader)\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mapping\ from\ HGLOBAL\ to\ our\ local\ *address\ space*\ failed}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ severity\ =\ LOG\_ERROR;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ msgString\ =\ \textcolor{stringliteral}{"{}Clipboard\ data\ failed\ to\ be\ locked"{}};}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ unlock;}
+\DoxyCodeLine{00247\ \ \ \ \ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ *width\ =\ bmpInfoHeader-\/>biWidth;}
+\DoxyCodeLine{00250\ \ \ \ \ *height\ =\ bmpInfoHeader-\/>biHeight;}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ SIZE\_T\ clipDataSize\ =\ GlobalSize(clipHandle);}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{if}\ (clipDataSize\ <\ \textcolor{keyword}{sizeof}(BITMAPINFOHEADER))\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ CF\_DIB\ needs\ space\ for\ BITMAPINFOHEADER\ struct.}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ msgString\ =\ \textcolor{stringliteral}{"{}Clipboard\ has\ Malformed\ data"{}};}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ severity\ =\ LOG\_ERROR;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ unlock;}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{comment}{//\ Denotes\ where\ the\ pixel\ data\ starts\ from\ the\ bmpInfoHeader\ pointer}}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{int}\ pixelOffset\ =\ GetPixelDataOffset(*bmpInfoHeader);}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{comment}{//\ The\ rest\ of\ the\ section\ is\ about\ create\ the\ bytes\ for\ a\ correct\ BMP\ file}}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ Then\ we\ copy\ the\ data\ and\ to\ a\ pointer}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ BITMAPFILEHEADER\ bmpFileHeader\ =\ \{0\};}
+\DoxyCodeLine{00271\ \ \ \ \ SIZE\_T\ bmpFileSize\ =\ \textcolor{keyword}{sizeof}(bmpFileHeader)\ +\ clipDataSize;}
+\DoxyCodeLine{00272\ \ \ \ \ *dataSize\ =\ bmpFileSize;}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ bmpFileHeader.bfType\ =\ 0x4D42;\ \textcolor{comment}{//https://stackoverflow.com/questions/601430/multibyte-\/character-\/constants-\/and-\/bitmap-\/file-\/header-\/type-\/constants\#601536}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ bmpFileHeader.bfSize\ =\ (DWORD)bmpFileSize;\ \textcolor{comment}{//\ Up\ to\ 4GB\ works\ fine}}
+\DoxyCodeLine{00277\ \ \ \ \ bmpFileHeader.bfOffBits\ =\ \textcolor{keyword}{sizeof}(bmpFileHeader)\ +\ pixelOffset;}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//\ Each\ process\ has\ a\ default\ heap\ provided\ by\ the\ system}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{comment}{//\ Memory\ objects\ allocated\ by\ GlobalAlloc\ and\ LocalAlloc\ are\ in\ private,}}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{comment}{//\ committed\ pages\ with\ read/write\ access\ that\ cannot\ be\ accessed\ by\ other\ processes.}}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{comment}{//\ This\ may\ be\ wrong\ since\ we\ might\ be\ allocating\ in\ a\ DLL\ and\ freeing\ from\ another\ module,\ the\ main\ application}}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{comment}{//\ that\ may\ cause\ heap\ corruption.\ We\ could\ create\ a\ FreeImage\ function}}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00287\ \ \ \ \ bmpData\ =\ malloc(\textcolor{keyword}{sizeof}(bmpFileHeader)\ +\ clipDataSize);}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{comment}{//\ First\ we\ add\ the\ header\ for\ a\ bmp\ file}}
+\DoxyCodeLine{00289\ \ \ \ \ memcpy(bmpData,\ \&bmpFileHeader,\ \textcolor{keyword}{sizeof}(bmpFileHeader));}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//\ Then\ we\ add\ the\ header\ for\ the\ bmp\ itself\ +\ the\ pixel\ data}}
+\DoxyCodeLine{00291\ \ \ \ \ memcpy(bmpData\ +\ \textcolor{keyword}{sizeof}(bmpFileHeader),\ bmpInfoHeader,\ clipDataSize);}
+\DoxyCodeLine{00292\ \ \ \ \ msgString\ =\ \textcolor{stringliteral}{"{}Clipboad\ image\ acquired\ successfully"{}};}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ unlock:}
+\DoxyCodeLine{00296\ \ \ \ \ GlobalUnlock(clipHandle);}
+\DoxyCodeLine{00297\ close:}
+\DoxyCodeLine{00298\ \ \ \ \ CloseClipboard();}
+\DoxyCodeLine{00299\ end:}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ TRACELOG(severity,\ msgString);}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{return}\ bmpData;}
+\DoxyCodeLine{00303\ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{keyword}{static}\ BOOL\ OpenClipboardRetrying(HWND\ hWnd)}
+\DoxyCodeLine{00306\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxTries\ =\ 20;}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ sleepTimeMS\ =\ 60;}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \_\ =\ 0;\ \_\ <\ maxTries;\ ++\_)}
+\DoxyCodeLine{00310\ \ \ \ \ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Might\ be\ being\ hold\ by\ another\ process}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Or\ yourself\ forgot\ to\ CloseClipboard}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (OpenClipboard(hWnd))\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ Sleep(sleepTimeMS);}
+\DoxyCodeLine{00317\ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00319\ \}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{//\ Based\ off\ of\ researching\ microsoft\ docs\ and\ reponses\ from\ this\ question\ https://stackoverflow.com/questions/30552255/how-\/to-\/read-\/a-\/bitmap-\/from-\/the-\/windows-\/clipboard\#30552856}}
+\DoxyCodeLine{00322\ \textcolor{comment}{//\ https://learn.microsoft.com/en-\/us/windows/win32/api/wingdi/ns-\/wingdi-\/bitmapinfoheader}}
+\DoxyCodeLine{00323\ \textcolor{comment}{//\ Get\ the\ byte\ offset\ where\ does\ the\ pixels\ data\ start\ (from\ a\ packed\ DIB)}}
+\DoxyCodeLine{00324\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetPixelDataOffset(BITMAPINFOHEADER\ bih)}
+\DoxyCodeLine{00325\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 0;}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rgbaSize\ =\ \textcolor{keyword}{sizeof}(RGBQUAD);}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{comment}{//\ biSize\ Specifies\ the\ number\ of\ bytes\ required\ by\ the\ structure}}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{comment}{//\ We\ expect\ to\ always\ be\ 40\ because\ it\ should\ be\ packed}}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{if}\ (40\ ==\ bih.biSize\ \&\&\ 40\ ==\ \textcolor{keyword}{sizeof}(BITMAPINFOHEADER))}
+\DoxyCodeLine{00332\ \ \ \ \ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ biBitCount\ Specifies\ the\ number\ of\ bits\ per\ pixel.}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Might\ exist\ some\ bit\ masks\ *after*\ the\ header\ and\ *before*\ the\ pixel\ offset}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we're\ looking,\ but\ only\ if\ we\ have\ more\ than}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 8\ bits\ per\ pixel,\ so\ we\ need\ to\ ajust\ for\ that}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bih.biBitCount\ >\ 8)}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ bih.biCompression\ is\ RBG\ we\ should\ NOT\ offset\ more}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bih.biCompression\ ==\ BI\_BITFIELDS)}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\ +=\ 3\ *\ rgbaSize;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (bih.biCompression\ ==\ 6\ \textcolor{comment}{/*\ BI\_ALPHABITFIELDS\ */})}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ widely\ supported,\ but\ valid.}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\ +=\ 4\ *\ rgbaSize;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \ \ \}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{comment}{//\ biClrUsed\ Specifies\ the\ number\ of\ color\ indices\ in\ the\ color\ table\ that\ are\ actually\ used\ by\ the\ bitmap.}}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{comment}{//\ If\ this\ value\ is\ zero,\ the\ bitmap\ uses\ the\ maximum\ number\ of\ colors}}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{comment}{//\ corresponding\ to\ the\ value\ of\ the\ biBitCount\ member\ for\ the\ compression\ mode\ specified\ by\ biCompression.}}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{comment}{//\ If\ biClrUsed\ is\ nonzero\ and\ the\ biBitCount\ member\ is\ less\ than\ 16}}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{comment}{//\ the\ biClrUsed\ member\ specifies\ the\ actual\ number\ of\ colors}}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordflow}{if}\ (bih.biClrUsed\ >\ 0)\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ offset\ +=\ bih.biClrUsed\ *\ rgbaSize;}
+\DoxyCodeLine{00363\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bih.biBitCount\ <\ 16)}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ offset\ +\ (rgbaSize\ <<\ bih.biBitCount);}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{return}\ bih.biSize\ +\ offset;}
+\DoxyCodeLine{00371\ \}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIN32\_CLIPBOARD\_IMPLEMENTATION}}
+\DoxyCodeLine{00373\ \textcolor{comment}{//\ EOF}}
+\DoxyCodeLine{00374\ }
+
+\end{DoxyCode}

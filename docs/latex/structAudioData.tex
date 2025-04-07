@@ -1,0 +1,46 @@
+\doxysection{Audio\+Data Struct Reference}
+\hypertarget{structAudioData}{}\label{structAudioData}\index{AudioData@{AudioData}}
+
+
+Collaboration diagram for Audio\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structAudioData__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structAudioData_a7abbcc622281707a0234e2f063d77255}\label{structAudioData_a7abbcc622281707a0234e2f063d77255} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{structma__context}{ma\_context}} {\bfseries context}\\
+\>\mbox{\hyperlink{structma__device}{ma\_device}} {\bfseries device}\\
+\>ma\_mutex {\bfseries lock}\\
+\>bool {\bfseries isReady}\\
+\>size\_t {\bfseries pcmBufferSize}\\
+\>void \texorpdfstring{$\ast$}{*} {\bfseries pcmBuffer}\\
+\} {\bfseries System}\\
+
+\end{tabbing}\item 
+\Hypertarget{structAudioData_a2cf16184faf258806bbeb1142b48b7fd}\label{structAudioData_a2cf16184faf258806bbeb1142b48b7fd} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>AudioBuffer \texorpdfstring{$\ast$}{*} {\bfseries first}\\
+\>AudioBuffer \texorpdfstring{$\ast$}{*} {\bfseries last}\\
+\>int {\bfseries defaultSize}\\
+\} {\bfseries Buffer}\\
+
+\end{tabbing}\item 
+\Hypertarget{structAudioData_ad762c9a6b68f1adde806c847d7e0540f}\label{structAudioData_ad762c9a6b68f1adde806c847d7e0540f} 
+\mbox{\hyperlink{structrAudioProcessor}{r\+Audio\+Processor}} \texorpdfstring{$\ast$}{*} {\bfseries mixed\+Processor}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/raudio.\+c\end{DoxyCompactItemize}

@@ -1,0 +1,103 @@
+\doxysection{Graphics\+\_\+\+API}
+\hypertarget{group__graphics__API}{}\label{group__graphics__API}\index{Graphics\_API@{Graphics\_API}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF void \mbox{\hyperlink{group__graphics__API_gaedbdebd22cee5c67d8fc6ccc84e032a3}{RGFW\+\_\+window\+\_\+make\+Current}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__graphics__API_ga986713977b14a729d11b228cfe7a1776}{RGFW\+\_\+window\+\_\+swap\+Buffers}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__graphics__API_ga35cb1a503e81224799d2b71cdf42a016}\label{group__graphics__API_ga35cb1a503e81224799d2b71cdf42a016} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+swap\+Interval} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, i32 swap\+Interval)
+\item 
+\Hypertarget{group__graphics__API_ga54a7f54f22b8c4bfd8448f8f140db0b2}\label{group__graphics__API_ga54a7f54f22b8c4bfd8448f8f140db0b2} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+set\+GPURender} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool set)
+\item 
+\Hypertarget{group__graphics__API_gaaa02e16416c8c17ad18382daaaf15768}\label{group__graphics__API_gaaa02e16416c8c17ad18382daaaf15768} 
+RGFWDEF void {\bfseries RGFW\+\_\+window\+\_\+set\+CPURender} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool set)
+\item 
+typedef \mbox{\hyperlink{group__graphics__API_gab0a1d421501d2826817e521621e6d6ca}{RGFW\+\_\+\+ENUM}} (u8, RGFW\+\_\+gl\+Hints)
+\item 
+\Hypertarget{group__graphics__API_ga0f6b35ce3b4e980d9ba86efaad90c2d6}\label{group__graphics__API_ga0f6b35ce3b4e980d9ba86efaad90c2d6} 
+RGFWDEF void {\bfseries RGFW\+\_\+set\+GLHint} (RGFW\+\_\+gl\+Hints hint, i32 value)
+\item 
+RGFWDEF void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__graphics__API_ga0c232c2ac5e6f95f9bf07a0abcaef0c2}{RGFW\+\_\+get\+Proc\+Address}} (const char \texorpdfstring{$\ast$}{*}procname)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__graphics__API_gadadcc358f0746221759449d50871cdd6}{RGFW\+\_\+window\+\_\+make\+Current\+\_\+\+Open\+GL}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__graphics__API_ga2e2ed21e1adf587c618798fd01c09d36}{RGFW\+\_\+get\+Current\+\_\+\+Open\+GL}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__graphics__API_gab0a1d421501d2826817e521621e6d6ca}\label{group__graphics__API_gab0a1d421501d2826817e521621e6d6ca} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_ENUM@{RGFW\_ENUM}}
+\index{RGFW\_ENUM@{RGFW\_ENUM}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_ENUM()}{RGFW\_ENUM()}}
+{\footnotesize\ttfamily typedef RGFW\+\_\+\+ENUM (\begin{DoxyParamCaption}\item[{u8}]{,  }\item[{RGFW\+\_\+gl\+Hints}]{ }\end{DoxyParamCaption})}
+
+native API functions
+
+Open\+GL init hints \texorpdfstring{$<$}{<} set stencil buffer bit size (8 by default)
+
+\texorpdfstring{$<$}{<} set number of sampiling buffers (4 by default)
+
+\texorpdfstring{$<$}{<} use GL\+\_\+\+STEREO (GL\+\_\+\+FALSE by default)
+
+\texorpdfstring{$<$}{<} number of aux buffers (0 by default)
+
+\texorpdfstring{$<$}{<} request double buffering
+
+\texorpdfstring{$<$}{<} set RGBA bit sizes
+
+\texorpdfstring{$<$}{<} set accumulated RGBA bit sizes
+
+\texorpdfstring{$<$}{<} request s\+RGA
+
+\texorpdfstring{$<$}{<} request a robust context
+
+\texorpdfstring{$<$}{<} request opengl debugging
+
+\texorpdfstring{$<$}{<} request no opengl errors
+
+\texorpdfstring{$<$}{<} the final hint (not for setting)
+
+\texorpdfstring{$<$}{<} RGFW\+\_\+gl\+Profile options\Hypertarget{group__graphics__API_ga2e2ed21e1adf587c618798fd01c09d36}\label{group__graphics__API_ga2e2ed21e1adf587c618798fd01c09d36} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_getCurrent\_OpenGL@{RGFW\_getCurrent\_OpenGL}}
+\index{RGFW\_getCurrent\_OpenGL@{RGFW\_getCurrent\_OpenGL}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getCurrent\_OpenGL()}{RGFW\_getCurrent\_OpenGL()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} RGFW\+\_\+get\+Current\+\_\+\+Open\+GL (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+get the current context (Open\+GL backend (GLX) (WGL) (EGL) (cocoa) (webgl)) \Hypertarget{group__graphics__API_ga0c232c2ac5e6f95f9bf07a0abcaef0c2}\label{group__graphics__API_ga0c232c2ac5e6f95f9bf07a0abcaef0c2} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_getProcAddress@{RGFW\_getProcAddress}}
+\index{RGFW\_getProcAddress@{RGFW\_getProcAddress}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_getProcAddress()}{RGFW\_getProcAddress()}}
+{\footnotesize\ttfamily RGFWDEF void \texorpdfstring{$\ast$}{*} RGFW\+\_\+get\+Proc\+Address (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{procname }\end{DoxyParamCaption})}
+
+get native opengl proc address \Hypertarget{group__graphics__API_gaedbdebd22cee5c67d8fc6ccc84e032a3}\label{group__graphics__API_gaedbdebd22cee5c67d8fc6ccc84e032a3} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_window\_makeCurrent@{RGFW\_window\_makeCurrent}}
+\index{RGFW\_window\_makeCurrent@{RGFW\_window\_makeCurrent}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_makeCurrent()}{RGFW\_window\_makeCurrent()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+make\+Current (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+\texorpdfstring{$<$}{<} make the window the current opengl drawing context
+
+NOTE\+: if you want to switch the graphics context\textquotesingle{}s thread, you have to run RGFW\+\_\+window\+\_\+make\+Current(\+NULL); on the old thread then RGFW\+\_\+window\+\_\+make\+Current(valid\+\_\+window) on the new thread \Hypertarget{group__graphics__API_gadadcc358f0746221759449d50871cdd6}\label{group__graphics__API_gadadcc358f0746221759449d50871cdd6} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_window\_makeCurrent\_OpenGL@{RGFW\_window\_makeCurrent\_OpenGL}}
+\index{RGFW\_window\_makeCurrent\_OpenGL@{RGFW\_window\_makeCurrent\_OpenGL}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_makeCurrent\_OpenGL()}{RGFW\_window\_makeCurrent\_OpenGL()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+make\+Current\+\_\+\+Open\+GL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+to be called by RGFW\+\_\+window\+\_\+make\+Current \Hypertarget{group__graphics__API_ga986713977b14a729d11b228cfe7a1776}\label{group__graphics__API_ga986713977b14a729d11b228cfe7a1776} 
+\index{Graphics\_API@{Graphics\_API}!RGFW\_window\_swapBuffers@{RGFW\_window\_swapBuffers}}
+\index{RGFW\_window\_swapBuffers@{RGFW\_window\_swapBuffers}!Graphics\_API@{Graphics\_API}}
+\doxysubsubsection{\texorpdfstring{RGFW\_window\_swapBuffers()}{RGFW\_window\_swapBuffers()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+window\+\_\+swap\+Buffers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win }\end{DoxyParamCaption})}
+
+swap the rendering buffer 

@@ -1,0 +1,9 @@
+\chapter{GLFW (modified for raylib)}
+\hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2src_2external_2glfw_2README}{}\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2src_2external_2glfw_2README}\index{GLFW (modified for raylib)@{GLFW (modified for raylib)}}
+\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2src_2external_2glfw_2README_autotoc_md99}%
+\Hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2src_2external_2glfw_2README_autotoc_md99}%
+ This directory contains a modification of GLFW, whose official website and upstream repository are \href{https://glfw.org}{\texttt{ https\+://glfw.\+org}} and \href{https://github.com/glfw/glfw}{\texttt{ https\+://github.\+com/glfw/glfw}}, respectively.
+
+In this modification, some static functions sharing the same name in different platforms have been renamed so all of GLFW\textquotesingle{}s source files can be combined into one (as done by {\ttfamily rglfw.\+c}). Also, the Null platform, which is not used by raylib, has been disabled. The renamed functions are\+:
+
+{\ttfamily  create\+Key\+Tables() translate\+Key() acquire\+Monitor() release\+Monitor() } 

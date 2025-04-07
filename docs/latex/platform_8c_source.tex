@@ -1,0 +1,204 @@
+\doxysection{platform.\+c}
+\hypertarget{platform_8c_source}{}\label{platform_8c_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/platform.c@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/platform.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ GLFW\ 3.4\ (modified\ for\ raylib)\ -\/\ www.glfw.org;\ www.raylib.com}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ 2002-\/2006\ Marcus\ Geelnard}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Copyright\ (c)\ 2006-\/2018\ Camilla\ Löwy\ <elmindreda@glfw.org>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ 2024\ M374LX\ <wilsalx@gmail.com>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ This\ software\ is\ provided\ 'as-\/is',\ without\ any\ express\ or\ implied}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ warranty.\ In\ no\ event\ will\ the\ authors\ be\ held\ liable\ for\ any\ damages}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ including\ commercial\ applications,\ and\ to\ alter\ it\ and\ redistribute\ it}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ claim\ that\ you\ wrote\ the\ original\ software.\ If\ you\ use\ this\ software}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ in\ a\ product,\ an\ acknowledgment\ in\ the\ product\ documentation\ would}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ \ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ be\ misrepresented\ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ \ distribution.}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}internal.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ These\ construct\ a\ string\ literal\ from\ individual\ numeric\ constants}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ \_GLFW\_CONCAT\_VERSION(m,\ n,\ r)\ \#m\ "{}."{}\ \#n\ "{}."{}\ \#r}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ \_GLFW\_MAKE\_VERSION(m,\ n,\ r)\ \_GLFW\_CONCAT\_VERSION(m,\ n,\ r)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ ID;}
+\DoxyCodeLine{00045\ \ \ \ \ GLFWbool\ (*connect)(int,\mbox{\hyperlink{struct__GLFWplatform}{\_GLFWplatform}}*);}
+\DoxyCodeLine{00046\ \}\ supportedPlatforms[]\ =}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_WIN32)}}
+\DoxyCodeLine{00049\ \ \ \ \ \{\ GLFW\_PLATFORM\_WIN32,\ \_glfwConnectWin32\ \},}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_COCOA)}}
+\DoxyCodeLine{00052\ \ \ \ \ \{\ GLFW\_PLATFORM\_COCOA,\ \_glfwConnectCocoa\ \},}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_WAYLAND)}}
+\DoxyCodeLine{00055\ \ \ \ \ \{\ GLFW\_PLATFORM\_WAYLAND,\ \_glfwConnectWayland\ \},}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_X11)}}
+\DoxyCodeLine{00058\ \ \ \ \ \{\ GLFW\_PLATFORM\_X11,\ \_glfwConnectX11\ \},}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ GLFWbool\ \_glfwSelectPlatform(\textcolor{keywordtype}{int}\ desiredID,\ \mbox{\hyperlink{struct__GLFWplatform}{\_GLFWplatform}}*\ platform)}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ count\ =\ \textcolor{keyword}{sizeof}(supportedPlatforms)\ /\ \textcolor{keyword}{sizeof}(supportedPlatforms[0]);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{if}\ (desiredID\ !=\ \mbox{\hyperlink{group__init_ga18b2d37374d0dea28cd69194fa85b859}{GLFW\_ANY\_PLATFORM}}\ \&\&}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ desiredID\ !=\ GLFW\_PLATFORM\_WIN32\ \&\&}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ desiredID\ !=\ GLFW\_PLATFORM\_COCOA\ \&\&}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ desiredID\ !=\ GLFW\_PLATFORM\_WAYLAND\ \&\&}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ desiredID\ !=\ GLFW\_PLATFORM\_X11\ \&\&}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ desiredID\ !=\ GLFW\_PLATFORM\_NULL)}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ platform\ ID\ 0x\%08X"{}},\ desiredID);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_WAYLAND)\ \&\&\ defined(\_GLFW\_X11)}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (desiredID\ ==\ \mbox{\hyperlink{group__init_ga18b2d37374d0dea28cd69194fa85b859}{GLFW\_ANY\_PLATFORM}})}
+\DoxyCodeLine{00080\ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ session\ =\ getenv(\textcolor{stringliteral}{"{}XDG\_SESSION\_TYPE"{}});}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (session)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Only\ follow\ XDG\_SESSION\_TYPE\ if\ it\ is\ set\ correctly\ and\ the}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ environment\ looks\ plausble;\ otherwise\ fall\ back\ to\ detection}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp(session,\ \textcolor{stringliteral}{"{}wayland"{}})\ ==\ 0\ \&\&\ getenv(\textcolor{stringliteral}{"{}WAYLAND\_DISPLAY"{}}))}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ desiredID\ =\ GLFW\_PLATFORM\_WAYLAND;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp(session,\ \textcolor{stringliteral}{"{}x11"{}})\ ==\ 0\ \&\&\ getenv(\textcolor{stringliteral}{"{}DISPLAY"{}}))}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ desiredID\ =\ GLFW\_PLATFORM\_X11;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (desiredID\ ==\ \mbox{\hyperlink{group__init_ga18b2d37374d0dea28cd69194fa85b859}{GLFW\_ANY\_PLATFORM}})}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ exactly\ one\ platform\ available\ for\ auto-\/selection,\ let\ it\ emit\ the}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error\ on\ failure\ as\ the\ platform-\/specific\ error\ description\ may\ be\ more\ helpful}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 1)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ supportedPlatforms[0].connect(supportedPlatforms[0].ID,\ platform);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ i\ <\ count;\ \ i++)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (supportedPlatforms[i].connect(desiredID,\ platform))}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga3608c6c29ab7a72f3bf019f4c3a2563d}{GLFW\_PLATFORM\_UNAVAILABLE}},\ \textcolor{stringliteral}{"{}Failed\ to\ detect\ any\ supported\ platform"{}});}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00110\ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ i\ <\ count;\ \ i++)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (supportedPlatforms[i].ID\ ==\ desiredID)}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ supportedPlatforms[i].connect(desiredID,\ platform);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga3608c6c29ab7a72f3bf019f4c3a2563d}{GLFW\_PLATFORM\_UNAVAILABLE}},\ \textcolor{stringliteral}{"{}The\ requested\ platform\ is\ not\ supported"{}});}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__init_gac2d1735162a981fcaa8fb386740aa5ce}{glfwGetPlatform}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00128\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \_GLFW\_REQUIRE\_INIT\_OR\_RETURN(0);}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw.platform.platformID;}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__init_ga7b57ba0946498e8621f4d969bbcecfba}{glfwPlatformSupported}}(\textcolor{keywordtype}{int}\ platformID)}
+\DoxyCodeLine{00134\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ count\ =\ \textcolor{keyword}{sizeof}(supportedPlatforms)\ /\ \textcolor{keyword}{sizeof}(supportedPlatforms[0]);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{if}\ (platformID\ !=\ GLFW\_PLATFORM\_WIN32\ \&\&}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ platformID\ !=\ GLFW\_PLATFORM\_COCOA\ \&\&}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ platformID\ !=\ GLFW\_PLATFORM\_WAYLAND\ \&\&}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ platformID\ !=\ GLFW\_PLATFORM\_X11\ \&\&}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ platformID\ !=\ GLFW\_PLATFORM\_NULL)}
+\DoxyCodeLine{00143\ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},\ \textcolor{stringliteral}{"{}Invalid\ platform\ ID\ 0x\%08X"{}},\ platformID);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (platformID\ ==\ GLFW\_PLATFORM\_NULL)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ i\ <\ count;\ \ i++)}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (platformID\ ==\ supportedPlatforms[i].ID)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ GLFWAPI\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{group__init_gae5952184a0db36e24d1de7805b8b0945}{glfwGetVersionString}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ \_GLFW\_MAKE\_VERSION(\mbox{\hyperlink{group__init_ga6337d9ea43b22fc529b2bba066b4a576}{GLFW\_VERSION\_MAJOR}},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__init_gaf80d40f0aea7088ff337606e9c48f7a3}{GLFW\_VERSION\_MINOR}},}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__init_gab72ae2e2035d9ea461abc3495eac0502}{GLFW\_VERSION\_REVISION}})}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_WIN32)}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ Win32\ WGL"{}}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_COCOA)}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ Cocoa\ NSGL"{}}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_WAYLAND)}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ Wayland"{}}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_X11)}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ X11\ GLX"{}}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ Null"{}}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ EGL"{}}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ OSMesa"{}}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#if\ defined(\_\_MINGW64\_VERSION\_MAJOR)}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ MinGW-\/w64"{}}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#elif\ defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ MinGW"{}}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ VisualC"{}}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_USE\_HYBRID\_HPG)\ ||\ defined(\_GLFW\_USE\_OPTIMUS\_HPG)}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ hybrid-\/GPU"{}}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#if\ defined(\_POSIX\_MONOTONIC\_CLOCK)}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ monotonic"{}}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#if\ defined(\_GLFW\_BUILD\_DLL)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ DLL"{}}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ dynamic"{}}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ shared"{}}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ ;}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ }
+
+\end{DoxyCode}

@@ -1,0 +1,138 @@
+\doxysection{RGFW\+\_\+event Struct Reference}
+\hypertarget{structRGFW__event}{}\label{structRGFW__event}\index{RGFW\_event@{RGFW\_event}}
+
+
+{\ttfamily \#include $<$RGFW.\+h$>$}
+
+
+
+Collaboration diagram for RGFW\+\_\+event\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{structRGFW__event__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+RGFW\+\_\+event\+Type \mbox{\hyperlink{structRGFW__event_ab309d573101fed3b9137b3e42f408ce0}{type}}
+\item 
+\mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} \mbox{\hyperlink{structRGFW__event_aba9e0d0df62210352604aedbb5829c11}{point}}
+\item 
+\mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} \mbox{\hyperlink{structRGFW__event_a0227fb6184ef6c40f905f835e4d46422}{vector}}
+\item 
+RGFW\+\_\+key \mbox{\hyperlink{structRGFW__event_a2eabcbe140b369d57a4a63d879436e44}{key}}
+\item 
+u8 \mbox{\hyperlink{structRGFW__event_a5ae7c9bb8b572bef7190285ecee94dcd}{key\+Char}}
+\item 
+RGFW\+\_\+bool \mbox{\hyperlink{structRGFW__event_a600894dfa6229cceee18f96a6552da4e}{repeat}}
+\item 
+\Hypertarget{structRGFW__event_ab6900d12b4d0d24f0ba28c1bfa131db8}\label{structRGFW__event_ab6900d12b4d0d24f0ba28c1bfa131db8} 
+RGFW\+\_\+keymod {\bfseries key\+Mod}
+\item 
+\Hypertarget{structRGFW__event_a67b50f8eaad088c3e99a15b1d2adfeee}\label{structRGFW__event_a67b50f8eaad088c3e99a15b1d2adfeee} 
+u8 {\bfseries button}
+\item 
+double \mbox{\hyperlink{structRGFW__event_a4ccee6f625be64b6a84868258fbc83f9}{scroll}}
+\item 
+\Hypertarget{structRGFW__event_ac3ccc0f1827eeca2563dfdaba0f3630f}\label{structRGFW__event_ac3ccc0f1827eeca2563dfdaba0f3630f} 
+u16 {\bfseries gamepad}
+\item 
+u8 \mbox{\hyperlink{structRGFW__event_a461af45aa112cd066e782d4320e8554b}{axises\+Count}}
+\item 
+\Hypertarget{structRGFW__event_ac5453c5957d58c62cca4144db95f6fb1}\label{structRGFW__event_ac5453c5957d58c62cca4144db95f6fb1} 
+u8 {\bfseries which\+Axis}
+\item 
+\mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} \mbox{\hyperlink{structRGFW__event_a2dfc887b0bdf5d00e0fa20fe6fd1571e}{axis}} \mbox{[}4\mbox{]}
+\item 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structRGFW__event_af29ce01704933b5865407225802c841f}{dropped\+Files}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structRGFW__event_a5046663caad1f8af75d2cb4bc9a311fc}{dropped\+Files\+Count}}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structRGFW__event_a89fe817c101d890a13806709d1891c75}{\+\_\+win}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Event structure for checking/getting events 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structRGFW__event_a89fe817c101d890a13806709d1891c75}\label{structRGFW__event_a89fe817c101d890a13806709d1891c75} 
+\index{RGFW\_event@{RGFW\_event}!\_win@{\_win}}
+\index{\_win@{\_win}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{\_win}{\_win}}
+{\footnotesize\ttfamily void\texorpdfstring{$\ast$}{*} RGFW\+\_\+event\+::\+\_\+win}
+
+the window this event applies too (for event queue events) \Hypertarget{structRGFW__event_a2dfc887b0bdf5d00e0fa20fe6fd1571e}\label{structRGFW__event_a2dfc887b0bdf5d00e0fa20fe6fd1571e} 
+\index{RGFW\_event@{RGFW\_event}!axis@{axis}}
+\index{axis@{axis}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{axis}{axis}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} RGFW\+\_\+event\+::axis\mbox{[}4\mbox{]}}
+
+x, y of axises (-\/100 to 100) \Hypertarget{structRGFW__event_a461af45aa112cd066e782d4320e8554b}\label{structRGFW__event_a461af45aa112cd066e782d4320e8554b} 
+\index{RGFW\_event@{RGFW\_event}!axisesCount@{axisesCount}}
+\index{axisesCount@{axisesCount}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{axisesCount}{axisesCount}}
+{\footnotesize\ttfamily u8 RGFW\+\_\+event\+::axises\+Count}
+
+which gamepad this event applies to (if applicable to any) number of axises \Hypertarget{structRGFW__event_af29ce01704933b5865407225802c841f}\label{structRGFW__event_af29ce01704933b5865407225802c841f} 
+\index{RGFW\_event@{RGFW\_event}!droppedFiles@{droppedFiles}}
+\index{droppedFiles@{droppedFiles}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{droppedFiles}{droppedFiles}}
+{\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} RGFW\+\_\+event\+::dropped\+Files}
+
+drag and drop data dropped files \Hypertarget{structRGFW__event_a5046663caad1f8af75d2cb4bc9a311fc}\label{structRGFW__event_a5046663caad1f8af75d2cb4bc9a311fc} 
+\index{RGFW\_event@{RGFW\_event}!droppedFilesCount@{droppedFilesCount}}
+\index{droppedFilesCount@{droppedFilesCount}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{droppedFilesCount}{droppedFilesCount}}
+{\footnotesize\ttfamily size\+\_\+t RGFW\+\_\+event\+::dropped\+Files\+Count}
+
+house many files were dropped \Hypertarget{structRGFW__event_a2eabcbe140b369d57a4a63d879436e44}\label{structRGFW__event_a2eabcbe140b369d57a4a63d879436e44} 
+\index{RGFW\_event@{RGFW\_event}!key@{key}}
+\index{key@{key}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily RGFW\+\_\+key RGFW\+\_\+event\+::key}
+
+the physical key of the event, refers to where key is physically !!\+Keycodes defined at the bottom of the RGFW\+\_\+\+HEADER part of this file!! \Hypertarget{structRGFW__event_a5ae7c9bb8b572bef7190285ecee94dcd}\label{structRGFW__event_a5ae7c9bb8b572bef7190285ecee94dcd} 
+\index{RGFW\_event@{RGFW\_event}!keyChar@{keyChar}}
+\index{keyChar@{keyChar}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{keyChar}{keyChar}}
+{\footnotesize\ttfamily u8 RGFW\+\_\+event\+::key\+Char}
+
+mapped key char of the event \Hypertarget{structRGFW__event_aba9e0d0df62210352604aedbb5829c11}\label{structRGFW__event_aba9e0d0df62210352604aedbb5829c11} 
+\index{RGFW\_event@{RGFW\_event}!point@{point}}
+\index{point@{point}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{point}{point}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} RGFW\+\_\+event\+::point}
+
+mouse x, y of event (or drop point) \Hypertarget{structRGFW__event_a600894dfa6229cceee18f96a6552da4e}\label{structRGFW__event_a600894dfa6229cceee18f96a6552da4e} 
+\index{RGFW\_event@{RGFW\_event}!repeat@{repeat}}
+\index{repeat@{repeat}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{repeat}{repeat}}
+{\footnotesize\ttfamily RGFW\+\_\+bool RGFW\+\_\+event\+::repeat}
+
+key press event repeated (the key is being held) \Hypertarget{structRGFW__event_a4ccee6f625be64b6a84868258fbc83f9}\label{structRGFW__event_a4ccee6f625be64b6a84868258fbc83f9} 
+\index{RGFW\_event@{RGFW\_event}!scroll@{scroll}}
+\index{scroll@{scroll}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{scroll}{scroll}}
+{\footnotesize\ttfamily double RGFW\+\_\+event\+::scroll}
+
+the raw mouse scroll value \Hypertarget{structRGFW__event_ab309d573101fed3b9137b3e42f408ce0}\label{structRGFW__event_ab309d573101fed3b9137b3e42f408ce0} 
+\index{RGFW\_event@{RGFW\_event}!type@{type}}
+\index{type@{type}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily RGFW\+\_\+event\+Type RGFW\+\_\+event\+::type}
+
+which event has been sent? \Hypertarget{structRGFW__event_a0227fb6184ef6c40f905f835e4d46422}\label{structRGFW__event_a0227fb6184ef6c40f905f835e4d46422} 
+\index{RGFW\_event@{RGFW\_event}!vector@{vector}}
+\index{vector@{vector}!RGFW\_event@{RGFW\_event}}
+\doxysubsubsection{\texorpdfstring{vector}{vector}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} RGFW\+\_\+event\+::vector}
+
+raw mouse movement 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/RGFW.\+h\end{DoxyCompactItemize}

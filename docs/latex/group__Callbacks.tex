@@ -1,0 +1,283 @@
+\doxysection{Callbacks}
+\hypertarget{group__Callbacks}{}\label{group__Callbacks}\index{Callbacks@{Callbacks}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}{RGFW\+\_\+windowmovefunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} r)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} r)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}{RGFW\+\_\+windowquitfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}{RGFW\+\_\+focusfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool in\+Focus)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}{RGFW\+\_\+mouse\+Notifyfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point, RGFW\+\_\+bool status)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}{RGFW\+\_\+mouseposfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} vector)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}{RGFW\+\_\+dnd\+Initfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}{RGFW\+\_\+windowrefreshfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}{RGFW\+\_\+keyfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 key, char key\+Char, RGFW\+\_\+keymod key\+Mod, RGFW\+\_\+bool pressed)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}{RGFW\+\_\+mousebuttonfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+mouse\+Button button, double scroll, RGFW\+\_\+bool pressed)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}{RGFW\+\_\+gamepad\+Buttonfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, u8 button, RGFW\+\_\+bool pressed)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}{RGFW\+\_\+gamepad\+Axisfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} axis\mbox{[}2\mbox{]}, u8 axises\+Count, u8 which\+Axis)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}{RGFW\+\_\+gamepadfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, RGFW\+\_\+bool connected)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}{RGFW\+\_\+dndfunc}}) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dropped\+Files, u32 dropped\+Files\+Count)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}{RGFW\+\_\+windowmovefunc}} \mbox{\hyperlink{group__Callbacks_gac036b935b39bfabb6ac8e228fab07c9d}{RGFW\+\_\+set\+Window\+Move\+Callback}} (\mbox{\hyperlink{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}{RGFW\+\_\+windowmovefunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} \mbox{\hyperlink{group__Callbacks_ga6d9746d3f312096a508954472d244ffe}{RGFW\+\_\+set\+Window\+Resize\+Callback}} (\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}{RGFW\+\_\+windowquitfunc}} \mbox{\hyperlink{group__Callbacks_ga9b7d3fe9c513efb0bc173f9f8fd56b05}{RGFW\+\_\+set\+Window\+Quit\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}{RGFW\+\_\+windowquitfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}{RGFW\+\_\+mouseposfunc}} \mbox{\hyperlink{group__Callbacks_ga9ec534a37fbff0a98f466c4bc0de6b6a}{RGFW\+\_\+set\+Mouse\+Pos\+Callback}} (\mbox{\hyperlink{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}{RGFW\+\_\+mouseposfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}{RGFW\+\_\+windowrefreshfunc}} \mbox{\hyperlink{group__Callbacks_ga305e1673f4a91264aba268ab518433ba}{RGFW\+\_\+set\+Window\+Refresh\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}{RGFW\+\_\+windowrefreshfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}{RGFW\+\_\+focusfunc}} \mbox{\hyperlink{group__Callbacks_ga8b5846ac7b74848a4170770197f9235e}{RGFW\+\_\+set\+Focus\+Callback}} (\mbox{\hyperlink{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}{RGFW\+\_\+focusfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}{RGFW\+\_\+mouse\+Notifyfunc}} \mbox{\hyperlink{group__Callbacks_ga731449e179227cbc88f1e1be8dd74d43}{RGFW\+\_\+set\+Mouse\+Notify\+Call\+Back}} (\mbox{\hyperlink{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}{RGFW\+\_\+mouse\+Notifyfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}{RGFW\+\_\+dndfunc}} \mbox{\hyperlink{group__Callbacks_ga1e81369ffe03b5775a26bb01969a7649}{RGFW\+\_\+set\+Dnd\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}{RGFW\+\_\+dndfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}{RGFW\+\_\+dnd\+Initfunc}} \mbox{\hyperlink{group__Callbacks_ga8a54548833f8cca9b94b23f6e37ba3b3}{RGFW\+\_\+set\+Dnd\+Init\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}{RGFW\+\_\+dnd\+Initfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}{RGFW\+\_\+keyfunc}} \mbox{\hyperlink{group__Callbacks_gaade2b5b8ca4d3e0d3e3fe219ff9e2795}{RGFW\+\_\+set\+Key\+Callback}} (\mbox{\hyperlink{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}{RGFW\+\_\+keyfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}{RGFW\+\_\+mousebuttonfunc}} \mbox{\hyperlink{group__Callbacks_ga6bf38c7b6a245f81262c3d81b8db083e}{RGFW\+\_\+set\+Mouse\+Button\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}{RGFW\+\_\+mousebuttonfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}{RGFW\+\_\+gamepad\+Buttonfunc}} \mbox{\hyperlink{group__Callbacks_ga18fbed5f52be6d1cc1c2a3e3496103cb}{RGFW\+\_\+setgamepad\+Button\+Callback}} (\mbox{\hyperlink{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}{RGFW\+\_\+gamepad\+Buttonfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}{RGFW\+\_\+gamepad\+Axisfunc}} \mbox{\hyperlink{group__Callbacks_ga7b39a2db76ce3782f31d673698c4d53a}{RGFW\+\_\+setgamepad\+Axis\+Callback}} (\mbox{\hyperlink{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}{RGFW\+\_\+gamepad\+Axisfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}{RGFW\+\_\+gamepadfunc}} \mbox{\hyperlink{group__Callbacks_ga9029c047eda4df00906fe406e379c219}{RGFW\+\_\+set\+Gamepad\+Callback}} (\mbox{\hyperlink{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}{RGFW\+\_\+gamepadfunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} \mbox{\hyperlink{group__Callbacks_gab5cc2a183f3cd057b5c7e6b8d86e2b40}{RGFW\+\_\+set\+Window\+Maximized\+Callback}} (\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} \mbox{\hyperlink{group__Callbacks_ga9aa6ebd4b24fc85bfbb8776902904413}{RGFW\+\_\+set\+Window\+Minimized\+Callback}} (\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} func)
+\item 
+RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} \mbox{\hyperlink{group__Callbacks_ga63550130742d2ca7e4fa4a28d61fcc2b}{RGFW\+\_\+set\+Window\+Restored\+Callback}} (\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} func)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+event callbacks. These are completely optional, so you can use the normal RGFW\+\_\+check\+Event() method if you prefer that 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}\label{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188} 
+\index{Callbacks@{Callbacks}!RGFW\_dndfunc@{RGFW\_dndfunc}}
+\index{RGFW\_dndfunc@{RGFW\_dndfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_dndfunc}{RGFW\_dndfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+dndfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dropped\+Files, u32 dropped\+Files\+Count)}
+
+RGFW\+\_\+dnd, the window that had the drop, the drop data and the number of files dropped \Hypertarget{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}\label{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238} 
+\index{Callbacks@{Callbacks}!RGFW\_dndInitfunc@{RGFW\_dndInitfunc}}
+\index{RGFW\_dndInitfunc@{RGFW\_dndInitfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_dndInitfunc}{RGFW\_dndInitfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+dnd\+Initfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point)}
+
+RGFW\+\_\+\+DNDInit, the window, the point of the drop on the windows \Hypertarget{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}\label{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b} 
+\index{Callbacks@{Callbacks}!RGFW\_focusfunc@{RGFW\_focusfunc}}
+\index{RGFW\_focusfunc@{RGFW\_focusfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_focusfunc}{RGFW\_focusfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+focusfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+bool in\+Focus)}
+
+RGFW\+\_\+focus\+In / RGFW\+\_\+focus\+Out, the window who\textquotesingle{}s focus has changed and if its in focus \Hypertarget{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}\label{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620} 
+\index{Callbacks@{Callbacks}!RGFW\_gamepadAxisfunc@{RGFW\_gamepadAxisfunc}}
+\index{RGFW\_gamepadAxisfunc@{RGFW\_gamepadAxisfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_gamepadAxisfunc}{RGFW\_gamepadAxisfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+gamepad\+Axisfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} axis\mbox{[}2\mbox{]}, u8 axises\+Count, u8 which\+Axis)}
+
+RGFW\+\_\+gamepad\+Axis\+Move, the window that got the event, the gamepad in question, the axis values and the axis count \Hypertarget{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}\label{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc} 
+\index{Callbacks@{Callbacks}!RGFW\_gamepadButtonfunc@{RGFW\_gamepadButtonfunc}}
+\index{RGFW\_gamepadButtonfunc@{RGFW\_gamepadButtonfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_gamepadButtonfunc}{RGFW\_gamepadButtonfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+gamepad\+Buttonfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, u8 button, RGFW\+\_\+bool pressed)}
+
+RGFW\+\_\+gamepad\+Button\+Pressed, the window that got the event, the button that was pressed, the scroll value, if it was a press (else it\textquotesingle{}s a release) \Hypertarget{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}\label{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674} 
+\index{Callbacks@{Callbacks}!RGFW\_gamepadfunc@{RGFW\_gamepadfunc}}
+\index{RGFW\_gamepadfunc@{RGFW\_gamepadfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_gamepadfunc}{RGFW\_gamepadfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+gamepadfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 gamepad, RGFW\+\_\+bool connected)}
+
+RGFW\+\_\+gamepad\+Connected / RGFW\+\_\+gamepad\+Disconnected, the window that got the event, the gamepad in question, if the controller was connected (else it was disconnected) \Hypertarget{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}\label{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822} 
+\index{Callbacks@{Callbacks}!RGFW\_keyfunc@{RGFW\_keyfunc}}
+\index{RGFW\_keyfunc@{RGFW\_keyfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_keyfunc}{RGFW\_keyfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+keyfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 key, char key\+Char, RGFW\+\_\+keymod key\+Mod, RGFW\+\_\+bool pressed)}
+
+RGFW\+\_\+key\+Pressed / RGFW\+\_\+key\+Released, the window that got the event, the mapped key, the physical key, the string version, the state of the mod keys, if it was a press (else it\textquotesingle{}s a release) \Hypertarget{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}\label{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3} 
+\index{Callbacks@{Callbacks}!RGFW\_mousebuttonfunc@{RGFW\_mousebuttonfunc}}
+\index{RGFW\_mousebuttonfunc@{RGFW\_mousebuttonfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_mousebuttonfunc}{RGFW\_mousebuttonfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+mousebuttonfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, RGFW\+\_\+mouse\+Button button, double scroll, RGFW\+\_\+bool pressed)}
+
+RGFW\+\_\+mouse\+Button\+Pressed / RGFW\+\_\+mouse\+Button\+Released, the window that got the event, the button that was pressed, the scroll value, if it was a press (else it\textquotesingle{}s a release) ~\newline
+ \Hypertarget{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}\label{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f} 
+\index{Callbacks@{Callbacks}!RGFW\_mouseNotifyfunc@{RGFW\_mouseNotifyfunc}}
+\index{RGFW\_mouseNotifyfunc@{RGFW\_mouseNotifyfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_mouseNotifyfunc}{RGFW\_mouseNotifyfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+mouse\+Notifyfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point, RGFW\+\_\+bool status)}
+
+RGFW\+\_\+mouse\+Enter / RGFW\+\_\+mouse\+Leave, the window that changed, the point of the mouse (enter only) and if the mouse has entered \Hypertarget{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}\label{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb} 
+\index{Callbacks@{Callbacks}!RGFW\_mouseposfunc@{RGFW\_mouseposfunc}}
+\index{RGFW\_mouseposfunc@{RGFW\_mouseposfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_mouseposfunc}{RGFW\_mouseposfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+mouseposfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} point, \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} vector)}
+
+RGFW\+\_\+mouse\+Pos\+Changed, the window that the move happened on, and the new point of the mouse ~\newline
+ \Hypertarget{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}\label{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4} 
+\index{Callbacks@{Callbacks}!RGFW\_windowmovefunc@{RGFW\_windowmovefunc}}
+\index{RGFW\_windowmovefunc@{RGFW\_windowmovefunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_windowmovefunc}{RGFW\_windowmovefunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+windowmovefunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} r)}
+
+RGFW\+\_\+window\+Moved, the window and its new rect value ~\newline
+ \Hypertarget{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}\label{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691} 
+\index{Callbacks@{Callbacks}!RGFW\_windowquitfunc@{RGFW\_windowquitfunc}}
+\index{RGFW\_windowquitfunc@{RGFW\_windowquitfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_windowquitfunc}{RGFW\_windowquitfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+windowquitfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)}
+
+RGFW\+\_\+quit, the window that was closed \Hypertarget{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}\label{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e} 
+\index{Callbacks@{Callbacks}!RGFW\_windowrefreshfunc@{RGFW\_windowrefreshfunc}}
+\index{RGFW\_windowrefreshfunc@{RGFW\_windowrefreshfunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_windowrefreshfunc}{RGFW\_windowrefreshfunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+windowrefreshfunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)}
+
+RGFW\+\_\+window\+Refresh, the window that needs to be refreshed \Hypertarget{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}\label{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2} 
+\index{Callbacks@{Callbacks}!RGFW\_windowresizefunc@{RGFW\_windowresizefunc}}
+\index{RGFW\_windowresizefunc@{RGFW\_windowresizefunc}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_windowresizefunc}{RGFW\_windowresizefunc}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} RGFW\+\_\+windowresizefunc) (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, \mbox{\hyperlink{structRGFW__rect}{RGFW\+\_\+rect}} r)}
+
+RGFW\+\_\+window\+Resized, the window and its new rect value ~\newline
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__Callbacks_ga1e81369ffe03b5775a26bb01969a7649}\label{group__Callbacks_ga1e81369ffe03b5775a26bb01969a7649} 
+\index{Callbacks@{Callbacks}!RGFW\_setDndCallback@{RGFW\_setDndCallback}}
+\index{RGFW\_setDndCallback@{RGFW\_setDndCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setDndCallback()}{RGFW\_setDndCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}{RGFW\+\_\+dndfunc}} RGFW\+\_\+set\+Dnd\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga434cff4c15dd2839a1e65f55c1d21188}{RGFW\+\_\+dndfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a drop event event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga8a54548833f8cca9b94b23f6e37ba3b3}\label{group__Callbacks_ga8a54548833f8cca9b94b23f6e37ba3b3} 
+\index{Callbacks@{Callbacks}!RGFW\_setDndInitCallback@{RGFW\_setDndInitCallback}}
+\index{RGFW\_setDndInitCallback@{RGFW\_setDndInitCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setDndInitCallback()}{RGFW\_setDndInitCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}{RGFW\+\_\+dnd\+Initfunc}} RGFW\+\_\+set\+Dnd\+Init\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga0f23d16fc1842746e340f74ce5297238}{RGFW\+\_\+dnd\+Initfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a start of a drop event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga8b5846ac7b74848a4170770197f9235e}\label{group__Callbacks_ga8b5846ac7b74848a4170770197f9235e} 
+\index{Callbacks@{Callbacks}!RGFW\_setFocusCallback@{RGFW\_setFocusCallback}}
+\index{RGFW\_setFocusCallback@{RGFW\_setFocusCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setFocusCallback()}{RGFW\_setFocusCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}{RGFW\+\_\+focusfunc}} RGFW\+\_\+set\+Focus\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gabe9f1d3cf2f1a29fb5877f2fd4587d0b}{RGFW\+\_\+focusfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a window focus change event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga7b39a2db76ce3782f31d673698c4d53a}\label{group__Callbacks_ga7b39a2db76ce3782f31d673698c4d53a} 
+\index{Callbacks@{Callbacks}!RGFW\_setgamepadAxisCallback@{RGFW\_setgamepadAxisCallback}}
+\index{RGFW\_setgamepadAxisCallback@{RGFW\_setgamepadAxisCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setgamepadAxisCallback()}{RGFW\_setgamepadAxisCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}{RGFW\+\_\+gamepad\+Axisfunc}} RGFW\+\_\+setgamepad\+Axis\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gac41270036ec7e6a1fe13f5195ffac620}{RGFW\+\_\+gamepad\+Axisfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a gamepad axis move event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga18fbed5f52be6d1cc1c2a3e3496103cb}\label{group__Callbacks_ga18fbed5f52be6d1cc1c2a3e3496103cb} 
+\index{Callbacks@{Callbacks}!RGFW\_setgamepadButtonCallback@{RGFW\_setgamepadButtonCallback}}
+\index{RGFW\_setgamepadButtonCallback@{RGFW\_setgamepadButtonCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setgamepadButtonCallback()}{RGFW\_setgamepadButtonCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}{RGFW\+\_\+gamepad\+Buttonfunc}} RGFW\+\_\+setgamepad\+Button\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga6e9294f6b00a721fb629e0b19c7dd1dc}{RGFW\+\_\+gamepad\+Buttonfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a controller button (press / release) event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga9029c047eda4df00906fe406e379c219}\label{group__Callbacks_ga9029c047eda4df00906fe406e379c219} 
+\index{Callbacks@{Callbacks}!RGFW\_setGamepadCallback@{RGFW\_setGamepadCallback}}
+\index{RGFW\_setGamepadCallback@{RGFW\_setGamepadCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setGamepadCallback()}{RGFW\_setGamepadCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}{RGFW\+\_\+gamepadfunc}} RGFW\+\_\+set\+Gamepad\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gaec930946481b1a8c71788c19b6bf3674}{RGFW\+\_\+gamepadfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for when a controller is connected or disconnected. Returns the previous callback function (if it was set) \Hypertarget{group__Callbacks_gaade2b5b8ca4d3e0d3e3fe219ff9e2795}\label{group__Callbacks_gaade2b5b8ca4d3e0d3e3fe219ff9e2795} 
+\index{Callbacks@{Callbacks}!RGFW\_setKeyCallback@{RGFW\_setKeyCallback}}
+\index{RGFW\_setKeyCallback@{RGFW\_setKeyCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setKeyCallback()}{RGFW\_setKeyCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}{RGFW\+\_\+keyfunc}} RGFW\+\_\+set\+Key\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gac106d1af2e82c4c01892f73d6a5a3822}{RGFW\+\_\+keyfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a key (press / release) event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga6bf38c7b6a245f81262c3d81b8db083e}\label{group__Callbacks_ga6bf38c7b6a245f81262c3d81b8db083e} 
+\index{Callbacks@{Callbacks}!RGFW\_setMouseButtonCallback@{RGFW\_setMouseButtonCallback}}
+\index{RGFW\_setMouseButtonCallback@{RGFW\_setMouseButtonCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setMouseButtonCallback()}{RGFW\_setMouseButtonCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}{RGFW\+\_\+mousebuttonfunc}} RGFW\+\_\+set\+Mouse\+Button\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga917e6f8679dc635c26aeff6e2b2f24e3}{RGFW\+\_\+mousebuttonfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a mouse button (press / release) event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga731449e179227cbc88f1e1be8dd74d43}\label{group__Callbacks_ga731449e179227cbc88f1e1be8dd74d43} 
+\index{Callbacks@{Callbacks}!RGFW\_setMouseNotifyCallBack@{RGFW\_setMouseNotifyCallBack}}
+\index{RGFW\_setMouseNotifyCallBack@{RGFW\_setMouseNotifyCallBack}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setMouseNotifyCallBack()}{RGFW\_setMouseNotifyCallBack()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}{RGFW\+\_\+mouse\+Notifyfunc}} RGFW\+\_\+set\+Mouse\+Notify\+Call\+Back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gaa4ccf80df67a6601f6a1c025ab69705f}{RGFW\+\_\+mouse\+Notifyfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a mouse notify event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga9ec534a37fbff0a98f466c4bc0de6b6a}\label{group__Callbacks_ga9ec534a37fbff0a98f466c4bc0de6b6a} 
+\index{Callbacks@{Callbacks}!RGFW\_setMousePosCallback@{RGFW\_setMousePosCallback}}
+\index{RGFW\_setMousePosCallback@{RGFW\_setMousePosCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setMousePosCallback()}{RGFW\_setMousePosCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}{RGFW\+\_\+mouseposfunc}} RGFW\+\_\+set\+Mouse\+Pos\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gae3561822a8b0f1f263294e92703e6ebb}{RGFW\+\_\+mouseposfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a mouse move event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_gab5cc2a183f3cd057b5c7e6b8d86e2b40}\label{group__Callbacks_gab5cc2a183f3cd057b5c7e6b8d86e2b40} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowMaximizedCallback@{RGFW\_setWindowMaximizedCallback}}
+\index{RGFW\_setWindowMaximizedCallback@{RGFW\_setWindowMaximizedCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowMaximizedCallback()}{RGFW\_setWindowMaximizedCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} RGFW\+\_\+set\+Window\+Maximized\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}}}]{func }\end{DoxyParamCaption})}
+
+set call back for when window is maximized. Returns the previous callback function (if it was set) \Hypertarget{group__Callbacks_ga9aa6ebd4b24fc85bfbb8776902904413}\label{group__Callbacks_ga9aa6ebd4b24fc85bfbb8776902904413} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowMinimizedCallback@{RGFW\_setWindowMinimizedCallback}}
+\index{RGFW\_setWindowMinimizedCallback@{RGFW\_setWindowMinimizedCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowMinimizedCallback()}{RGFW\_setWindowMinimizedCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} RGFW\+\_\+set\+Window\+Minimized\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}}}]{func }\end{DoxyParamCaption})}
+
+set call back for when window is minimized. Returns the previous callback function (if it was set) \Hypertarget{group__Callbacks_gac036b935b39bfabb6ac8e228fab07c9d}\label{group__Callbacks_gac036b935b39bfabb6ac8e228fab07c9d} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowMoveCallback@{RGFW\_setWindowMoveCallback}}
+\index{RGFW\_setWindowMoveCallback@{RGFW\_setWindowMoveCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowMoveCallback()}{RGFW\_setWindowMoveCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}{RGFW\+\_\+windowmovefunc}} RGFW\+\_\+set\+Window\+Move\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gaee0b1849b0a801545113b5fa76272bf4}{RGFW\+\_\+windowmovefunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a window move event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga9b7d3fe9c513efb0bc173f9f8fd56b05}\label{group__Callbacks_ga9b7d3fe9c513efb0bc173f9f8fd56b05} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowQuitCallback@{RGFW\_setWindowQuitCallback}}
+\index{RGFW\_setWindowQuitCallback@{RGFW\_setWindowQuitCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowQuitCallback()}{RGFW\_setWindowQuitCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}{RGFW\+\_\+windowquitfunc}} RGFW\+\_\+set\+Window\+Quit\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga18ae56dfa334dde3f7532077093c9691}{RGFW\+\_\+windowquitfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a window quit event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga305e1673f4a91264aba268ab518433ba}\label{group__Callbacks_ga305e1673f4a91264aba268ab518433ba} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowRefreshCallback@{RGFW\_setWindowRefreshCallback}}
+\index{RGFW\_setWindowRefreshCallback@{RGFW\_setWindowRefreshCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowRefreshCallback()}{RGFW\_setWindowRefreshCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}{RGFW\+\_\+windowrefreshfunc}} RGFW\+\_\+set\+Window\+Refresh\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_ga549ca7f50706b597bc36152bde169a9e}{RGFW\+\_\+windowrefreshfunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a window refresh event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga6d9746d3f312096a508954472d244ffe}\label{group__Callbacks_ga6d9746d3f312096a508954472d244ffe} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowResizeCallback@{RGFW\_setWindowResizeCallback}}
+\index{RGFW\_setWindowResizeCallback@{RGFW\_setWindowResizeCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowResizeCallback()}{RGFW\_setWindowResizeCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} RGFW\+\_\+set\+Window\+Resize\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}}}]{func }\end{DoxyParamCaption})}
+
+set callback for a window resize event. Returns previous callback function (if it was set) ~\newline
+ \Hypertarget{group__Callbacks_ga63550130742d2ca7e4fa4a28d61fcc2b}\label{group__Callbacks_ga63550130742d2ca7e4fa4a28d61fcc2b} 
+\index{Callbacks@{Callbacks}!RGFW\_setWindowRestoredCallback@{RGFW\_setWindowRestoredCallback}}
+\index{RGFW\_setWindowRestoredCallback@{RGFW\_setWindowRestoredCallback}!Callbacks@{Callbacks}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setWindowRestoredCallback()}{RGFW\_setWindowRestoredCallback()}}
+{\footnotesize\ttfamily RGFWDEF \mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}} RGFW\+\_\+set\+Window\+Restored\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Callbacks_gab6a2c06bb7288d94ea3d8f053fe292f2}{RGFW\+\_\+windowresizefunc}}}]{func }\end{DoxyParamCaption})}
+
+set call back for when window is restored. Returns the previous callback function (if it was set) 

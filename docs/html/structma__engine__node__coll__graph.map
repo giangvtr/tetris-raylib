@@ -1,0 +1,123 @@
+<map id="ma_engine_node" name="ma_engine_node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="963,264,1097,289"/>
+<area shape="rect" id="Node000055" href="$structma__sound.html" title=" " alt="" coords="1449,367,1538,392"/>
+<area shape="poly" id="edge56_Node000055_Node000001" title=" " alt="" coords="1076,292,1141,314,1225,334,1311,351,1449,371,1448,377,1310,356,1224,340,1139,319,1074,297"/>
+<area shape="rect" id="Node000002" href="$structma__node__base.html" title=" " alt="" coords="613,375,733,400"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="746,371,830,351,919,325,1004,287,1006,292,921,330,831,357,747,376"/>
+<area shape="rect" id="Node000003" href="$structma__node__graph.html" title=" " alt="" coords="297,380,424,405"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="599,382,537,378,472,379,424,385,424,379,472,374,537,373,599,376"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="437,390,557,389,612,387,612,392,557,394,438,395"/>
+<area shape="rect" id="Node000007" href="$structma__engine.html" title=" " alt="" coords="2201,583,2295,608"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="382,414,421,455,446,475,473,490,526,508,569,513,671,509,1899,509,1967,511,2020,519,2138,551,2218,580,2217,585,2137,557,2019,525,1967,517,1899,514,671,514,569,518,524,513,471,495,443,479,417,459,378,418"/>
+<area shape="rect" id="Node000004" href="$structma__node__vtable.html" title=" " alt="" coords="295,643,426,668"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="440,666,470,666,501,663,530,653,556,637,565,627,571,616,573,594,573,568,579,538,598,497,621,457,660,399,664,402,626,460,603,499,584,540,578,569,579,594,576,618,570,630,559,641,532,658,502,668,471,672,440,672"/>
+<area shape="rect" id="Node000005" href="$structma__node__input__bus.html" title=" " alt="" coords="285,303,437,328"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="451,318,504,325,558,337,606,354,648,372,646,377,605,358,557,342,503,331,450,324"/>
+<area shape="rect" id="Node000006" href="$structma__node__output__bus.html" title=" " alt="" coords="5,464,167,489"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="129,492,211,521,263,535,320,546,380,553,440,552,500,543,556,524,594,497,625,462,649,427,663,399,668,401,653,430,630,465,598,501,559,528,501,548,441,558,380,558,319,552,262,540,210,526,127,497"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="119,455,336,326,339,330,122,459"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="2234,571,2196,498,2168,457,2135,420,2098,387,2066,366,2030,351,1982,337,1858,307,1730,286,1602,273,1478,266,1256,266,1097,274,1097,268,1256,260,1478,261,1603,268,1731,281,1859,302,1983,331,2031,346,2068,362,2101,383,2139,416,2173,454,2201,496,2239,569"/>
+<area shape="rect" id="Node000008" href="$structma__resource__manager.html" title=" " alt="" coords="1812,800,1983,825"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="1930,790,2225,606,2227,610,1932,795"/>
+<area shape="rect" id="Node000009" href="$structma__resource__manager__config.html" title=" " alt="" coords="1408,1045,1579,1085"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="1592,1046,1640,1034,1690,1016,1740,994,1786,965,1822,931,1852,891,1888,824,1893,827,1856,894,1826,934,1790,969,1743,999,1692,1021,1641,1039,1593,1051"/>
+<area shape="rect" id="Node000010" href="$structma__allocation__callbacks.html" title=" " alt="" coords="581,1092,764,1117"/>
+<area shape="poly" id="edge53_Node000007_Node000010" title=" " alt="" coords="708,1082,736,1062,762,1038,783,1004,804,957,845,843,866,785,889,733,914,690,943,661,964,654,1004,648,1131,636,1508,616,2200,594,2201,599,1508,621,1131,641,1004,653,965,659,945,666,919,693,894,735,871,787,850,845,809,959,788,1006,766,1041,740,1066,711,1087"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="744,1118,892,1147,1076,1177,1168,1186,1252,1190,1324,1187,1376,1174,1389,1164,1399,1150,1469,1083,1472,1087,1403,1153,1393,1168,1379,1179,1324,1192,1252,1196,1168,1192,1076,1182,891,1153,743,1123"/>
+<area shape="rect" id="Node000011" href="$structma__log.html" title=" " alt="" coords="995,1073,1065,1099"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="777,1105,920,1101,994,1090,995,1095,920,1106,778,1110"/>
+<area shape="rect" id="Node000025" href="$structma__default__vfs.html" title=" " alt="" coords="969,675,1091,700"/>
+<area shape="poly" id="edge27_Node000025_Node000010" title=" " alt="" coords="772,1087,869,1071,918,1058,926,1047,931,1031,936,990,931,888,924,784,929,742,942,711,954,700,967,693,970,698,957,705,946,714,934,743,930,785,936,888,941,991,937,1032,931,1049,922,1063,870,1076,773,1092"/>
+<area shape="rect" id="Node000028" href="$structma__context.html" title=" " alt="" coords="1444,1228,1543,1253"/>
+<area shape="poly" id="edge33_Node000028_Node000010" title=" " alt="" coords="711,1121,789,1157,879,1186,973,1208,1068,1223,1160,1233,1325,1241,1444,1240,1444,1246,1325,1247,1159,1238,1067,1228,972,1213,878,1191,787,1162,709,1126"/>
+<area shape="poly" id="edge47_Node000007_Node000011" title=" " alt="" coords="1079,1087,1234,1095,1441,1100,1547,1097,1645,1091,1727,1078,1787,1060,1871,1011,1949,951,2020,884,2084,815,2138,748,2183,688,2237,607,2241,609,2187,691,2143,751,2088,818,2024,887,1952,955,1874,1015,1789,1064,1728,1084,1645,1096,1547,1103,1441,1105,1234,1101,1079,1092"/>
+<area shape="poly" id="edge28_Node000008_Node000011" title=" " alt="" coords="1077,1067,1114,1043,1121,1033,1125,1022,1129,1012,1138,1001,1197,966,1251,946,1301,936,1351,934,1456,935,1516,931,1585,919,1687,895,1787,862,1871,823,1874,828,1789,867,1689,900,1586,925,1517,936,1456,940,1351,939,1302,941,1252,951,1200,971,1142,1005,1133,1014,1130,1024,1126,1035,1118,1047,1079,1071"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="1079,1081,1407,1066,1408,1071,1079,1086"/>
+<area shape="poly" id="edge32_Node000028_Node000011" title=" " alt="" coords="1062,1104,1099,1127,1141,1148,1205,1170,1257,1183,1311,1192,1378,1207,1446,1225,1444,1231,1377,1213,1309,1197,1256,1188,1204,1176,1139,1152,1096,1131,1059,1109"/>
+<area shape="rect" id="Node000012" href="$structma__log__callback.html" title=" " alt="" coords="607,1001,738,1027"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="752,1015,834,1024,921,1041,964,1055,1003,1071,1001,1076,963,1060,919,1046,833,1030,751,1021"/>
+<area shape="rect" id="Node000013" href="$structma__decoding__backend__vtable.html" title=" " alt="" coords="945,993,1115,1033"/>
+<area shape="poly" id="edge16_Node000009_Node000013" title=" " alt="" coords="1129,1020,1378,1047,1408,1051,1407,1056,1377,1053,1129,1025"/>
+<area shape="rect" id="Node000014" href="$structma__resource__manager__data__buffer__node.html" title=" " alt="" coords="1408,855,1579,895"/>
+<area shape="poly" id="edge17_Node000008_Node000014" title=" " alt="" coords="1592,860,1788,831,1834,823,1835,828,1788,837,1593,866"/>
+<area shape="poly" id="edge19_Node000014_Node000014" title=" " alt="" coords="1456,839,1469,832,1493,829,1514,831,1528,837,1534,846,1532,856,1527,854,1529,847,1525,841,1513,836,1493,834,1471,837,1459,844"/>
+<area shape="rect" id="Node000015" href="$structma__resource__manager__data__supply.html" title=" " alt="" coords="945,911,1115,951"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="1129,917,1377,887,1407,884,1408,889,1378,893,1129,923"/>
+<area shape="rect" id="Node000018" href="$structma__job__queue.html" title=" " alt="" coords="1435,737,1552,763"/>
+<area shape="poly" id="edge20_Node000008_Node000018" title=" " alt="" coords="1566,758,1815,797,1814,803,1565,764"/>
+<area shape="rect" id="Node000019" href="$structma__semaphore.html" title=" " alt="" coords="969,861,1091,887"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="1105,869,1179,865,1258,856,1329,843,1356,834,1376,824,1384,813,1387,801,1390,787,1399,773,1416,763,1434,756,1436,761,1418,767,1403,777,1395,789,1392,802,1389,815,1379,828,1358,839,1330,848,1259,862,1180,870,1106,875"/>
+<area shape="rect" id="Node000027" href="$structma__device.html" title=" " alt="" coords="1851,1323,1944,1348"/>
+<area shape="poly" id="edge45_Node000027_Node000019" title=" " alt="" coords="1105,873,1258,883,1330,895,1358,903,1379,913,1388,924,1392,935,1395,946,1403,955,1429,970,1454,980,1504,989,1551,986,1598,978,1645,971,1692,970,1740,982,1765,995,1790,1013,1823,1049,1849,1090,1868,1135,1881,1181,1895,1265,1899,1322,1893,1323,1890,1266,1876,1182,1863,1137,1844,1092,1819,1052,1786,1017,1762,1000,1738,987,1691,975,1645,976,1599,983,1552,991,1503,994,1453,985,1427,975,1400,959,1390,948,1387,937,1384,926,1376,917,1356,908,1328,900,1258,888,1105,878"/>
+<area shape="rect" id="Node000020" href="$structma__slot__allocator.html" title=" " alt="" coords="961,724,1099,749"/>
+<area shape="poly" id="edge22_Node000018_Node000020" title=" " alt="" coords="1114,736,1435,746,1434,751,1114,742"/>
+<area shape="rect" id="Node000022" href="$structma__job.html" title=" " alt="" coords="995,812,1065,837"/>
+<area shape="poly" id="edge23_Node000018_Node000022" title=" " alt="" coords="1078,814,1434,757,1435,762,1079,820"/>
+<area shape="poly" id="edge24_Node000022_Node000022" title=" " alt="" coords="996,798,1006,789,1030,785,1050,788,1062,794,1065,804,1059,813,1055,810,1060,803,1058,797,1049,793,1030,791,1008,794,999,802"/>
+<area shape="poly" id="edge25_Node000008_Node000025" title=" " alt="" coords="1105,679,1237,674,1409,678,1504,686,1600,699,1696,718,1789,745,1841,770,1881,798,1878,802,1838,775,1787,750,1695,724,1599,705,1503,692,1409,684,1237,680,1105,684"/>
+<area shape="rect" id="Node000026" href="$structma__vfs__callbacks.html" title=" " alt="" coords="603,600,742,625"/>
+<area shape="poly" id="edge26_Node000025_Node000026" title=" " alt="" coords="748,626,969,672,968,677,747,631"/>
+<area shape="poly" id="edge29_Node000007_Node000027" title=" " alt="" coords="1938,1314,1985,1288,2039,1253,2092,1207,2115,1182,2135,1154,2157,1106,2176,1039,2209,873,2231,711,2243,608,2248,608,2237,711,2214,874,2181,1040,2162,1108,2140,1157,2119,1185,2095,1211,2042,1257,1988,1293,1941,1319"/>
+<area shape="poly" id="edge36_Node000027_Node000027" title=" " alt="" coords="1863,1308,1873,1300,1897,1296,1917,1298,1929,1305,1932,1314,1926,1324,1922,1321,1927,1314,1925,1308,1916,1303,1897,1301,1876,1304,1867,1312"/>
+<area shape="rect" id="Node000032" href="$structma__device__notification.html" title=" " alt="" coords="2161,1323,2335,1348"/>
+<area shape="poly" id="edge38_Node000032_Node000027" title=" " alt="" coords="1958,1333,2161,1333,2161,1338,1958,1338"/>
+<area shape="poly" id="edge30_Node000027_Node000028" title=" " alt="" coords="1556,1233,1608,1232,1667,1234,1729,1242,1789,1258,1818,1271,1844,1288,1884,1320,1881,1325,1841,1292,1815,1276,1787,1263,1728,1248,1666,1240,1608,1237,1557,1238"/>
+<area shape="rect" id="Node000029" href="$structma__backend__callbacks.html" title=" " alt="" coords="944,1327,1116,1352"/>
+<area shape="poly" id="edge31_Node000028_Node000029" title=" " alt="" coords="1130,1337,1249,1327,1314,1317,1376,1301,1430,1277,1473,1251,1475,1256,1432,1282,1378,1306,1315,1322,1250,1333,1130,1342"/>
+<area shape="rect" id="Node000030" href="$structma__device__info.html" title=" " alt="" coords="967,1277,1093,1303"/>
+<area shape="poly" id="edge34_Node000028_Node000030" title=" " alt="" coords="1106,1284,1233,1275,1377,1259,1443,1248,1444,1253,1378,1265,1234,1280,1107,1289"/>
+<area shape="rect" id="Node000031" href="$unionma__device__id.html" title=" " alt="" coords="617,1391,729,1416"/>
+<area shape="poly" id="edge43_Node000027_Node000031" title=" " alt="" coords="743,1406,895,1416,1104,1423,1343,1422,1465,1416,1585,1406,1687,1396,1731,1389,1787,1375,1830,1361,1868,1346,1870,1351,1832,1366,1789,1381,1732,1394,1688,1401,1586,1411,1466,1421,1343,1427,1104,1428,895,1421,743,1412"/>
+<area shape="poly" id="edge35_Node000030_Node000031" title=" " alt="" coords="724,1384,943,1313,985,1300,986,1305,945,1318,725,1389"/>
+<area shape="poly" id="edge37_Node000027_Node000032" title=" " alt="" coords="2179,1353,2138,1359,2072,1364,2006,1359,1944,1349,1945,1344,2007,1354,2072,1358,2137,1354,2179,1348"/>
+<area shape="rect" id="Node000024" href="$structma__event.html" title=" " alt="" coords="1450,1321,1537,1347"/>
+<area shape="poly" id="edge39_Node000027_Node000024" title=" " alt="" coords="1551,1332,1850,1333,1850,1338,1551,1337"/>
+<area shape="rect" id="Node000033" href="$structma__duplex__rb.html" title=" " alt="" coords="1436,1371,1551,1396"/>
+<area shape="poly" id="edge40_Node000027_Node000033" title=" " alt="" coords="1564,1375,1788,1351,1850,1341,1851,1347,1788,1357,1565,1380"/>
+<area shape="rect" id="Node000034" href="$structma__pcm__rb.html" title=" " alt="" coords="981,1376,1079,1401"/>
+<area shape="poly" id="edge41_Node000033_Node000034" title=" " alt="" coords="1094,1385,1436,1381,1436,1387,1094,1391"/>
+<area shape="rect" id="Node000038" href="$structma__resampling__backend__vtable.html" title=" " alt="" coords="1401,1163,1585,1203"/>
+<area shape="poly" id="edge42_Node000027_Node000038" title=" " alt="" coords="1599,1174,1645,1175,1694,1181,1743,1193,1789,1212,1824,1236,1854,1266,1891,1321,1887,1324,1849,1270,1821,1240,1787,1216,1741,1198,1693,1187,1645,1181,1599,1179"/>
+<area shape="rect" id="Node000039" href="$structma__data__converter.html" title=" " alt="" coords="1419,1480,1567,1505"/>
+<area shape="poly" id="edge44_Node000027_Node000039" title=" " alt="" coords="1581,1503,1631,1505,1684,1502,1737,1492,1787,1473,1823,1446,1853,1410,1874,1375,1888,1347,1893,1350,1879,1378,1857,1414,1827,1449,1789,1478,1738,1497,1684,1508,1631,1510,1581,1508"/>
+<area shape="rect" id="Node000049" href="$unionma__timer.html" title=" " alt="" coords="1451,1529,1536,1555"/>
+<area shape="poly" id="edge46_Node000027_Node000049" title=" " alt="" coords="1550,1551,1603,1558,1665,1559,1728,1549,1758,1539,1787,1525,1810,1507,1830,1485,1861,1434,1880,1384,1891,1347,1896,1349,1885,1386,1865,1437,1834,1488,1814,1511,1789,1530,1761,1544,1730,1555,1665,1564,1603,1563,1549,1557"/>
+<area shape="rect" id="Node000050" href="$structma__spatializer__listener.html" title=" " alt="" coords="585,551,760,576"/>
+<area shape="poly" id="edge48_Node000007_Node000050" title=" " alt="" coords="773,561,1029,561,1899,561,1982,563,2066,570,2201,586,2200,591,2065,575,1982,569,1899,566,1029,566,773,566"/>
+<area shape="rect" id="Node000051" href="$structma__spatializer__listener__config.html" title=" " alt="" coords="273,693,448,733"/>
+<area shape="poly" id="edge49_Node000050_Node000051" title=" " alt="" coords="461,726,512,720,535,711,556,697,566,685,570,673,568,646,566,617,570,602,579,587,596,574,600,578,583,591,574,604,571,617,573,645,575,674,570,688,559,701,537,716,513,725,462,731"/>
+<area shape="rect" id="Node000052" href="$structma__vec3f.html" title=" " alt="" coords="43,653,129,679"/>
+<area shape="poly" id="edge50_Node000051_Node000052" title=" " alt="" coords="143,673,274,695,273,701,143,678"/>
+<area shape="rect" id="Node000053" href="$structma__atomic__vec3f.html" title=" " alt="" coords="291,593,430,619"/>
+<area shape="poly" id="edge52_Node000053_Node000052" title=" " alt="" coords="142,651,301,616,302,621,143,656"/>
+<area shape="poly" id="edge51_Node000050_Node000053" title=" " alt="" coords="444,616,500,616,556,605,568,597,580,586,612,574,614,579,583,591,571,601,558,610,501,621,444,621"/>
+<area shape="rect" id="Node000065" href="$structma__spatializer.html" title=" " alt="" coords="613,305,732,331"/>
+<area shape="poly" id="edge67_Node000065_Node000053" title=" " alt="" coords="421,586,447,572,484,542,510,514,531,482,555,440,562,418,564,400,568,382,579,362,602,342,629,328,631,333,605,346,583,365,573,383,570,401,568,420,560,442,536,485,515,518,488,546,449,576,424,590"/>
+<area shape="rect" id="Node000054" href="$structma__sound__inlined.html" title=" " alt="" coords="1827,399,1967,424"/>
+<area shape="poly" id="edge54_Node000007_Node000054" title=" " alt="" coords="1972,425,2054,451,2098,469,2139,490,2170,512,2198,537,2238,581,2234,584,2194,541,2166,516,2136,495,2095,474,2053,456,1971,430"/>
+<area shape="poly" id="edge58_Node000054_Node000054" title=" " alt="" coords="1863,384,1873,376,1897,372,1917,374,1929,381,1932,390,1926,400,1922,397,1927,390,1925,384,1916,379,1897,377,1876,380,1867,388"/>
+<area shape="poly" id="edge55_Node000054_Node000055" title=" " alt="" coords="1552,381,1827,403,1827,409,1552,387"/>
+<area shape="poly" id="edge57_Node000055_Node000055" title=" " alt="" coords="1453,353,1465,344,1493,340,1517,342,1531,348,1534,358,1527,368,1523,365,1529,358,1527,352,1515,347,1493,345,1467,349,1457,357"/>
+<area shape="rect" id="Node000063" href="$structma__fader.html" title=" " alt="" coords="631,256,715,281"/>
+<area shape="poly" id="edge59_Node000001_Node000063" title=" " alt="" coords="728,267,963,273,963,278,728,273"/>
+<area shape="rect" id="Node000064" href="$structma__fader__config.html" title=" " alt="" coords="295,215,426,240"/>
+<area shape="poly" id="edge60_Node000063_Node000064" title=" " alt="" coords="440,235,631,261,630,266,439,240"/>
+<area shape="rect" id="Node000042" href="$structma__linear__resampler.html" title=" " alt="" coords="593,83,753,108"/>
+<area shape="poly" id="edge61_Node000001_Node000042" title=" " alt="" coords="767,88,845,98,884,109,921,126,960,158,990,196,1012,233,1026,262,1021,265,1007,236,985,199,956,161,919,131,883,114,844,103,766,94"/>
+<area shape="rect" id="Node000043" href="$structma__linear__resampler__config.html" title=" " alt="" coords="281,79,441,119"/>
+<area shape="poly" id="edge62_Node000042_Node000043" title=" " alt="" coords="454,95,593,94,593,99,454,101"/>
+<area shape="rect" id="Node000044" href="$structma__lpf.html" title=" " alt="" coords="327,29,394,55"/>
+<area shape="poly" id="edge63_Node000042_Node000044" title=" " alt="" coords="408,47,598,80,597,85,407,53"/>
+<area shape="rect" id="Node000045" href="$structma__lpf1.html" title=" " alt="" coords="49,55,123,80"/>
+<area shape="poly" id="edge64_Node000044_Node000045" title=" " alt="" coords="137,60,249,50,327,43,327,48,250,55,137,66"/>
+<area shape="rect" id="Node000047" href="$structma__lpf2.html" title=" " alt="" coords="49,5,123,31"/>
+<area shape="poly" id="edge65_Node000044_Node000047" title=" " alt="" coords="137,20,328,37,327,42,137,25"/>
+<area shape="poly" id="edge66_Node000001_Node000065" title=" " alt="" coords="745,310,920,291,963,285,964,290,920,297,746,315"/>
+<area shape="rect" id="Node000066" href="$structma__gainer.html" title=" " alt="" coords="315,155,406,180"/>
+<area shape="poly" id="edge71_Node000001_Node000066" title=" " alt="" coords="420,160,517,156,644,158,713,164,783,174,853,188,921,208,974,233,1014,262,1011,266,971,238,919,212,852,193,783,179,712,169,643,164,517,161,420,165"/>
+<area shape="poly" id="edge68_Node000065_Node000066" title=" " alt="" coords="421,175,501,194,536,206,559,220,570,239,572,258,573,275,583,292,597,302,614,309,612,314,595,307,579,296,568,277,567,258,565,241,555,224,533,211,499,199,419,180"/>
+<area shape="rect" id="Node000067" href="$structma__gainer__config.html" title=" " alt="" coords="17,155,155,180"/>
+<area shape="poly" id="edge69_Node000066_Node000067" title=" " alt="" coords="169,165,315,165,315,170,169,170"/>
+<area shape="rect" id="Node000068" href="$structma__panner.html" title=" " alt="" coords="625,207,720,232"/>
+<area shape="poly" id="edge70_Node000001_Node000068" title=" " alt="" coords="734,222,822,232,920,247,982,261,981,267,920,253,821,238,733,227"/>
+</map>

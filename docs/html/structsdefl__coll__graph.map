@@ -1,0 +1,13 @@
+<map id="sdefl" name="sdefl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="135,181,188,207"/>
+<area shape="rect" id="Node000002" href="$structsdefl__seqt.html" title=" " alt="" coords="5,93,93,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,125,148,179,144,183,74,129"/>
+<area shape="rect" id="Node000003" href="$structsdefl__freq.html" title=" " alt="" coords="118,93,205,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,133,164,181,159,181,159,133"/>
+<area shape="rect" id="Node000004" href="$structsdefl__codes.html" title=" " alt="" coords="229,93,328,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,129,179,183,176,179,250,125"/>
+<area shape="rect" id="Node000005" href="$structsdefl__code__words.html" title=" " alt="" coords="142,5,279,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="231,40,271,91,267,94,226,43"/>
+<area shape="rect" id="Node000006" href="$structsdefl__lens.html" title=" " alt="" coords="303,5,390,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="331,43,290,94,286,91,327,40"/>
+</map>

@@ -1,0 +1,47 @@
+\doxysection{Gamepad}
+\hypertarget{group__gamepad}{}\label{group__gamepad}\index{Gamepad@{Gamepad}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__gamepad_ga48d3a6b1b2ea2d2be751791617e2098d}\label{group__gamepad_ga48d3a6b1b2ea2d2be751791617e2098d} 
+typedef {\bfseries RGFW\+\_\+\+ENUM} (u8, RGFW\+\_\+gamepad\+Type)
+\item 
+RGFWDEF u32 \mbox{\hyperlink{group__gamepad_gac42adfd82129acb302e3f4fa044023d7}{RGFW\+\_\+is\+Pressed\+Gamepad}} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 controller, RGFW\+\_\+gamepad\+Codes button)
+\item 
+\Hypertarget{group__gamepad_gaf32f5c9e0a53423b618596edc61e7396}\label{group__gamepad_gaf32f5c9e0a53423b618596edc61e7396} 
+RGFWDEF u32 {\bfseries RGFW\+\_\+is\+Released\+Gamepad} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 controller, RGFW\+\_\+gamepad\+Codes button)
+\item 
+\Hypertarget{group__gamepad_gabe73017ca13fa8e090b85bf6e70e93a6}\label{group__gamepad_gabe73017ca13fa8e090b85bf6e70e93a6} 
+RGFWDEF u32 {\bfseries RGFW\+\_\+is\+Held\+Gamepad} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 controller, RGFW\+\_\+gamepad\+Codes button)
+\item 
+\Hypertarget{group__gamepad_gaca34cf70179be9781a478f200972b3a9}\label{group__gamepad_gaca34cf70179be9781a478f200972b3a9} 
+RGFWDEF u32 {\bfseries RGFW\+\_\+was\+Pressed\+Gamepad} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u8 controller, RGFW\+\_\+gamepad\+Codes button)
+\item 
+\Hypertarget{group__gamepad_gabac705a054d0145de7203363ffe83465}\label{group__gamepad_gabac705a054d0145de7203363ffe83465} 
+RGFWDEF \mbox{\hyperlink{structRGFW__point}{RGFW\+\_\+point}} {\bfseries RGFW\+\_\+get\+Gamepad\+Axis} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 controller, u16 which\+Axis)
+\item 
+\Hypertarget{group__gamepad_ga107f5e2eddebfc85d3ca7fed4e927c75}\label{group__gamepad_ga107f5e2eddebfc85d3ca7fed4e927c75} 
+RGFWDEF const char \texorpdfstring{$\ast$}{*} {\bfseries RGFW\+\_\+get\+Gamepad\+Name} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 controller)
+\item 
+\Hypertarget{group__gamepad_gad055bb01e2494a6c026d228aa64a5065}\label{group__gamepad_gad055bb01e2494a6c026d228aa64a5065} 
+RGFWDEF size\+\_\+t {\bfseries RGFW\+\_\+get\+Gamepad\+Count} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win)
+\item 
+\Hypertarget{group__gamepad_gad6315d920bfb23b0e0cb23318c7310a2}\label{group__gamepad_gad6315d920bfb23b0e0cb23318c7310a2} 
+RGFWDEF RGFW\+\_\+gamepad\+Type {\bfseries RGFW\+\_\+get\+Gamepad\+Type} (\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}win, u16 controller)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__gamepad_gac42adfd82129acb302e3f4fa044023d7}\label{group__gamepad_gac42adfd82129acb302e3f4fa044023d7} 
+\index{Gamepad@{Gamepad}!RGFW\_isPressedGamepad@{RGFW\_isPressedGamepad}}
+\index{RGFW\_isPressedGamepad@{RGFW\_isPressedGamepad}!Gamepad@{Gamepad}}
+\doxysubsubsection{\texorpdfstring{RGFW\_isPressedGamepad()}{RGFW\_isPressedGamepad()}}
+{\footnotesize\ttfamily RGFWDEF u32 RGFW\+\_\+is\+Pressed\+Gamepad (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structRGFW__window}{RGFW\+\_\+window}} \texorpdfstring{$\ast$}{*}}]{win,  }\item[{u8}]{controller,  }\item[{RGFW\+\_\+gamepad\+Codes}]{button }\end{DoxyParamCaption})}
+
+gamepad count starts at 0 

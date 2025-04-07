@@ -1,0 +1,30 @@
+<map id="_GLFWlibraryWayland" name="_GLFWlibraryWayland">
+<area shape="rect" id="Node000001" title=" " alt="" coords="624,351,789,376"/>
+<area shape="rect" id="Node000002" href="$struct__GLFWofferWayland.html" title=" " alt="" coords="279,268,431,293"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="445,284,522,294,601,311,646,329,684,348,682,353,644,334,599,317,521,299,445,289"/>
+<area shape="rect" id="Node000003" href="$struct__GLFWwindow.html" title=" " alt="" coords="297,172,414,197"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="395,201,473,234,509,244,538,248,567,253,601,268,631,286,657,309,696,348,693,352,654,312,627,291,599,272,565,258,537,253,508,249,471,239,393,206"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="325,157,334,149,355,145,373,148,384,154,387,164,381,173,377,171,382,163,380,157,371,153,355,151,336,154,329,161"/>
+<area shape="rect" id="Node000005" href="$struct__GLFWmonitor.html" title=" " alt="" coords="647,89,766,115"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="427,185,511,181,556,174,599,163,649,140,688,113,691,117,652,144,601,169,557,180,512,186,428,191"/>
+<area shape="rect" id="Node000004" href="$structGLFWvidmode.html" title="Video mode type." alt="" coords="13,75,130,100"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="123,102,318,169,316,174,121,107"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="144,86,647,98,647,103,144,92"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="634,117,473,151,395,175,393,169,471,146,633,112"/>
+<area shape="rect" id="Node000006" href="$structGLFWgammaramp.html" title="Gamma ramp." alt="" coords="283,5,427,31"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="442,29,519,44,601,63,673,87,671,92,599,69,518,49,441,34"/>
+<area shape="rect" id="Node000007" href="$struct__GLFWcursor.html" title=" " alt="" coords="18,168,125,193"/>
+<area shape="poly" id="edge9_Node000003_Node000007" title=" " alt="" coords="139,179,296,181,296,187,139,184"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="46,153,54,145,71,141,86,144,96,150,98,160,93,169,89,167,93,159,91,153,84,149,71,147,56,149,50,157"/>
+<area shape="rect" id="Node000008" href="$struct__GLFWcontext.html" title=" " alt="" coords="13,217,129,243"/>
+<area shape="poly" id="edge11_Node000003_Node000008" title=" " alt="" coords="142,216,238,201,296,191,297,197,239,206,143,221"/>
+<area shape="rect" id="Node000009" href="$structwl__cursor.html" title=" " alt="" coords="313,381,397,407"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="411,387,624,368,624,373,411,392"/>
+<area shape="rect" id="Node000010" href="$structwl__cursor__image.html" title=" " alt="" coords="5,344,137,369"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="151,349,161,349,239,349,419,347,600,351,624,353,624,358,600,357,419,353,239,354,161,354,151,354"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="151,364,313,386,313,391,151,370"/>
+<area shape="rect" id="Node000011" href="$structlibdecor__interface.html" title=" " alt="" coords="286,431,425,456"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="438,431,517,419,599,401,675,374,677,379,601,406,518,424,439,437"/>
+<area shape="rect" id="Node000012" href="$structlibdecor__frame__interface.html" title=" " alt="" coords="263,480,448,505"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="461,483,531,471,599,448,627,431,653,412,692,374,696,378,657,416,630,436,601,452,532,476,462,489"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="VkImageBlit" name="VkImageBlit">
+<area shape="rect" id="Node000001" title=" " alt="" coords="142,108,245,133"/>
+<area shape="rect" id="Node000002" href="$structVkImageSubresourceLayers.html" title=" " alt="" coords="5,5,208,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,41,147,82,176,106,172,110,143,86,116,44"/>
+<area shape="rect" id="Node000003" href="$structVkOffset3D.html" title=" " alt="" coords="232,5,328,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,45,266,66,253,86,221,110,218,106,249,82,261,63,270,43"/>
+</map>

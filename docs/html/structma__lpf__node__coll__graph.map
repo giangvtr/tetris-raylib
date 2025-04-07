@@ -1,0 +1,26 @@
+<map id="ma_lpf_node" name="ma_lpf_node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="340,489,447,515"/>
+<area shape="rect" id="Node000002" href="$structma__node__base.html" title=" " alt="" coords="132,387,252,412"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,413,307,434,349,461,382,487,379,491,346,465,304,438,253,418"/>
+<area shape="rect" id="Node000003" href="$structma__node__graph.html" title=" " alt="" coords="158,489,285,515"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="159,422,146,437,142,451,146,464,159,477,176,487,173,492,156,482,142,467,136,451,142,435,155,419"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,476,204,437,195,413,200,411,209,435,219,475"/>
+<area shape="rect" id="Node000004" href="$structma__node__vtable.html" title=" " alt="" coords="5,282,136,307"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="86,318,102,340,122,361,162,384,159,389,118,365,98,343,82,321"/>
+<area shape="rect" id="Node000005" href="$structma__node__input__bus.html" title=" " alt="" coords="301,282,453,307"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="346,316,214,389,212,384,343,312"/>
+<area shape="rect" id="Node000006" href="$structma__node__output__bus.html" title=" " alt="" coords="163,181,325,207"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="229,220,212,248,199,281,193,310,191,340,193,387,188,387,186,340,188,309,193,279,207,246,225,217"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="272,213,363,280,360,284,269,217"/>
+<area shape="rect" id="Node000007" href="$structma__lpf.html" title=" " alt="" coords="468,387,535,412"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="490,425,475,447,456,467,420,491,417,487,453,463,471,443,486,422"/>
+<area shape="rect" id="Node000008" href="$structma__lpf1.html" title=" " alt="" coords="467,231,541,256"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="506,270,504,386,499,386,501,270"/>
+<area shape="rect" id="Node000009" href="$unionma__biquad__coefficient.html" title=" " alt="" coords="453,5,622,31"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="528,44,524,55,514,106,509,156,506,230,501,230,503,155,509,105,519,54,523,42"/>
+<area shape="rect" id="Node000011" href="$structma__biquad.html" title=" " alt="" coords="557,181,651,207"/>
+<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="549,42,602,180,597,182,544,44"/>
+<area shape="rect" id="Node000010" href="$structma__lpf2.html" title=" " alt="" coords="569,282,644,307"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="587,319,515,388,511,385,583,315"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="607,220,609,282,604,282,602,220"/>
+</map>

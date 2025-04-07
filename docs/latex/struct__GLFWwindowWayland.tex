@@ -1,0 +1,161 @@
+\doxysection{\+\_\+\+GLFWwindow\+Wayland Struct Reference}
+\hypertarget{struct__GLFWwindowWayland}{}\label{struct__GLFWwindowWayland}\index{\_GLFWwindowWayland@{\_GLFWwindowWayland}}
+
+
+Collaboration diagram for \+\_\+\+GLFWwindow\+Wayland\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct__GLFWwindowWayland__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ae7a74e82083246545e7caf62bb839cf3}\label{struct__GLFWwindowWayland_ae7a74e82083246545e7caf62bb839cf3} 
+int {\bfseries width}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a4db9e7087b799ac1d45ba74214347e9d}\label{struct__GLFWwindowWayland_a4db9e7087b799ac1d45ba74214347e9d} 
+int {\bfseries height}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a07aeee496cb5e0bc1be6bdc654b2c2a1}\label{struct__GLFWwindowWayland_a07aeee496cb5e0bc1be6bdc654b2c2a1} 
+int {\bfseries fb\+Width}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a7ab8a63dbc243f9e314d8f91248e5c34}\label{struct__GLFWwindowWayland_a7ab8a63dbc243f9e314d8f91248e5c34} 
+int {\bfseries fb\+Height}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_add22e05f7cce932e4e90a35c0b1fb430}\label{struct__GLFWwindowWayland_add22e05f7cce932e4e90a35c0b1fb430} 
+GLFWbool {\bfseries visible}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ac93fc033f79480e6401a1cb66340c16f}\label{struct__GLFWwindowWayland_ac93fc033f79480e6401a1cb66340c16f} 
+GLFWbool {\bfseries maximized}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a46c3aea37ee468268f38eab12ccb7093}\label{struct__GLFWwindowWayland_a46c3aea37ee468268f38eab12ccb7093} 
+GLFWbool {\bfseries activated}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_af5f585e87118fef5352752e6888dec20}\label{struct__GLFWwindowWayland_af5f585e87118fef5352752e6888dec20} 
+GLFWbool {\bfseries fullscreen}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a791c3840dc234bfb7feb8935ce23a75f}\label{struct__GLFWwindowWayland_a791c3840dc234bfb7feb8935ce23a75f} 
+GLFWbool {\bfseries hovered}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ad5491743c29adf82ac47ed4d9de60a49}\label{struct__GLFWwindowWayland_ad5491743c29adf82ac47ed4d9de60a49} 
+GLFWbool {\bfseries transparent}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a9a5028859361c4b11cfbb0cf150563d1}\label{struct__GLFWwindowWayland_a9a5028859361c4b11cfbb0cf150563d1} 
+GLFWbool {\bfseries scale\+Framebuffer}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a1245cc6dddb436bed05453cfaab7093a}\label{struct__GLFWwindowWayland_a1245cc6dddb436bed05453cfaab7093a} 
+struct wl\+\_\+surface \texorpdfstring{$\ast$}{*} {\bfseries surface}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a89673e8d23f9b390e9294685605c3cf0}\label{struct__GLFWwindowWayland_a89673e8d23f9b390e9294685605c3cf0} 
+struct wl\+\_\+callback \texorpdfstring{$\ast$}{*} {\bfseries callback}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_aee351d8df7b5d73f707771aa40a1cad2}\label{struct__GLFWwindowWayland_aee351d8df7b5d73f707771aa40a1cad2} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct wl\_egl\_window \texorpdfstring{$\ast$}{*} {\bfseries window}\\
+\} {\bfseries egl}\\
+
+\end{tabbing}\item 
+\Hypertarget{struct__GLFWwindowWayland_a4a6a221293abc8f8c9ba7078bb7368b6}\label{struct__GLFWwindowWayland_a4a6a221293abc8f8c9ba7078bb7368b6} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>int {\bfseries width}\\
+\>int {\bfseries height}\\
+\>GLFWbool {\bfseries maximized}\\
+\>GLFWbool {\bfseries iconified}\\
+\>GLFWbool {\bfseries activated}\\
+\>GLFWbool {\bfseries fullscreen}\\
+\} {\bfseries pending}\\
+
+\end{tabbing}\item 
+\Hypertarget{struct__GLFWwindowWayland_a2f95130e34718a21afca889866f84655}\label{struct__GLFWwindowWayland_a2f95130e34718a21afca889866f84655} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct xdg\_surface \texorpdfstring{$\ast$}{*} {\bfseries surface}\\
+\>struct xdg\_toplevel \texorpdfstring{$\ast$}{*} {\bfseries toplevel}\\
+\>struct zxdg\_toplevel\_decoration\_v1 \texorpdfstring{$\ast$}{*} {\bfseries decoration}\\
+\>uint32\_t {\bfseries decorationMode}\\
+\} {\bfseries xdg}\\
+
+\end{tabbing}\item 
+\Hypertarget{struct__GLFWwindowWayland_ad21d39c7a8a02c46cf363f245bd20e73}\label{struct__GLFWwindowWayland_ad21d39c7a8a02c46cf363f245bd20e73} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct libdecor\_frame \texorpdfstring{$\ast$}{*} {\bfseries frame}\\
+\} {\bfseries libdecor}\\
+
+\end{tabbing}\item 
+\Hypertarget{struct__GLFWwindowWayland_a872dbd1fe8731988ae5be6c94e3293d4}\label{struct__GLFWwindowWayland_a872dbd1fe8731988ae5be6c94e3293d4} 
+\mbox{\hyperlink{struct__GLFWcursor}{\+\_\+\+GLFWcursor}} \texorpdfstring{$\ast$}{*} {\bfseries current\+Cursor}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a4fa337c9768c3bd451db24603d548069}\label{struct__GLFWwindowWayland_a4fa337c9768c3bd451db24603d548069} 
+double {\bfseries cursor\+PosX}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ac8a5b3ad373c2fd3c6ec4b171dab5af4}\label{struct__GLFWwindowWayland_ac8a5b3ad373c2fd3c6ec4b171dab5af4} 
+double {\bfseries cursor\+PosY}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a37bb0b4738f0dc313f5ce6c4d139ea64}\label{struct__GLFWwindowWayland_a37bb0b4738f0dc313f5ce6c4d139ea64} 
+char \texorpdfstring{$\ast$}{*} {\bfseries app\+Id}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a23fbe86917d49f02a4f33e938e592332}\label{struct__GLFWwindowWayland_a23fbe86917d49f02a4f33e938e592332} 
+int32\+\_\+t {\bfseries buffer\+Scale}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a6cd4a94a1006fce86d33a7a3ebacb652}\label{struct__GLFWwindowWayland_a6cd4a94a1006fce86d33a7a3ebacb652} 
+\mbox{\hyperlink{struct__GLFWscaleWayland}{\+\_\+\+GLFWscale\+Wayland}} \texorpdfstring{$\ast$}{*} {\bfseries output\+Scales}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ab7a6447e60518a050724c30b513b8ca1}\label{struct__GLFWwindowWayland_ab7a6447e60518a050724c30b513b8ca1} 
+size\+\_\+t {\bfseries output\+Scale\+Count}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_aa282d5b7e26480b167b2edfd3ab66a87}\label{struct__GLFWwindowWayland_aa282d5b7e26480b167b2edfd3ab66a87} 
+size\+\_\+t {\bfseries output\+Scale\+Size}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a0efc4a0430fcd03c466a7e163971f769}\label{struct__GLFWwindowWayland_a0efc4a0430fcd03c466a7e163971f769} 
+struct wp\+\_\+viewport \texorpdfstring{$\ast$}{*} {\bfseries scaling\+Viewport}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a5b0c83c1c4a0a2bcba28e57802052e91}\label{struct__GLFWwindowWayland_a5b0c83c1c4a0a2bcba28e57802052e91} 
+uint32\+\_\+t {\bfseries scaling\+Numerator}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_aabb440db5daf5339247a7d417e4faf51}\label{struct__GLFWwindowWayland_aabb440db5daf5339247a7d417e4faf51} 
+struct wp\+\_\+fractional\+\_\+scale\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries fractional\+Scale}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a3f31da3d66b010ef9f399e8c35f1e16f}\label{struct__GLFWwindowWayland_a3f31da3d66b010ef9f399e8c35f1e16f} 
+struct zwp\+\_\+relative\+\_\+pointer\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries relative\+Pointer}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a056ef50c72f289dbf9c671ee4f14e286}\label{struct__GLFWwindowWayland_a056ef50c72f289dbf9c671ee4f14e286} 
+struct zwp\+\_\+locked\+\_\+pointer\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries locked\+Pointer}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ab32a9073140b18d68e47c6a85b9f15fb}\label{struct__GLFWwindowWayland_ab32a9073140b18d68e47c6a85b9f15fb} 
+struct zwp\+\_\+confined\+\_\+pointer\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries confined\+Pointer}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a7054e326a924acf2143475ccbca9bfbf}\label{struct__GLFWwindowWayland_a7054e326a924acf2143475ccbca9bfbf} 
+struct zwp\+\_\+idle\+\_\+inhibitor\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries idle\+Inhibitor}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_ac4ef8ee1be9ba423f15877ef3afc906b}\label{struct__GLFWwindowWayland_ac4ef8ee1be9ba423f15877ef3afc906b} 
+struct xdg\+\_\+activation\+\_\+token\+\_\+v1 \texorpdfstring{$\ast$}{*} {\bfseries activation\+Token}
+\item 
+\Hypertarget{struct__GLFWwindowWayland_a7470bf9d007bd1112063d4305f986c02}\label{struct__GLFWwindowWayland_a7470bf9d007bd1112063d4305f986c02} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>GLFWbool {\bfseries decorations}\\
+\>struct wl\_buffer \texorpdfstring{$\ast$}{*} {\bfseries buffer}\\
+\>\mbox{\hyperlink{struct__GLFWfallbackEdgeWayland}{\_GLFWfallbackEdgeWayland}} {\bfseries top}\\
+\>\mbox{\hyperlink{struct__GLFWfallbackEdgeWayland}{\_GLFWfallbackEdgeWayland}} {\bfseries left}\\
+\>\mbox{\hyperlink{struct__GLFWfallbackEdgeWayland}{\_GLFWfallbackEdgeWayland}} {\bfseries right}\\
+\>\mbox{\hyperlink{struct__GLFWfallbackEdgeWayland}{\_GLFWfallbackEdgeWayland}} {\bfseries bottom}\\
+\>struct wl\_surface \texorpdfstring{$\ast$}{*} {\bfseries focus}\\
+\} {\bfseries fallback}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/wl\+\_\+platform.\+h\end{DoxyCompactItemize}

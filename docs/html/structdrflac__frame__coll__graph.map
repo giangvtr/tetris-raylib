@@ -1,0 +1,7 @@
+<map id="drflac_frame" name="drflac_frame">
+<area shape="rect" id="Node000001" title=" " alt="" coords="114,93,218,119"/>
+<area shape="rect" id="Node000002" href="$structdrflac__frame__header.html" title=" " alt="" coords="5,5,161,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,39,156,91,153,95,102,43"/>
+<area shape="rect" id="Node000003" href="$structdrflac__subframe.html" title=" " alt="" coords="185,5,312,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,43,179,95,176,91,226,39"/>
+</map>

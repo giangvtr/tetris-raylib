@@ -1,0 +1,64 @@
+\doxysection{Threads}
+\hypertarget{group__Threads}{}\label{group__Threads}\index{Threads@{Threads}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef DWORD(\+\_\+\+\_\+stdcall \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__Threads_ga13d60c1d8ee57056290acdc59bfc37a0}{RGFW\+\_\+thread\+Func\+\_\+ptr}}) (LPVOID lp\+Thread\+Parameter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+RGFWDEF RGFW\+\_\+thread \mbox{\hyperlink{group__Threads_gabb829fbe339184bf68a558526db8fa8e}{RGFW\+\_\+create\+Thread}} (\mbox{\hyperlink{group__Threads_ga13d60c1d8ee57056290acdc59bfc37a0}{RGFW\+\_\+thread\+Func\+\_\+ptr}} ptr, void \texorpdfstring{$\ast$}{*}args)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Threads_ga86aab7e48c958b8985d261dce599fbd2}{RGFW\+\_\+cancel\+Thread}} (RGFW\+\_\+thread thread)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Threads_ga43401d0d164edea95f9c6cd2df093473}{RGFW\+\_\+join\+Thread}} (RGFW\+\_\+thread thread)
+\item 
+RGFWDEF void \mbox{\hyperlink{group__Threads_ga4ff572bb2d0f4bcb2e146fb00b17ea2a}{RGFW\+\_\+set\+Thread\+Priority}} (RGFW\+\_\+thread thread, u8 priority)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__Threads_ga13d60c1d8ee57056290acdc59bfc37a0}\label{group__Threads_ga13d60c1d8ee57056290acdc59bfc37a0} 
+\index{Threads@{Threads}!RGFW\_threadFunc\_ptr@{RGFW\_threadFunc\_ptr}}
+\index{RGFW\_threadFunc\_ptr@{RGFW\_threadFunc\_ptr}!Threads@{Threads}}
+\doxysubsubsection{\texorpdfstring{RGFW\_threadFunc\_ptr}{RGFW\_threadFunc\_ptr}}
+{\footnotesize\ttfamily typedef DWORD(\+\_\+\+\_\+stdcall \texorpdfstring{$\ast$}{*} RGFW\+\_\+thread\+Func\+\_\+ptr) (LPVOID lp\+Thread\+Parameter)}
+
+threading functions
+
+NOTE! (for X11/linux) \+: if you define a window in a thread, it must be run after the original thread\textquotesingle{}s window is created or else there will be a memory error 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__Threads_ga86aab7e48c958b8985d261dce599fbd2}\label{group__Threads_ga86aab7e48c958b8985d261dce599fbd2} 
+\index{Threads@{Threads}!RGFW\_cancelThread@{RGFW\_cancelThread}}
+\index{RGFW\_cancelThread@{RGFW\_cancelThread}!Threads@{Threads}}
+\doxysubsubsection{\texorpdfstring{RGFW\_cancelThread()}{RGFW\_cancelThread()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+cancel\+Thread (\begin{DoxyParamCaption}\item[{RGFW\+\_\+thread}]{thread }\end{DoxyParamCaption})}
+
+cancels a thread \Hypertarget{group__Threads_gabb829fbe339184bf68a558526db8fa8e}\label{group__Threads_gabb829fbe339184bf68a558526db8fa8e} 
+\index{Threads@{Threads}!RGFW\_createThread@{RGFW\_createThread}}
+\index{RGFW\_createThread@{RGFW\_createThread}!Threads@{Threads}}
+\doxysubsubsection{\texorpdfstring{RGFW\_createThread()}{RGFW\_createThread()}}
+{\footnotesize\ttfamily RGFWDEF RGFW\+\_\+thread RGFW\+\_\+create\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Threads_ga13d60c1d8ee57056290acdc59bfc37a0}{RGFW\+\_\+thread\+Func\+\_\+ptr}}}]{ptr,  }\item[{void \texorpdfstring{$\ast$}{*}}]{args }\end{DoxyParamCaption})}
+
+create a thread \Hypertarget{group__Threads_ga43401d0d164edea95f9c6cd2df093473}\label{group__Threads_ga43401d0d164edea95f9c6cd2df093473} 
+\index{Threads@{Threads}!RGFW\_joinThread@{RGFW\_joinThread}}
+\index{RGFW\_joinThread@{RGFW\_joinThread}!Threads@{Threads}}
+\doxysubsubsection{\texorpdfstring{RGFW\_joinThread()}{RGFW\_joinThread()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+join\+Thread (\begin{DoxyParamCaption}\item[{RGFW\+\_\+thread}]{thread }\end{DoxyParamCaption})}
+
+join thread to current thread \Hypertarget{group__Threads_ga4ff572bb2d0f4bcb2e146fb00b17ea2a}\label{group__Threads_ga4ff572bb2d0f4bcb2e146fb00b17ea2a} 
+\index{Threads@{Threads}!RGFW\_setThreadPriority@{RGFW\_setThreadPriority}}
+\index{RGFW\_setThreadPriority@{RGFW\_setThreadPriority}!Threads@{Threads}}
+\doxysubsubsection{\texorpdfstring{RGFW\_setThreadPriority()}{RGFW\_setThreadPriority()}}
+{\footnotesize\ttfamily RGFWDEF void RGFW\+\_\+set\+Thread\+Priority (\begin{DoxyParamCaption}\item[{RGFW\+\_\+thread}]{thread,  }\item[{u8}]{priority }\end{DoxyParamCaption})}
+
+sets the priority priority ~\newline
+ 

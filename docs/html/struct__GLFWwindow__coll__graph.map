@@ -1,0 +1,17 @@
+<map id="_GLFWwindow" name="_GLFWwindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="159,95,276,121"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="291,99,303,108,294,116,276,119,276,114,292,111,297,108,288,104"/>
+<area shape="rect" id="Node000003" href="$struct__GLFWmonitor.html" title=" " alt="" coords="158,200,277,225"/>
+<area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="186,131,173,148,169,161,173,175,183,188,196,198,192,202,179,191,168,177,164,161,168,145,182,128"/>
+<area shape="rect" id="Node000002" href="$structGLFWvidmode.html" title="Video mode type." alt="" coords="5,5,123,31"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="89,37,131,67,186,93,184,98,128,72,86,42"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="59,44,53,83,55,103,62,121,84,149,113,170,144,186,174,197,172,202,142,191,110,174,81,152,58,124,50,104,48,83,53,44"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="225,187,228,176,228,147,220,122,225,120,233,146,233,176,230,188"/>
+<area shape="rect" id="Node000004" href="$structGLFWgammaramp.html" title="Gamma ramp." alt="" coords="357,95,501,121"/>
+<area shape="poly" id="edge6_Node000003_Node000004" title=" " alt="" coords="396,129,296,178,244,202,242,197,294,174,393,124"/>
+<area shape="rect" id="Node000005" href="$struct__GLFWcursor.html" title=" " alt="" coords="155,5,261,31"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="213,44,219,95,213,95,208,45"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="276,9,288,18,280,26,262,29,261,23,277,21,283,18,274,14"/>
+<area shape="rect" id="Node000006" href="$struct__GLFWcontext.html" title=" " alt="" coords="343,5,459,31"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="366,39,243,98,240,93,364,34"/>
+</map>

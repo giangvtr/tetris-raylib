@@ -1,0 +1,57 @@
+\doxysection{handling}
+\hypertarget{group__error}{}\label{group__error}\index{handling@{handling}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__error_gaecf4f2afb81862fd562a5d7bf47247e4}\label{group__error_gaecf4f2afb81862fd562a5d7bf47247e4} 
+\#define {\bfseries RGFW\+\_\+\+DEBUG\+\_\+\+CTX}(win,  err)~(\mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}})\{win, (\mbox{\hyperlink{structRGFW__monitor}{RGFW\+\_\+monitor}})\{\}, err\}
+\item 
+\Hypertarget{group__error_gafe712a1adc4e4b1e019ce118c62da2db}\label{group__error_gafe712a1adc4e4b1e019ce118c62da2db} 
+\#define {\bfseries RGFW\+\_\+\+DEBUG\+\_\+\+CTX\+\_\+\+MON}(monitor)~(\mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}})\{RGFW\+\_\+root, monitor, 0\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__error_gaf944c8897e92ba5fbfd82465de18f73d}\label{group__error_gaf944c8897e92ba5fbfd82465de18f73d} 
+typedef struct \mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}} {\bfseries RGFW\+\_\+debug\+Context}
+\item 
+\Hypertarget{group__error_gab8b07a3b8a214824ab5090e5f7966215}\label{group__error_gab8b07a3b8a214824ab5090e5f7966215} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries RGFW\+\_\+debugfunc}) (RGFW\+\_\+debug\+Type type, RGFW\+\_\+error\+Code err, \mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}} ctx, const char \texorpdfstring{$\ast$}{*}msg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__error_gaa206e3d77008a2d301f7460694cfa691}\label{group__error_gaa206e3d77008a2d301f7460694cfa691} 
+typedef {\bfseries RGFW\+\_\+\+ENUM} (u8, RGFW\+\_\+debug\+Type)
+\item 
+typedef \mbox{\hyperlink{group__error_gaed609bb03709a71bdb0dc1ea3fd9e5f6}{RGFW\+\_\+\+ENUM}} (u8, RGFW\+\_\+error\+Code)
+\item 
+\Hypertarget{group__error_gafdb4774a4fb472238b032830b2b8de3b}\label{group__error_gafdb4774a4fb472238b032830b2b8de3b} 
+RGFWDEF RGFW\+\_\+debugfunc {\bfseries RGFW\+\_\+set\+Debug\+Callback} (RGFW\+\_\+debugfunc func)
+\item 
+\Hypertarget{group__error_ga9c153f132324795ebaa54be38ca5b4b8}\label{group__error_ga9c153f132324795ebaa54be38ca5b4b8} 
+RGFWDEF void {\bfseries RGFW\+\_\+send\+Debug\+Info} (RGFW\+\_\+debug\+Type type, RGFW\+\_\+error\+Code err, \mbox{\hyperlink{structRGFW__debugContext}{RGFW\+\_\+debug\+Context}} ctx, const char \texorpdfstring{$\ast$}{*}msg)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__error_gaed609bb03709a71bdb0dc1ea3fd9e5f6}\label{group__error_gaed609bb03709a71bdb0dc1ea3fd9e5f6} 
+\index{handling@{handling}!RGFW\_ENUM@{RGFW\_ENUM}}
+\index{RGFW\_ENUM@{RGFW\_ENUM}!handling@{handling}}
+\doxysubsubsection{\texorpdfstring{RGFW\_ENUM()}{RGFW\_ENUM()}}
+{\footnotesize\ttfamily typedef RGFW\+\_\+\+ENUM (\begin{DoxyParamCaption}\item[{u8}]{,  }\item[{RGFW\+\_\+error\+Code}]{ }\end{DoxyParamCaption})}
+
+\texorpdfstring{$<$}{<} no error
+
+\texorpdfstring{$<$}{<} error with the Open\+GL context

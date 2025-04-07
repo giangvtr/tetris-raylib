@@ -1,0 +1,525 @@
+\doxysection{init.\+c}
+\hypertarget{init_8c_source}{}\label{init_8c_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/init.c@{/home/giangvu/CPPprog/raylib-\/tetris/build/external/raylib-\/master/src/external/glfw/src/init.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ GLFW\ 3.4\ -\/\ www.glfw.org}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ 2002-\/2006\ Marcus\ Geelnard}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Copyright\ (c)\ 2006-\/2018\ Camilla\ Löwy\ <elmindreda@glfw.org>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ This\ software\ is\ provided\ 'as-\/is',\ without\ any\ express\ or\ implied}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ warranty.\ In\ no\ event\ will\ the\ authors\ be\ held\ liable\ for\ any\ damages}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ including\ commercial\ applications,\ and\ to\ alter\ it\ and\ redistribute\ it}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ claim\ that\ you\ wrote\ the\ original\ software.\ If\ you\ use\ this\ software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ in\ a\ product,\ an\ acknowledgment\ in\ the\ product\ documentation\ would}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ \ \ be\ misrepresented\ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ distribution.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//========================================================================}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}internal.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ NOTE:\ The\ global\ variables\ below\ comprise\ all\ mutable\ global\ data\ in\ GLFW}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \ \ \ Any\ other\ mutable\ global\ variable\ is\ a\ bug}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ This\ contains\ all\ mutable\ state\ shared\ between\ compilation\ units\ of\ GLFW}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//}}
+\DoxyCodeLine{00042\ \mbox{\hyperlink{struct__GLFWlibrary}{\_GLFWlibrary}}\ \_glfw\ =\ \{\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}}\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ These\ are\ outside\ of\ \_glfw\ so\ they\ can\ be\ used\ before\ initialization\ and}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ after\ termination\ without\ special\ handling\ when\ \_glfw\ is\ cleared\ to\ zero}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct__GLFWerror}{\_GLFWerror}}\ \_glfwMainThreadError;}
+\DoxyCodeLine{00048\ \textcolor{keyword}{static}\ \mbox{\hyperlink{group__init_ga8184701785c096b3862a75cda1bf44a3}{GLFWerrorfun}}\ \_glfwErrorCallback;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structGLFWallocator}{GLFWallocator}}\ \_glfwInitAllocator;}
+\DoxyCodeLine{00050\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct__GLFWinitconfig}{\_GLFWinitconfig}}\ \_glfwInitHints\ =}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ .hatButtons\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}},}
+\DoxyCodeLine{00053\ \ \ \ \ .angleType\ =\ GLFW\_ANGLE\_PLATFORM\_TYPE\_NONE,}
+\DoxyCodeLine{00054\ \ \ \ \ .platformID\ =\ \mbox{\hyperlink{group__init_ga18b2d37374d0dea28cd69194fa85b859}{GLFW\_ANY\_PLATFORM}},}
+\DoxyCodeLine{00055\ \ \ \ \ .vulkanLoader\ =\ NULL,}
+\DoxyCodeLine{00056\ \ \ \ \ .ns\ =}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ .menubar\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ .chdir\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}}}
+\DoxyCodeLine{00060\ \ \ \ \ \},}
+\DoxyCodeLine{00061\ \ \ \ \ .x11\ =}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ .xcbVulkanSurface\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}},}
+\DoxyCodeLine{00064\ \ \ \ \ \},}
+\DoxyCodeLine{00065\ \ \ \ \ .wl\ =}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ .libdecorMode\ =\ GLFW\_WAYLAND\_PREFER\_LIBDECOR}
+\DoxyCodeLine{00068\ \ \ \ \ \},}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ The\ allocation\ function\ used\ when\ no\ custom\ allocator\ is\ set}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ defaultAllocate(\textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{void}*\ user)}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ malloc(size);}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ The\ deallocation\ function\ used\ when\ no\ custom\ allocator\ is\ set}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ defaultDeallocate(\textcolor{keywordtype}{void}*\ block,\ \textcolor{keywordtype}{void}*\ user)}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ free(block);}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ The\ reallocation\ function\ used\ when\ no\ custom\ allocator\ is\ set}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ defaultReallocate(\textcolor{keywordtype}{void}*\ block,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{void}*\ user)}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ realloc(block,\ size);}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ Terminate\ the\ library}}
+\DoxyCodeLine{00093\ \textcolor{comment}{//}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ terminate(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00095\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ memset(\&\_glfw.callbacks,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw.callbacks));}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{while}\ (\_glfw.windowListHead)}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__window_ga806747476b7247d292be3711c323ea10}{glfwDestroyWindow}}((\mbox{\hyperlink{group__window_ga3c96d80d363e67d13a41b5d1821f3242}{GLFWwindow}}*)\ \_glfw.windowListHead);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{while}\ (\_glfw.cursorListHead)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__input_ga27556b7122117bc1bbb4bb3cc003ea43}{glfwDestroyCursor}}((\mbox{\hyperlink{group__input_ga89261ae18c75e863aaf2656ecdd238f4}{GLFWcursor}}*)\ \_glfw.cursorListHead);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ i\ <\ \_glfw.monitorCount;\ \ i++)}
+\DoxyCodeLine{00107\ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct__GLFWmonitor}{\_GLFWmonitor}}*\ monitor\ =\ \_glfw.monitors[i];}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (monitor-\/>originalRamp.\mbox{\hyperlink{structGLFWgammaramp_ad620e1cffbff9a32c51bca46301b59a5}{size}})}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.platform.setGammaRamp(monitor,\ \&monitor-\/>originalRamp);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_glfwFreeMonitor(monitor);}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \_glfw\_free(\_glfw.monitors);}
+\DoxyCodeLine{00115\ \ \ \ \ \_glfw.monitors\ =\ NULL;}
+\DoxyCodeLine{00116\ \ \ \ \ \_glfw.monitorCount\ =\ 0;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \_glfw\_free(\_glfw.mappings);}
+\DoxyCodeLine{00119\ \ \ \ \ \_glfw.mappings\ =\ NULL;}
+\DoxyCodeLine{00120\ \ \ \ \ \_glfw.mappingCount\ =\ 0;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \_glfwTerminateVulkan();}
+\DoxyCodeLine{00123\ \ \ \ \ \_glfw.platform.terminateJoysticks();}
+\DoxyCodeLine{00124\ \ \ \ \ \_glfw.platform.terminate();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \_glfw.initialized\ =\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{while}\ (\_glfw.errorListHead)}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct__GLFWerror}{\_GLFWerror}}*\ error\ =\ \_glfw.errorListHead;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \_glfw.errorListHead\ =\ error-\/>next;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \_glfw\_free(error);}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \_glfwPlatformDestroyTls(\&\_glfw.contextSlot);}
+\DoxyCodeLine{00136\ \ \ \ \ \_glfwPlatformDestroyTls(\&\_glfw.errorSlot);}
+\DoxyCodeLine{00137\ \ \ \ \ \_glfwPlatformDestroyMutex(\&\_glfw.errorLock);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ memset(\&\_glfw,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw));}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ Encode\ a\ Unicode\ code\ point\ to\ a\ UTF-\/8\ stream}}
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ Based\ on\ cutef8\ by\ Jeff\ Bezanson\ (Public\ Domain)}}
+\DoxyCodeLine{00149\ \textcolor{comment}{//}}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{size\_t}\ \_glfwEncodeUTF8(\textcolor{keywordtype}{char}*\ s,\ uint32\_t\ codepoint)}
+\DoxyCodeLine{00151\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count\ =\ 0;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (codepoint\ <\ 0x80)}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ s[count++]\ =\ (char)\ codepoint;}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (codepoint\ <\ 0x800)}
+\DoxyCodeLine{00157\ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ >>\ 6)\ |\ 0xc0;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (codepoint\ <\ 0x10000)}
+\DoxyCodeLine{00162\ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ >>\ 12)\ |\ 0xe0;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ s[count++]\ =\ ((codepoint\ >>\ 6)\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (codepoint\ <\ 0x110000)}
+\DoxyCodeLine{00168\ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ >>\ 18)\ |\ 0xf0;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ s[count++]\ =\ ((codepoint\ >>\ 12)\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ s[count++]\ =\ ((codepoint\ >>\ 6)\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ s[count++]\ =\ (codepoint\ \&\ 0x3f)\ |\ 0x80;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{comment}{//\ Splits\ and\ translates\ a\ text/uri-\/list\ into\ separate\ file\ paths}}
+\DoxyCodeLine{00179\ \textcolor{comment}{//\ NOTE:\ This\ function\ destroys\ the\ provided\ string}}
+\DoxyCodeLine{00180\ \textcolor{comment}{//}}
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{char}**\ \_glfwParseUriList(\textcolor{keywordtype}{char}*\ text,\ \textcolor{keywordtype}{int}*\ count)}
+\DoxyCodeLine{00182\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ prefix\ =\ \textcolor{stringliteral}{"{}file://"{}};}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{char}**\ paths\ =\ NULL;}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{char}*\ line;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ *count\ =\ 0;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ strtok(text,\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}})))}
+\DoxyCodeLine{00190\ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ path;}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ text\ =\ NULL;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[0]\ ==\ \textcolor{charliteral}{'\#'})}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strncmp(line,\ prefix,\ strlen(prefix))\ ==\ 0)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ line\ +=\ strlen(prefix);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO:\ Validate\ hostname}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (*line\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ line++;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ (*count)++;}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ path\ =\ \_glfw\_calloc(strlen(line)\ +\ 1,\ 1);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ paths\ =\ \_glfw\_realloc(paths,\ *count\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ paths[*count\ -\/\ 1]\ =\ path;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (*line)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[0]\ ==\ \textcolor{charliteral}{'\%'}\ \&\&\ line[1]\ \&\&\ line[2])}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ digits[3]\ =\ \{\ line[1],\ line[2],\ \textcolor{charliteral}{'\(\backslash\)0'}\ \};}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *path\ =\ (char)\ strtol(digits,\ NULL,\ 16);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ line\ +=\ 2;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *path\ =\ *line;}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ path++;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ line++;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{return}\ paths;}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{char}*\ \_glfw\_strdup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ source)}
+\DoxyCodeLine{00232\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ length\ =\ strlen(source);}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{char}*\ result\ =\ \_glfw\_calloc(length\ +\ 1,\ 1);}
+\DoxyCodeLine{00235\ \ \ \ \ strcpy(result,\ source);}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00237\ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{int}\ \_glfw\_min(\textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{int}\ b)}
+\DoxyCodeLine{00240\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ <\ b\ ?\ a\ :\ b;}
+\DoxyCodeLine{00242\ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{keywordtype}{int}\ \_glfw\_max(\textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{int}\ b)}
+\DoxyCodeLine{00245\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ >\ b\ ?\ a\ :\ b;}
+\DoxyCodeLine{00247\ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{keywordtype}{void}*\ \_glfw\_calloc(\textcolor{keywordtype}{size\_t}\ count,\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00250\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ \&\&\ size)}
+\DoxyCodeLine{00252\ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ block;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ SIZE\_MAX\ /\ size)}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},\ \textcolor{stringliteral}{"{}Allocation\ size\ overflow"{}});}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ block\ =\ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_a18a798136f17a9cb105be18312193bf7}{allocate}}(count\ *\ size,\ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_af6153be74dbaf7f0a7e8bd3bfc039910}{user}});}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (block)}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ memset(block,\ 0,\ count\ *\ size);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga9023953a2bcb98c2906afd071d21ee7f}{GLFW\_OUT\_OF\_MEMORY}},\ NULL);}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00272\ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{keywordtype}{void}*\ \_glfw\_realloc(\textcolor{keywordtype}{void}*\ block,\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00275\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{if}\ (block\ \&\&\ size)}
+\DoxyCodeLine{00277\ \ \ \ \ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ resized\ =\ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_af5a674af9e170095b968f467233437be}{reallocate}}(block,\ size,\ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_af6153be74dbaf7f0a7e8bd3bfc039910}{user}});}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (resized)}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resized;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga9023953a2bcb98c2906afd071d21ee7f}{GLFW\_OUT\_OF\_MEMORY}},\ NULL);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (block)}
+\DoxyCodeLine{00288\ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \_glfw\_free(block);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_glfw\_calloc(1,\ size);}
+\DoxyCodeLine{00294\ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ \_glfw\_free(\textcolor{keywordtype}{void}*\ block)}
+\DoxyCodeLine{00297\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}\ (block)}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_ab74cf9a969e73e6eb65a6112a591a988}{deallocate}}(block,\ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_af6153be74dbaf7f0a7e8bd3bfc039910}{user}});}
+\DoxyCodeLine{00300\ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ Notifies\ shared\ code\ of\ an\ error}}
+\DoxyCodeLine{00308\ \textcolor{comment}{//}}
+\DoxyCodeLine{00309\ \textcolor{keywordtype}{void}\ \_glfwInputError(\textcolor{keywordtype}{int}\ code,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ ...)}
+\DoxyCodeLine{00310\ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \mbox{\hyperlink{struct__GLFWerror}{\_GLFWerror}}*\ error;}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordtype}{char}\ description[\_GLFW\_MESSAGE\_SIZE];}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{if}\ (format)}
+\DoxyCodeLine{00315\ \ \ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ va\_list\ vl;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ va\_start(vl,\ format);}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ vsnprintf(description,\ \textcolor{keyword}{sizeof}(description),\ format,\ vl);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ va\_end(vl);}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ description[\textcolor{keyword}{sizeof}(description)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00325\ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga2374ee02c177f12e1fa76ff3ed15e14a}{GLFW\_NOT\_INITIALIZED}})}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ GLFW\ library\ is\ not\ initialized"{}});}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_gaa8290386e9528ccb9e42a3a4e16fc0d0}{GLFW\_NO\_CURRENT\_CONTEXT}})}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}There\ is\ no\ current\ context"{}});}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}})}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}Invalid\ argument\ for\ enum\ parameter"{}});}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}})}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}Invalid\ value\ for\ parameter"{}});}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga9023953a2bcb98c2906afd071d21ee7f}{GLFW\_OUT\_OF\_MEMORY}})}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}Out\ of\ memory"{}});}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga56882b290db23261cc6c053c40c2d08e}{GLFW\_API\_UNAVAILABLE}})}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ API\ is\ unavailable"{}});}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_gad16c5565b4a69f9c2a9ac2c0dbc89462}{GLFW\_VERSION\_UNAVAILABLE}})}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ API\ version\ is\ unavailable"{}});}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_gad44162d78100ea5e87cdd38426b8c7a1}{GLFW\_PLATFORM\_ERROR}})}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}A\ platform-\/specific\ error\ occurred"{}});}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga196e125ef261d94184e2b55c05762f14}{GLFW\_FORMAT\_UNAVAILABLE}})}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ format\ is\ unavailable"{}});}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_gacff24d2757da752ae4c80bf452356487}{GLFW\_NO\_WINDOW\_CONTEXT}})}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ specified\ window\ has\ no\ context"{}});}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga09d6943923a70ddef3a085f5baee786c}{GLFW\_CURSOR\_UNAVAILABLE}})}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ specified\ cursor\ shape\ is\ unavailable"{}});}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga526fba20a01504a8086c763b6ca53ce5}{GLFW\_FEATURE\_UNAVAILABLE}})}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ feature\ cannot\ be\ implemented\ for\ this\ platform"{}});}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga5dda77e023e83151e8bd55a6758f946a}{GLFW\_FEATURE\_UNIMPLEMENTED}})}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ feature\ has\ not\ yet\ been\ implemented\ for\ this\ platform"{}});}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (code\ ==\ \mbox{\hyperlink{group__errors_ga3608c6c29ab7a72f3bf019f4c3a2563d}{GLFW\_PLATFORM\_UNAVAILABLE}})}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}The\ requested\ platform\ is\ unavailable"{}});}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(description,\ \textcolor{stringliteral}{"{}ERROR:\ UNKNOWN\ GLFW\ ERROR"{}});}
+\DoxyCodeLine{00356\ \ \ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.initialized)}
+\DoxyCodeLine{00359\ \ \ \ \ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ error\ =\ \_glfwPlatformGetTls(\&\_glfw.errorSlot);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!error)}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ error\ =\ \_glfw\_calloc(1,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct__GLFWerror}{\_GLFWerror}}));}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwPlatformSetTls(\&\_glfw.errorSlot,\ error);}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwPlatformLockMutex(\&\_glfw.errorLock);}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ error-\/>next\ =\ \_glfw.errorListHead;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfw.errorListHead\ =\ error;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwPlatformUnlockMutex(\&\_glfw.errorLock);}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ \ \ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ error\ =\ \&\_glfwMainThreadError;}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ error-\/>code\ =\ code;}
+\DoxyCodeLine{00375\ \ \ \ \ strcpy(error-\/>description,\ description);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfwErrorCallback)}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \_glfwErrorCallback(code,\ description);}
+\DoxyCodeLine{00379\ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__init_gab41771f0215a2e0afb4cf1cf98082d40}{glfwInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00387\ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.initialized)}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ memset(\&\_glfw,\ 0,\ \textcolor{keyword}{sizeof}(\_glfw));}
+\DoxyCodeLine{00392\ \ \ \ \ \_glfw.hints.init\ =\ \_glfwInitHints;}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \_glfw.allocator\ =\ \_glfwInitAllocator;}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_a18a798136f17a9cb105be18312193bf7}{allocate}})}
+\DoxyCodeLine{00396\ \ \ \ \ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_a18a798136f17a9cb105be18312193bf7}{allocate}}\ \ \ =\ defaultAllocate;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_af5a674af9e170095b968f467233437be}{reallocate}}\ =\ defaultReallocate;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \_glfw.allocator.\mbox{\hyperlink{structGLFWallocator_ab74cf9a969e73e6eb65a6112a591a988}{deallocate}}\ =\ defaultDeallocate;}
+\DoxyCodeLine{00400\ \ \ \ \ \}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwSelectPlatform(\_glfw.hints.init.platformID,\ \&\_glfw.platform))}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.platform.init())}
+\DoxyCodeLine{00406\ \ \ \ \ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ terminate();}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00409\ \ \ \ \ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfwPlatformCreateMutex(\&\_glfw.errorLock)\ ||}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ !\_glfwPlatformCreateTls(\&\_glfw.errorSlot)\ ||}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ !\_glfwPlatformCreateTls(\&\_glfw.contextSlot))}
+\DoxyCodeLine{00414\ \ \ \ \ \{}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ terminate();}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_gac877fe3b627d21ef3a0a23e0a73ba8c5}{GLFW\_FALSE}};}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \_glfwPlatformSetTls(\&\_glfw.errorSlot,\ \&\_glfwMainThreadError);}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \_glfwInitGamepadMappings();}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \_glfwPlatformInitTimer();}
+\DoxyCodeLine{00424\ \ \ \ \ \_glfw.timer.offset\ =\ \_glfwPlatformGetTimerValue();}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \_glfw.initialized\ =\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \mbox{\hyperlink{group__window_ga8050ddceed9dc6bd9d3aa35666195cd4}{glfwDefaultWindowHints}}();}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__init_ga2744fbb29b5631bb28802dbe0cf36eba}{GLFW\_TRUE}};}
+\DoxyCodeLine{00430\ \}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__init_gafd90e6fd4819ea9e22e5e739519a6504}{glfwTerminate}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00433\ \{}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_glfw.initialized)}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ terminate();}
+\DoxyCodeLine{00438\ \}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__init_gac85e41aab1c2bd6fc740f4377d9e7e9f}{glfwInitHint}}(\textcolor{keywordtype}{int}\ hint,\ \textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00441\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordflow}{switch}\ (hint)}
+\DoxyCodeLine{00443\ \ \ \ \ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_gab9c0534709fda03ec8959201da3a9a18}{GLFW\_JOYSTICK\_HAT\_BUTTONS}}:}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.hatButtons\ =\ value;}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_gaec269b24cf549ab46292c0125d8bbdce}{GLFW\_ANGLE\_PLATFORM\_TYPE}}:}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.angleType\ =\ value;}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_ga9d38bf1fdf4f91d6565401734a7cd967}{GLFW\_PLATFORM}}:}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.platformID\ =\ value;}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_gab937983147a3158d45f88fad7129d9f2}{GLFW\_COCOA\_CHDIR\_RESOURCES}}:}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.ns.chdir\ =\ value;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_ga71e0b4ce2f2696a84a9b8c5e12dc70cf}{GLFW\_COCOA\_MENUBAR}}:}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.ns.menubar\ =\ value;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_gaa341e303ebeb8e4199b8ab8be84351f6}{GLFW\_X11\_XCB\_VULKAN\_SURFACE}}:}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.x11.xcbVulkanSurface\ =\ value;}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__init_ga2a3f2fd7695902c498b050215b3db452}{GLFW\_WAYLAND\_LIBDECOR}}:}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitHints.wl.libdecorMode\ =\ value;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00465\ \ \ \ \ \}}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_ga76f6bb9c4eea73db675f096b404593ce}{GLFW\_INVALID\_ENUM}},}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ init\ hint\ 0x\%08X"{}},\ hint);}
+\DoxyCodeLine{00469\ \}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__init_ga0f4c8556a21d9e774a0ba0332da1748e}{glfwInitAllocator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGLFWallocator}{GLFWallocator}}*\ allocator)}
+\DoxyCodeLine{00472\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keywordflow}{if}\ (allocator)}
+\DoxyCodeLine{00474\ \ \ \ \ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (allocator-\/>\mbox{\hyperlink{structGLFWallocator_a18a798136f17a9cb105be18312193bf7}{allocate}}\ \&\&\ allocator-\/>\mbox{\hyperlink{structGLFWallocator_af5a674af9e170095b968f467233437be}{reallocate}}\ \&\&\ allocator-\/>\mbox{\hyperlink{structGLFWallocator_ab74cf9a969e73e6eb65a6112a591a988}{deallocate}})}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInitAllocator\ =\ *allocator;}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \_glfwInputError(\mbox{\hyperlink{group__errors_gaaf2ef9aa8202c2b82ac2d921e554c687}{GLFW\_INVALID\_VALUE}},\ \textcolor{stringliteral}{"{}Missing\ function\ in\ allocator"{}});}
+\DoxyCodeLine{00479\ \ \ \ \ \}}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ memset(\&\_glfwInitAllocator,\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structGLFWallocator}{GLFWallocator}}));}
+\DoxyCodeLine{00482\ \}}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ GLFWAPI\ \textcolor{keywordtype}{void}\ glfwInitVulkanLoader(PFN\_vkGetInstanceProcAddr\ loader)}
+\DoxyCodeLine{00485\ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \_glfwInitHints.vulkanLoader\ =\ loader;}
+\DoxyCodeLine{00487\ \}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ GLFWAPI\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__init_ga2402c7824ac0194c13722790ff9559ff}{glfwGetVersion}}(\textcolor{keywordtype}{int}*\ major,\ \textcolor{keywordtype}{int}*\ minor,\ \textcolor{keywordtype}{int}*\ rev)}
+\DoxyCodeLine{00490\ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keywordflow}{if}\ (major\ !=\ NULL)}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ *major\ =\ \mbox{\hyperlink{group__init_ga6337d9ea43b22fc529b2bba066b4a576}{GLFW\_VERSION\_MAJOR}};}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keywordflow}{if}\ (minor\ !=\ NULL)}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ *minor\ =\ \mbox{\hyperlink{group__init_gaf80d40f0aea7088ff337606e9c48f7a3}{GLFW\_VERSION\_MINOR}};}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordflow}{if}\ (rev\ !=\ NULL)}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ *rev\ =\ \mbox{\hyperlink{group__init_gab72ae2e2035d9ea461abc3495eac0502}{GLFW\_VERSION\_REVISION}};}
+\DoxyCodeLine{00497\ \}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ GLFWAPI\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__init_gaee7bac4c7e1b2769207747c1b5ae2f9e}{glfwGetError}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}**\ description)}
+\DoxyCodeLine{00500\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \mbox{\hyperlink{struct__GLFWerror}{\_GLFWerror}}*\ error;}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordtype}{int}\ code\ =\ \mbox{\hyperlink{group__errors_gafa30deee5db4d69c4c93d116ed87dbf4}{GLFW\_NO\_ERROR}};}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{keywordflow}{if}\ (description)}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ *description\ =\ NULL;}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_glfw.initialized)}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ error\ =\ \_glfwPlatformGetTls(\&\_glfw.errorSlot);}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ error\ =\ \&\_glfwMainThreadError;}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keywordflow}{if}\ (error)}
+\DoxyCodeLine{00513\ \ \ \ \ \{}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ code\ =\ error-\/>code;}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ error-\/>code\ =\ \mbox{\hyperlink{group__errors_gafa30deee5db4d69c4c93d116ed87dbf4}{GLFW\_NO\_ERROR}};}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (description\ \&\&\ code)}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ *description\ =\ error-\/>description;}
+\DoxyCodeLine{00518\ \ \ \ \ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{return}\ code;}
+\DoxyCodeLine{00521\ \}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ GLFWAPI\ \mbox{\hyperlink{group__init_ga8184701785c096b3862a75cda1bf44a3}{GLFWerrorfun}}\ \mbox{\hyperlink{group__init_ga746e2757d069eaea423349aca6ae097a}{glfwSetErrorCallback}}(\mbox{\hyperlink{group__init_ga8184701785c096b3862a75cda1bf44a3}{GLFWerrorfun}}\ cbfun)}
+\DoxyCodeLine{00524\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \_GLFW\_SWAP(\mbox{\hyperlink{group__init_ga8184701785c096b3862a75cda1bf44a3}{GLFWerrorfun}},\ \_glfwErrorCallback,\ cbfun);}
+\DoxyCodeLine{00526\ \ \ \ \ \textcolor{keywordflow}{return}\ cbfun;}
+\DoxyCodeLine{00527\ \}}
+\DoxyCodeLine{00528\ }
+
+\end{DoxyCode}

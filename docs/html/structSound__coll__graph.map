@@ -1,0 +1,35 @@
+<map id="Sound" name="Sound">
+<area shape="rect" id="Node000001" title=" " alt="" coords="241,933,303,959"/>
+<area shape="rect" id="Node000002" href="$structAudioStream.html" title=" " alt="" coords="219,845,325,871"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,885,275,933,269,933,269,885"/>
+<area shape="rect" id="Node000003" href="$structrAudioBuffer.html" title=" " alt="" coords="142,755,245,781"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,789,263,843,259,847,211,793"/>
+<area shape="poly" id="edge17_Node000003_Node000003" title=" " alt="" coords="259,759,267,762,271,768,263,776,245,779,244,774,261,772,266,768,264,766,257,764"/>
+<area shape="rect" id="Node000004" href="$structma__data__converter.html" title=" " alt="" coords="91,663,239,689"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,702,169,728,185,754,180,757,164,730,160,703"/>
+<area shape="rect" id="Node000005" href="$structma__channel__converter.html" title=" " alt="" coords="5,573,176,599"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="94,611,102,636,117,650,135,661,132,665,113,654,98,639,89,613"/>
+<area shape="rect" id="Node000006" href="$structma__resampler.html" title=" " alt="" coords="201,573,317,599"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="245,612,222,639,187,665,184,661,218,635,241,608"/>
+<area shape="rect" id="Node000007" href="$structma__resampling__backend__vtable.html" title=" " alt="" coords="83,471,267,511"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="189,522,205,548,236,571,233,575,201,551,184,525"/>
+<area shape="rect" id="Node000008" href="$structma__linear__resampler.html" title=" " alt="" coords="291,478,451,503"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="353,516,315,551,280,575,277,571,312,547,349,512"/>
+<area shape="rect" id="Node000009" href="$structma__linear__resampler__config.html" title=" " alt="" coords="237,368,397,408"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="336,419,367,476,362,479,331,421"/>
+<area shape="rect" id="Node000010" href="$structma__lpf.html" title=" " alt="" coords="421,375,488,401"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="438,413,382,480,378,476,434,409"/>
+<area shape="rect" id="Node000011" href="$structma__lpf1.html" title=" " alt="" coords="385,231,460,256"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="427,269,432,305,453,375,448,376,427,306,422,270"/>
+<area shape="rect" id="Node000012" href="$unionma__biquad__coefficient.html" title=" " alt="" coords="375,5,545,31"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="448,44,444,55,433,105,427,155,425,230,420,230,422,155,427,105,439,54,443,42"/>
+<area shape="rect" id="Node000014" href="$structma__biquad.html" title=" " alt="" coords="473,181,567,207"/>
+<area shape="poly" id="edge14_Node000014_Node000012" title=" " alt="" coords="471,42,518,180,513,182,466,44"/>
+<area shape="rect" id="Node000013" href="$structma__lpf2.html" title=" " alt="" coords="485,280,560,305"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="508,318,465,377,461,374,504,315"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="523,220,525,280,520,280,518,221"/>
+<area shape="rect" id="Node000015" href="$structrAudioProcessor.html" title=" " alt="" coords="275,663,402,689"/>
+<area shape="poly" id="edge18_Node000002_Node000015" title=" " alt="" coords="339,703,335,730,316,784,282,846,277,844,311,782,329,729,334,702"/>
+<area shape="poly" id="edge15_Node000003_Node000015" title=" " alt="" coords="302,697,265,717,209,757,206,753,263,712,300,692"/>
+<area shape="poly" id="edge16_Node000015_Node000015" title=" " alt="" coords="417,667,429,676,420,684,403,687,402,682,418,679,423,676,414,672"/>
+</map>

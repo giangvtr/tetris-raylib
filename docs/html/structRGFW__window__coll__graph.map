@@ -1,0 +1,10 @@
+<map id="RGFW_window" name="RGFW_window">
+<area shape="rect" id="Node000001" title=" " alt="" coords="165,225,284,251"/>
+<area shape="rect" id="Node000002" href="$structRGFW__event.html" title=" " alt="" coords="171,123,278,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,162,227,225,222,225,222,162"/>
+<area shape="rect" id="Node000003" href="$structRGFW__point.html" title=" " alt="" coords="5,5,108,31"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="50,44,43,67,39,94,40,121,50,147,73,174,104,196,137,212,170,223,168,228,135,217,101,201,70,178,45,149,35,123,34,94,38,66,44,43"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,36,210,120,207,125,83,41"/>
+<area shape="rect" id="Node000004" href="$structRGFW__rect.html" title=" " alt="" coords="303,123,397,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="328,159,273,203,242,227,239,223,270,199,324,155"/>
+</map>

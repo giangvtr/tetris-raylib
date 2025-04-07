@@ -1,0 +1,28 @@
+\chapter{raylib CMake Project}
+\hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README}{}\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README}\index{raylib CMake Project@{raylib CMake Project}}
+\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md72}%
+\Hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md72}%
+ This provides a base project template which builds with \href{https://cmake.org}{\texttt{ CMake}}.\hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md73}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md73}
+To compile the example, use one of the following dependending on your build target...\hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md74}{}\doxysubsection{\texorpdfstring{Desktop}{Desktop}}\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md74}
+Use the following to build for desktop\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ bash}
+\DoxyCodeLine{cmake\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build}
+
+\end{DoxyCode}
+\hypertarget{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md75}{}\doxysubsection{\texorpdfstring{Web}{Web}}\label{md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2projects_2CMake_2README_autotoc_md75}
+Compiling for the web requires the \href{https://emscripten.org/docs/getting_started/downloads.html}{\texttt{ Emscripten SDK}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ bash}
+\DoxyCodeLine{mkdir\ build}
+\DoxyCodeLine{cd\ build}
+\DoxyCodeLine{emcmake\ cmake\ ..\ -\/DPLATFORM=Web\ -\/DCMAKE\_BUILD\_TYPE=Release\ -\/DCMAKE\_EXECUTABLE\_SUFFIX="{}.html"{}}
+\DoxyCodeLine{emmake\ make}
+
+\end{DoxyCode}
+ 

@@ -1,0 +1,22 @@
+<map id="drflac" name="drflac">
+<area shape="rect" id="Node000001" title=" " alt="" coords="672,180,731,205"/>
+<area shape="rect" id="Node000002" href="$structdrflac__metadata.html" title=" " alt="" coords="329,43,457,68"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="471,45,515,46,561,51,607,64,650,87,670,108,685,133,700,179,695,181,680,135,666,111,646,91,605,69,560,57,514,51,471,50"/>
+<area shape="rect" id="Node000003" href="$structdrflac__streaminfo.html" title=" " alt="" coords="15,5,151,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="165,25,329,45,329,50,164,30"/>
+<area shape="rect" id="Node000004" href="$structdrflac__seekpoint.html" title=" " alt="" coords="19,75,148,100"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="162,90,422,115,554,134,608,145,649,157,685,178,683,182,647,162,607,150,553,140,421,121,161,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="162,77,329,59,329,65,162,82"/>
+<area shape="rect" id="Node000005" href="$structdrflac__allocation__callbacks.html" title=" " alt="" coords="295,156,492,181"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="506,175,672,188,672,193,505,180"/>
+<area shape="rect" id="Node000006" href="$structdrflac__frame.html" title=" " alt="" coords="341,205,445,231"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="459,218,549,216,648,206,671,200,672,205,648,211,549,221,459,223"/>
+<area shape="rect" id="Node000007" href="$structdrflac__frame__header.html" title=" " alt="" coords="5,180,161,205"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="175,197,341,211,341,216,175,203"/>
+<area shape="rect" id="Node000008" href="$structdrflac__subframe.html" title=" " alt="" coords="20,229,147,255"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="160,239,270,234,340,225,341,230,271,239,160,245"/>
+<area shape="rect" id="Node000009" href="$structdrflac____memory__stream.html" title=" " alt="" coords="303,255,483,280"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="497,268,573,260,611,252,647,238,670,222,688,204,692,208,674,227,649,243,612,257,574,266,498,274"/>
+<area shape="rect" id="Node000010" href="$structdrflac__bs.html" title=" " alt="" coords="353,304,433,329"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="447,322,493,324,545,322,598,311,623,301,646,288,665,270,679,247,695,204,700,206,684,249,670,273,650,292,626,306,600,316,546,327,493,330,447,327"/>
+</map>
