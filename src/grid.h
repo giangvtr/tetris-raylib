@@ -4,10 +4,7 @@
 
 #include <vector>
 #include <raylib.h>
-
-constexpr int HEIGHT = 20;
-constexpr int WIDE = 10;
-constexpr int CELL_SIZE = 30;
+#include "constants.h"
 
 /**
  * @brief Represents the game grid used for block-based games like Tetris.
@@ -24,7 +21,7 @@ class Grid {
          * - 0 means the cell is empty.
          * - A positive number is an index into the colors vector, representing a block.
          */
-        int grid[HEIGHT][WIDE];
+        int grid[constants::HEIGHT][constants::WIDTH];
     
         /**
          * @brief Constructs a Grid object with default dimensions and cell size.

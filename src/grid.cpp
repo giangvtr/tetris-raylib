@@ -6,7 +6,7 @@ Grid::Grid() //This is the definition of a constructor for the Grid class.
 {
     nbRows = 20;
     nbCols = 10;
-    cellSize = CELL_SIZE;
+    cellSize = constants::CELL_SIZE;
 
     Initialize();
     colors = GetCellColors();
