@@ -10,16 +10,26 @@
 #include "constants.h"
 
 class Block {
+protected:
+    int codeColor;
+    std::map<int, std::vector<Coordination>> cells;
+    Texture2D texture;
+
 public:
     Block();
+
+    //To manage 2D image or texture
+    void LoadTexture(const char* filename);
+
+
     void Draw(int offsetX, int offsetY);
     void Draw();
     void Move(int rows, int columns);
     std::vector<Coordination> GetCellPositions();
     void Rotate();
     void UndoRotation();
-    int codeColor;
-    std::map<int, std::vector<Coordination>> cells;
+
+
 
 private:
     int cellSize;

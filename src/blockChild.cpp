@@ -17,3 +17,12 @@ class LBlock: public Block{
       cells[3]={Coordination(0,0),Coordination(0,1),Coordination(1,1),Coordination(2,1)};
     }
 };
+
+class BeBlock: public Block{
+  public:
+    BeBlock(){
+      codeColor = 7;
+      cells[0] = {Coordination(0, 0)};
+      LoadTexture("../../resources/be.jpeg");
+    }
+};

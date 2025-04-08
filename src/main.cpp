@@ -2,9 +2,10 @@
 #include "grid.h"
 #include "colors.h"
 #include "blockChild.cpp"
-
+#include <iostream>
+#include <filesystem>
 int main(){
-
+    std::cout << "Running from: " << std::filesystem::current_path() << std::endl;
 	//Set a blank window
 	InitWindow(310,610,"My Tetris");
 
@@ -15,14 +16,14 @@ int main(){
 	myGrid.Initialize();
 	myGrid.Print();
 
-    LBlock block_l = LBlock();
+    BeBlock block_be = BeBlock();
 
 
 	while(WindowShouldClose()==false){
 		BeginDrawing();
 		ClearBackground(DARKBLUE);
 		myGrid.Draw();
-        block_l.Draw();
+        block_be.Draw();
 		EndDrawing();
 	}
 
