@@ -4,6 +4,7 @@
 #include "blockChild.cpp"
 #include <iostream>
 #include <filesystem>
+
 int main(){
     std::cout << "Running from: " << std::filesystem::current_path() << std::endl;
 	//Set a blank window
@@ -17,8 +18,7 @@ int main(){
 	myGrid.Print();
 
     BeBlock block_be = BeBlock();
-    TBlock block_t = TBlock();
-
+    ZBlock block_t = ZBlock();
 
 	while(WindowShouldClose()==false){
 		BeginDrawing();

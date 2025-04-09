@@ -15,6 +15,8 @@ class LBlock: public Block{
       cells[1]={Coord(0,1),Coord(1,1),Coord(2,1),Coord(2,2)};
       cells[2]={Coord(1,0),Coord(1,1),Coord(1,2),Coord(2,0)};
       cells[3]={Coord(0,0),Coord(0,1),Coord(1,1),Coord(2,1)};
+      //The block should appear in the middle of the upper bound of the grid
+      this->Move(0,4);
     }
 };
 
@@ -23,7 +25,11 @@ class BeBlock: public Block{
     BeBlock(){
       codeColor = 7;
       cells[0] = {Coord(0, 0)};
+      cells[1] = {Coord(0, 0)};
+      cells[2] = {Coord(0, 0)};
+      cells[3] = {Coord(0, 0)};
       LoadTexture("../../resources/be.jpeg");
+      Move(0,6);
     }
 };
 
@@ -35,6 +41,7 @@ class JBlock: public Block{
       cells[1]={Coord(0,1),Coord(0,2),Coord(1,1),Coord(2,2)};
       cells[2]={Coord(1,0),Coord(1,1),Coord(1,2),Coord(2,2)};
       cells[3]={Coord(0,1),Coord(1,1),Coord(2,0),Coord(2,1)};
+      this->Move(0,4);
     }
 };
 
@@ -46,6 +53,7 @@ class IBlock: public Block{
       cells[1]={Coord(0,2),Coord(1,2),Coord(2,2),Coord(3,2)};
       cells[2]={Coord(2,0),Coord(2,1),Coord(2,2),Coord(2,3)};
       cells[3]={Coord(0,1),Coord(1,1),Coord(2,1),Coord(3,1)};
+      this->Move(-1,3);
     }
 };
 
@@ -57,6 +65,7 @@ class OBlock: public Block{
       cells[1]={Coord(0,0),Coord(0,1),Coord(1,0), Coord(1,1)};
       cells[2]={Coord(0,0),Coord(0,1),Coord(1,0), Coord(1,1)};
       cells[3]={Coord(0,0),Coord(0,1),Coord(1,0), Coord(1,1)};
+      this->Move(0,4);
     }
 };
 
@@ -68,6 +77,7 @@ class SBlock: public Block{
       cells[1]={Coord(0,1),Coord(1,1),Coord(1,2), Coord(2,2)};
       cells[2]={Coord(1,1),Coord(1,2),Coord(2,0), Coord(2,1)};
       cells[3]={Coord(2,0),Coord(1,0),Coord(1,1), Coord(2,1)};
+      this->Move(0,3);
     }
 };
 
@@ -79,6 +89,7 @@ class TBlock: public Block{
       cells[1]={Coord(0,1),Coord(1,1),Coord(1,2),Coord(2,1)};
       cells[2]={Coord(1,0),Coord(1,1),Coord(1,2),Coord(2,1)};
       cells[3]={Coord(0,1),Coord(1,0),Coord(1,1), Coord(2,1)};
+      this->Move(0,4);
     }
 };
 
@@ -90,6 +101,7 @@ class ZBlock: public Block{
       cells[1]={Coord(0,2),Coord(1,1),Coord(1,2),Coord(2,1)};
       cells[2]={Coord(1,0),Coord(1,1),Coord(2,1),Coord(2,2)};
       cells[3]={Coord(1,0),Coord(1,1),Coord(1,0),Coord(2,0)};
+      this->Move(0,4);
     }
 };
 
