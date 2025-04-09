@@ -5,14 +5,14 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 #include <map>
-#include "coordination.h"
+#include "coord.h"
 #include "colors.h"
 #include "constants.h"
 
 class Block {
 protected:
     int codeColor;
-    std::map<int, std::vector<Coordination>> cells;
+    std::map<int, std::vector<Coord>> cells;
     Texture2D texture;
 
 public:
@@ -25,7 +25,7 @@ public:
     void Draw(int offsetX, int offsetY);
     void Draw();
     void Move(int rows, int columns);
-    std::vector<Coordination> GetCellPositions();
+    std::vector<Coord> GetCellPositions();
     void Rotate();
     void UndoRotation();
 

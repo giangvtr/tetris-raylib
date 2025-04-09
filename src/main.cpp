@@ -17,13 +17,14 @@ int main(){
 	myGrid.Print();
 
     BeBlock block_be = BeBlock();
+    TBlock block_t = TBlock();
 
 
 	while(WindowShouldClose()==false){
 		BeginDrawing();
 		ClearBackground(DARKBLUE);
 		myGrid.Draw();
-        block_be.Draw();
+        block_t.Draw();
 		EndDrawing();
 	}
 

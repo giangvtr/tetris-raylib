@@ -13,9 +13,9 @@ Block::Block(){
 
 void Block::Draw(){
   //Get the list of tiles within a block shape
-  std::vector<Coordination> tiles = cells[rotationState];
+  std::vector<Coord> tiles = cells[rotationState];
   //For each tile of a block
-  for(Coordination item: tiles)
+  for(Coord item: tiles)
     if (texture.id != 0){
       Vector2 position = {static_cast<float>(item.col*cellSize+12), static_cast<float>(item.row*cellSize+7)};
       DrawTextureEx(texture, position, 0.0f, 0.013f, WHITE);
