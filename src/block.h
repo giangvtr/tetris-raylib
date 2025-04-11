@@ -91,6 +91,8 @@ public:
      * Decrements the rotation state (modulo 4).
      */
     void UndoRotation();
+    int GetBlockColor();
+
 
 private:
     int cellSize; ///< Size of each cell (in pixels).

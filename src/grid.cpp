@@ -42,12 +42,15 @@ void Grid::Print(){
 }
 
 bool Grid::IsCellOutside(int row, int column){
-  return (row < 0 || row>nbRows || column<0 || column>nbCols);
+  if (row < 0 || row >= nbRows || column < 0 || column >= nbCols) return true;
+  return false;
 }
 
 //Array access without boundary check in IsCellEmpty()
 bool Grid::IsCellEmpty(int row, int column){
   if (IsCellOutside(row,column)) return false;
+  //If the grid cell has other color than the default color
+  //The grid is occupied
   return (grid[row][column] == 0);
 }
 
@@ -82,6 +85,7 @@ void Grid::ClearRow(int row){
 void Grid::MoveRowDown(int row, int numRows){
   //copy the "row" to "row-numRows"
   for(int j=0;j<nbCols;j++){
-    grid[row][j]=grid[row-numRows][j];
+    grid[row+numRows][j]=grid[row][j];
+    grid[row][j]=0;
   }
 }
