@@ -48,16 +48,13 @@ make
 * How to set up (see this [Youtube video](https://www.youtube.com/watch?v=pnnKzkNTo4w&t=195s))
 
 ## Gameplay Screenshots
-![Start window](../assets/start.png)
-
-
 <p float="left">
-  <img src="../assets/start.png" width="300"/>
-  <img src="../assets/game.png" width="300"/>
+  <img src="assets/start.png" width="330"/>
+  <img src="assets/game.png" width="330"/>
 </p>
 
 
 <p float="left">
-  <img src="../assets/leaderboard.png" width="300"/>
-  <img src="../assets/levels.png" width="300"/>
+  <img src="assets/leaderboard.png" width="330"/>
+  <img src="assets/levels.png" width="330"/>
 </p>
