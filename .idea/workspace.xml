@@ -28,13 +28,10 @@
   <component name="ChangeListManager">
     <list default="true" id="73008bf8-fc24-4668-9b4e-cff594ea6b57" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Doxyfile" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Doxyfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/block.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/block.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/colors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/colors.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/block.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/block.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/game.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,6 +71,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -154,6 +154,7 @@
       <workItem from="1744180946640" duration="1413000" />
       <workItem from="1744215741426" duration="7174000" />
       <workItem from="1744297325366" duration="28735000" />
+      <workItem from="1744444295668" duration="6205000" />
     </task>
     <servers />
   </component>

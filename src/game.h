@@ -40,7 +40,7 @@ public:
 
     enum class Level {LEVEL1=0, LEVEL2, LEVEL3, LEVEL4, LEVEL5};
 
-    float GetSpeedFromLevel(Level level);
+
 
 
     /**
@@ -63,7 +63,7 @@ public:
      * If the block can no longer move downward (collides or reaches the grid bottom),
      * it is locked into the grid and a new block is spawned.
      */
-    void MoveBlockDown();
+    void MoveBlockDown(bool fromSoftDrop = false);
 
     /**
      * @brief Resets the game state to the beginning: score = 0, new grid, fresh blocks.
@@ -72,6 +72,9 @@ public:
 
     bool EventTriggered(double interval);
 
+    void SetLevel(Level newLevel);
+
+    void HandleSoftDrop();
 
 
     // ==========THE PUBLIC ATTRIBUTES=============/
@@ -86,6 +89,11 @@ public:
 
     /// Time stamp to calculate falling block speed
     double lastUpdateTime = 0;
+
+    Level level;
+
+    float speed;
+
 
 
 private:
@@ -120,6 +128,8 @@ private:
      */
     bool IsBlockOutside();
 
+
+
     /**
      * @brief Attempts to rotate the current block clockwise.
      *
@@ -150,6 +160,8 @@ private:
      */
     void UpdateScore(int linesCleared, int moveDownPoints);
 
+    float GetSpeedFromLevel(Level inputlevel);
+
 
     // ==================== THE PRIVATE ATTRIBUTES ===============
     /// The main grid where blocks fall and accumulate.
@@ -170,7 +182,11 @@ private:
     /// Sound effect played when a line is cleared.
     Sound clearSound;
 
-    Level level;
+    float softDropTime = 0.05f;   // Time between drops while holding down
+	double lastSoftDropTime = 0;  // Last time we moved down due to soft drop
+
+
+
 }; // class Game
 
 #endif //GAME_H

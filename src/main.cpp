@@ -16,14 +16,13 @@ int main(){
 	SetTargetFPS(60);
     Texture2D background = LoadTexture("../../resources/img/background.jpg");
     Color screenColor = {4,15,45,255};
-    Font font = LoadFontEx("../../resources/fonts/setbackt.ttf", 64, 0, 0);
+    Font font = LoadFontEx("../../resources/font/setbackt.ttf", 64, 0, 0);
     // Game state
     GameScreen currentScreen = MENU;
     Game myGame = Game();
 
-    //Set level
-    Game::Level level = Game::Level::LEVEL1;
-    float speed = myGame.GetSpeedFromLevel(level);
+    //Set default level
+    myGame.SetLevel(Game::Level::LEVEL1);
 
 	Grid myGrid;
 	myGrid.Initialize();
@@ -69,7 +68,7 @@ int main(){
                     } else if (CheckCollisionPointRec(mousePos, leaderboardBtn)) {
                         currentScreen = LEADERBOARD;
                     } else if (CheckCollisionPointRec(mousePos, levelBtn)) {
-                        currentScreen = LEVEL_SELECT;  // <-- Ajoute ce nouvel état
+                        currentScreen = LEVEL_SELECT;
                     }
                 }
                 break;
@@ -85,15 +84,23 @@ int main(){
             Rectangle scoreBoard = {320, 55,170,60};
             DrawRectangleRounded(scoreBoard, 0.3, 6, BEIGE);
 
+            char scoreText[10];
+        	sprintf(scoreText, "%d", myGame.score);
+        	Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
+
+        	DrawTextEx(font, scoreText, {320 + (170 - textSize.x) / 2, 65}, 38, 2, WHITE);
+
             //Next block zone
-            DrawTextEx(font, "Next Block", {330,175},30,2,RAYWHITE);
+            DrawTextEx(font, "Next", {370,175},30,2,RAYWHITE);
             Rectangle nextBlockScreen = {320,215,170,180};
             DrawRectangleRounded(nextBlockScreen, 0.3, 6, BEIGE);
 
+            myGame.Draw();
             myGame.HandleInput();
+            myGame.HandleSoftDrop();
 
-            if (myGame.EventTriggered(speed)){
-               myGame.MoveBlockDown();
+            if (myGame.EventTriggered(myGame.speed)){
+               myGame.MoveBlockDown(false);
             }
 
             // Escape to menu
@@ -154,9 +161,7 @@ int main(){
                   Vector2 mouse = GetMousePosition();
                   for (int i = 0; i < 5; i++) {
                       if (CheckCollisionPointRec(mouse, levelBtns[i])) {
-                          level = static_cast<Game::Level>(i);  // stocker le niveau choisi
-                          speed = myGame.GetSpeedFromLevel(level);
-
+                          myGame.SetLevel(static_cast<Game::Level>(i));  // stocker le niveau choisi
                           //Reset the game
                           myGame.Reset();
                           myGrid.Initialize();  // Reinitialize the grid

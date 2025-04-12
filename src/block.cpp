@@ -13,13 +13,13 @@ Block::Block(){
 
 }
 
-void Block::Draw(){
+void Block::Draw(int offsetX, int offsetY){
   //Get the list of tiles within a block shape
   std::vector<Coord> tiles = GetCellPositions();
   //For each tile of a block
 
   for(Coord item: tiles)
-    DrawRectangle(item.col*cellSize+10 , item.row*cellSize+10,cellSize - 1, cellSize - 1, colors[codeColor]);
+    DrawRectangle(item.col*cellSize+offsetX , item.row * cellSize+ offsetY ,cellSize - 1, cellSize - 1, colors[codeColor]);
 }
 
 void Block::LoadTexture(const char* filename){

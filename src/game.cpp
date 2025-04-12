@@ -17,10 +17,10 @@ Game::Game() {
 
   //For sounds
   InitAudioDevice();
-  music = LoadMusicStream("Sounds/music.mp3");
+  music = LoadMusicStream("../../resources/sound/music.mp3");
   PlayMusicStream(music);
-  rotateSound = LoadSound("Sounds/rotate.mp3");
-  clearSound = LoadSound("Sounds/clear.mp3");
+  rotateSound = LoadSound("../../resources/sound/rotate.mp3");
+  clearSound = LoadSound("../../resources/sound/clear.mp3");
 }
 
 //Make a destructor
@@ -52,8 +52,39 @@ std::vector<Block> Game::RefillBlocks() {
 
 void Game::Draw(){
   grid.Draw();
-  if(!gameOver) currentBlock.Draw();
+  if(!gameOver){
+    currentBlock.Draw(10, 10);
+
+    // Set a base position for nextBlock
+    int nextBlockX = 230;  // Default X position
+    int nextBlockY = 259;  // Default Y position
+
+    // Adjust the position based on currentBlock.codeColor
+    switch(nextBlock.codeColor){
+      	case 4: //Block O
+          nextBlockX = 260;
+          nextBlockY = 270;
+          break;
+        case 3: //Block I
+          nextBlockX = 255;
+          nextBlockY = 285;
+          break;
+        case 5: //Block S
+          nextBlockX = 270;
+          break;
+        case 7: //Block Z
+          nextBlockX = 240;
+          break;
+    	default:
+          nextBlockX = 240;  // Keep the default position if no match
+          break;
+    }
+
+    // Ensure nextBlock is positioned based on its size (for example, 32x32)
+    nextBlock.Draw(nextBlockX, nextBlockY);
+  }
 }
+
 
 void Game::HandleInput(){
   int keyPressed = GetKeyPressed();
@@ -69,7 +100,7 @@ void Game::HandleInput(){
       MoveBlockRight();
       break;
     case KEY_DOWN :
-      MoveBlockDown();
+      MoveBlockDown(true);
       break;
     case KEY_UP :
       RotateBlock();
@@ -91,17 +122,22 @@ void Game::MoveBlockRight(){
   }
 }
 
-void Game::MoveBlockDown(){
-  if(!gameOver){
-    currentBlock.Move(1,0);
-    if(IsBlockOutside() || BlockFits() == false){
-      currentBlock.Move(-1,0);
-      LockBlock();
+void Game::MoveBlockDown(bool fromSoftDrop){
+  if(gameOver) return;
+
+  currentBlock.Move(1, 0);
+
+  if (IsBlockOutside() || !BlockFits()) {
+    currentBlock.Move(-1, 0);  // undo
+    LockBlock();
+  } else {
+    if (fromSoftDrop) {
+      UpdateScore(0, 1);  // ajoute 1 point pour chaque descente
     }
   }
 }
 
-float Game::GetSpeedFromLevel(Level level){
+float Game::GetSpeedFromLevel(Level inputlevel){
   switch(level){
     case Level::LEVEL1:
       return constants::SPEED1;
@@ -113,6 +149,8 @@ float Game::GetSpeedFromLevel(Level level){
       return constants::SPEED4;
     case Level::LEVEL5:
       return constants::SPEED5;
+    default:
+  	  return constants::SPEED1;  // ou une valeur de secours
   }
 }
 
@@ -148,7 +186,8 @@ void Game::LockBlock(){
     return;
   }
   nextBlock = GetRandomBlock();
-  grid.ClearFullRows();
+  int rowsCleared = grid.ClearFullRows();
+  UpdateScore(rowsCleared, 0);
 }
 
 bool Game::BlockFits(){
@@ -159,11 +198,13 @@ bool Game::BlockFits(){
   return true;
 }
 
+
 void Game::Reset(){
   grid.Initialize();
   blocks = RefillBlocks();
   currentBlock = GetRandomBlock();
   nextBlock = GetRandomBlock();
+  score = 0;
 }
 
 bool Game::EventTriggered(double interval){
@@ -174,3 +215,38 @@ bool Game::EventTriggered(double interval){
   }
   return false;
 }
+
+void Game::SetLevel(Level newLevel) {
+    level = newLevel;
+    speed = GetSpeedFromLevel(level);
+}
+
+void Game::UpdateScore(int linesCleared, int moveDownPoints){
+  switch(linesCleared){
+    case 1 :
+      score += 40 * (static_cast<int>(level) + 1);
+      break;
+    case 2 :
+      score += 100 * (static_cast<int>(level) + 1);
+      break;
+    case 3 :
+      score += 300 * (static_cast<int>(level) + 1);
+      break;
+    case 4 :
+      score += 1200 * (static_cast<int>(level) + 1);
+      break;
+    default: break;
+    }
+    score += moveDownPoints;
+}
+
+void Game::HandleSoftDrop() {
+  if (IsKeyDown(KEY_DOWN)) {
+    double currentTime = GetTime();
+    if (currentTime - lastSoftDropTime >= softDropTime) {
+      MoveBlockDown(); // reuse your existing function
+      lastSoftDropTime = currentTime;
+    }
+  }
+}
+

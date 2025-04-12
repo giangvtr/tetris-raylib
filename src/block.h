@@ -25,7 +25,7 @@
  */
 class Block {
 protected:
-    int codeColor;  ///< Index used to select a color from the palette.
+
     std::map<int, std::vector<Coord>> cells; ///< Maps each rotation state to its corresponding cell positions.
     Texture2D texture; ///< Texture used for rendering the block (optional).
 
@@ -52,11 +52,6 @@ public:
      * @param offsetY Vertical offset (in pixels).
      */
     void Draw(int offsetX, int offsetY);
-
-    /**
-     * @brief Draws the block at its grid position where it should be based on offsets.
-     */
-    void Draw();
 
     /**
      * @brief Moves the block within the game grid.
@@ -92,6 +87,7 @@ public:
      */
     void UndoRotation();
     int GetBlockColor();
+    int codeColor;  ///< Index used to select a color from the palette.
 
 
 private:
