@@ -3,6 +3,7 @@
 #include <filesystem>
 #include "game.h"
 #include "constants.h"
+#include "leaderboard.h"
 
 //Different windows for the game
 enum GameScreen { MENU = 0, GAMEPLAY, LEADERBOARD, LEVEL_SELECT};
@@ -20,6 +21,12 @@ int main(){
     // Game state
     GameScreen currentScreen = MENU;
     Game myGame = Game();
+    Leaderboard lb = Leaderboard();
+
+    //In case player make it to Leader board
+    bool waitingForNameInput = false;
+	std::string nameInput = "";
+
 
     //Set default level
     myGame.SetLevel(Game::Level::LEVEL1);
@@ -109,24 +116,74 @@ int main(){
             }
             //If game over
 
-            if(myGame.gameOver){
-              DrawText("GAME OVER, BITCH !", 15, 150, 28, RAYWHITE);
-              DrawText("Press Q to QUIT", 40, 250, 28, RAYWHITE);
-              DrawText("Press R to REPLAY", 25, 350, 28, RAYWHITE);
+            if (myGame.gameOver) {
+    			if (!waitingForNameInput) {
+        			lb.LoadLeaderboardFromFile("../../resources/score.txt");
 
-            }
+        			// Check if score qualifies
+        			if (lb.IsHighScore(myGame.score)) {
+            			waitingForNameInput = true;
+        			}
+    			}
+
+    			if (waitingForNameInput) {
+        			DrawText("YOU MADE THE LEADERBOARD!", 20, 120, 20, YELLOW);
+        			DrawText("Enter your name:", 20, 170, 20, RAYWHITE);
+        			DrawRectangle(20, 200, 200, 30, LIGHTGRAY);
+        			DrawText(nameInput.c_str(), 25, 205, 20, BLACK);
+
+        			// Handle keyboard input
+        			int key = GetCharPressed();
+        			while (key > 0) {
+            			if ((key >= 32) && (key <= 125) && nameInput.length() < 12) {
+                			nameInput += static_cast<char>(key);
+            			}
+            			key = GetCharPressed();
+        			}
+
+        			// Backspace
+        			if (IsKeyPressed(KEY_BACKSPACE) && !nameInput.empty()) {
+            			nameInput.pop_back();
+        			}
+
+        			// Submit name with Enter
+        			if (IsKeyPressed(KEY_ENTER) && !nameInput.empty()) {
+    					lb.AddScore(nameInput, myGame.score);
+    					lb.SaveLeaderboardToFile("../../resources/score.txt");
+
+    					// Reset everything
+    					nameInput.clear();
+    					waitingForNameInput = false;
+
+    					currentScreen = LEADERBOARD; // 👈 jump straight to leaderboard!
+					}
+
+    			} else {
+        			DrawText("GAME OVER", 15, 150, 28, RAYWHITE);
+        			DrawText("Press Q to QUIT", 40, 250, 28, RAYWHITE);
+        			DrawText("Press R to REPLAY", 25, 350, 28, RAYWHITE);
+    			}
+			}
             break;
           }
 
           case LEADERBOARD: {
-                DrawText("Leaderboard - Coming Soon", 40, 200, 18, RAYWHITE);
-                DrawText("Press [ESC] to return", 60, 250, 16, GRAY);
+                ClearBackground(screenColor);
+                DrawText("Leaderboard", 40, 100, 40, RAYWHITE);
 
+                // Display top 10 leaderboard scores
+                lb.LoadLeaderboardFromFile("../../resources/score.txt");
+				lb.DrawLeaderboard(font, 60, 160, 30, RAYWHITE);
+
+
+                DrawText("Press [Q] to return", 60, 450, 16, GRAY);
+
+                // Return to menu if ESC is pressed
                 if (IsKeyPressed(KEY_Q)) {
                     currentScreen = MENU;
                 }
                 break;
-          }
+            }
 
           case LEVEL_SELECT: {
               ClearBackground(screenColor);

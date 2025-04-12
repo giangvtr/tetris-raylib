@@ -1,0 +1,7 @@
+David,150
+Eve,125
+Binh,106
+Alice,100
+Giang,92
+Bob,75
+Charlie,50
