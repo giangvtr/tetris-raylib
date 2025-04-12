@@ -1,0 +1,57 @@
+\doxysection{Be\+Block Class Reference}
+\hypertarget{classBeBlock}{}\label{classBeBlock}\index{BeBlock@{BeBlock}}
+
+
+Inheritance diagram for Be\+Block\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classBeBlock__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Be\+Block\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classBeBlock__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classBlock}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlock_a37658a946bf5067ad01d68d9ff086adc}{Block}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_aac3cbcea620da098d0819f37f8b362ae}{Load\+Texture}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Loads a texture from an image file. If a texture is already loaded, it will be unloaded first. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_aff9a876805127586734c4f39910cf9a2}{Draw}} (int offsetX, int offsetY)
+\begin{DoxyCompactList}\small\item\em Draws the block at a specified pixel offset. \end{DoxyCompactList}\item 
+void {\bfseries Draw} ()
+\begin{DoxyCompactList}\small\item\em Draws the block at its grid position where it should be based on offsets. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a8d3c1b1b61b9a5671281508e42034010}{Move}} (int rows, int columns)
+\begin{DoxyCompactList}\small\item\em Moves the block within the game grid. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classCoord}{Coord}} $>$ \mbox{\hyperlink{classBlock_a276688f4ff869cdfdd4db1bb31f680a6}{Get\+Cell\+Positions}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current cell positions of the block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a1ced2170a2dad5b9110cb3c2171be6e4}{Rotate}} ()
+\begin{DoxyCompactList}\small\item\em Rotates the block clockwise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a1dc89cd9d5eb04508c2e38c87da6e937}{Undo\+Rotation}} ()
+\begin{DoxyCompactList}\small\item\em Reverts the last rotation (counter-\/clockwise). \end{DoxyCompactList}\item 
+int {\bfseries Get\+Block\+Color} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classBlock}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries code\+Color}
+\begin{DoxyCompactList}\small\item\em Index used to select a color from the palette. \end{DoxyCompactList}\item 
+std\+::map$<$ int, std\+::vector$<$ \mbox{\hyperlink{classCoord}{Coord}} $>$ $>$ {\bfseries cells}
+\begin{DoxyCompactList}\small\item\em Maps each rotation state to its corresponding cell positions. \end{DoxyCompactList}\item 
+Texture2D {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em Texture used for rendering the block (optional). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/block\+Child.\+h\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/block\+Child.\+cpp\end{DoxyCompactItemize}

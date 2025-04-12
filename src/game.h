@@ -37,6 +37,12 @@ public:
      */
     ~Game();
 
+
+    enum class Level {LEVEL1=0, LEVEL2, LEVEL3, LEVEL4, LEVEL5};
+
+    float GetSpeedFromLevel(Level level);
+
+
     /**
      * @brief Draws the current state of the game on the screen.
      *
@@ -59,6 +65,15 @@ public:
      */
     void MoveBlockDown();
 
+    /**
+     * @brief Resets the game state to the beginning: score = 0, new grid, fresh blocks.
+     */
+    void Reset();
+
+    bool EventTriggered(double interval);
+
+
+
     // ==========THE PUBLIC ATTRIBUTES=============/
     /// Whether the game has ended due to the grid being filled.
     bool gameOver;
@@ -68,6 +83,10 @@ public:
 
     /// Background music for the game session.
     Music music;
+
+    /// Time stamp to calculate falling block speed
+    double lastUpdateTime = 0;
+
 
 private:
     /**
@@ -110,7 +129,6 @@ private:
 
     /**
      * @brief Locks the current block into the grid.
-     *
      * After locking, clears full lines, plays effects, updates score, and prepares the next block.
      */
     void LockBlock();
@@ -122,10 +140,7 @@ private:
      */
     bool BlockFits();
 
-    /**
-     * @brief Resets the game state to the beginning: score = 0, new grid, fresh blocks.
-     */
-    void Reset();
+
 
     /**
      * @brief Updates the score based on the number of lines cleared and bonus for soft drop.
@@ -154,6 +169,8 @@ private:
 
     /// Sound effect played when a line is cleared.
     Sound clearSound;
+
+    Level level;
 }; // class Game
 
 #endif //GAME_H

@@ -1,0 +1,168 @@
+\doxysection{Block Class Reference}
+\hypertarget{classBlock}{}\label{classBlock}\index{Block@{Block}}
+
+
+A class representing a game piece composed of multiple cells.  
+
+
+
+
+{\ttfamily \#include $<$block.\+h$>$}
+
+
+
+Inheritance diagram for Block\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classBlock__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlock_a37658a946bf5067ad01d68d9ff086adc}{Block}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_aac3cbcea620da098d0819f37f8b362ae}{Load\+Texture}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Loads a texture from an image file. If a texture is already loaded, it will be unloaded first. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_aff9a876805127586734c4f39910cf9a2}{Draw}} (int offsetX, int offsetY)
+\begin{DoxyCompactList}\small\item\em Draws the block at a specified pixel offset. \end{DoxyCompactList}\item 
+\Hypertarget{classBlock_a955ced0693bbd22b2a2479e55bb5180d}\label{classBlock_a955ced0693bbd22b2a2479e55bb5180d} 
+void {\bfseries Draw} ()
+\begin{DoxyCompactList}\small\item\em Draws the block at its grid position where it should be based on offsets. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a8d3c1b1b61b9a5671281508e42034010}{Move}} (int rows, int columns)
+\begin{DoxyCompactList}\small\item\em Moves the block within the game grid. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classCoord}{Coord}} $>$ \mbox{\hyperlink{classBlock_a276688f4ff869cdfdd4db1bb31f680a6}{Get\+Cell\+Positions}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current cell positions of the block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a1ced2170a2dad5b9110cb3c2171be6e4}{Rotate}} ()
+\begin{DoxyCompactList}\small\item\em Rotates the block clockwise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBlock_a1dc89cd9d5eb04508c2e38c87da6e937}{Undo\+Rotation}} ()
+\begin{DoxyCompactList}\small\item\em Reverts the last rotation (counter-\/clockwise). \end{DoxyCompactList}\item 
+\Hypertarget{classBlock_adb9ffbc6d7c14a779238d75ccfb8826e}\label{classBlock_adb9ffbc6d7c14a779238d75ccfb8826e} 
+int {\bfseries Get\+Block\+Color} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classBlock_a3c3e7d3351be2361924f9f6f640f5f14}\label{classBlock_a3c3e7d3351be2361924f9f6f640f5f14} 
+int {\bfseries code\+Color}
+\begin{DoxyCompactList}\small\item\em Index used to select a color from the palette. \end{DoxyCompactList}\item 
+\Hypertarget{classBlock_ac51052bce0b20e89c76e8536e4ebcfad}\label{classBlock_ac51052bce0b20e89c76e8536e4ebcfad} 
+std\+::map$<$ int, std\+::vector$<$ \mbox{\hyperlink{classCoord}{Coord}} $>$ $>$ {\bfseries cells}
+\begin{DoxyCompactList}\small\item\em Maps each rotation state to its corresponding cell positions. \end{DoxyCompactList}\item 
+\Hypertarget{classBlock_a2c04be0aa952e6cc6de00428cfb47f3e}\label{classBlock_a2c04be0aa952e6cc6de00428cfb47f3e} 
+Texture2D {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em Texture used for rendering the block (optional). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing a game piece composed of multiple cells. 
+
+Each block has a rotation state, an offset position within the game grid, a color (or a texture), and methods to draw and manipulate its position and orientation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classBlock_a37658a946bf5067ad01d68d9ff086adc}\label{classBlock_a37658a946bf5067ad01d68d9ff086adc} 
+\index{Block@{Block}!Block@{Block}}
+\index{Block@{Block}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Block()}{Block()}}
+{\footnotesize\ttfamily Block\+::\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Initializes the block with default cell size, rotation state, offsets, and available colors. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classBlock_aff9a876805127586734c4f39910cf9a2}\label{classBlock_aff9a876805127586734c4f39910cf9a2} 
+\index{Block@{Block}!Draw@{Draw}}
+\index{Draw@{Draw}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Block\+::\+Draw (\begin{DoxyParamCaption}\item[{int}]{offsetX,  }\item[{int}]{offsetY }\end{DoxyParamCaption})}
+
+
+
+Draws the block at a specified pixel offset. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offsetX} & Horizontal offset (in pixels). \\
+\hline
+{\em offsetY} & Vertical offset (in pixels). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBlock_a276688f4ff869cdfdd4db1bb31f680a6}\label{classBlock_a276688f4ff869cdfdd4db1bb31f680a6} 
+\index{Block@{Block}!GetCellPositions@{GetCellPositions}}
+\index{GetCellPositions@{GetCellPositions}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetCellPositions()}{GetCellPositions()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classCoord}{Coord}} $>$ Block\+::\+Get\+Cell\+Positions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the current cell positions of the block. 
+
+Applies the current row and column offsets to each cell based on the current rotation state.
+
+\begin{DoxyReturn}{Returns}
+A vector of \doxylink{classCoord}{Coord} representing the absolute positions of the block\textquotesingle{}s cells. 
+\end{DoxyReturn}
+\Hypertarget{classBlock_aac3cbcea620da098d0819f37f8b362ae}\label{classBlock_aac3cbcea620da098d0819f37f8b362ae} 
+\index{Block@{Block}!LoadTexture@{LoadTexture}}
+\index{LoadTexture@{LoadTexture}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{LoadTexture()}{LoadTexture()}}
+{\footnotesize\ttfamily void Block\+::\+Load\+Texture (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})}
+
+
+
+Loads a texture from an image file. If a texture is already loaded, it will be unloaded first. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Path to the texture image file. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBlock_a8d3c1b1b61b9a5671281508e42034010}\label{classBlock_a8d3c1b1b61b9a5671281508e42034010} 
+\index{Block@{Block}!Move@{Move}}
+\index{Move@{Move}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Move()}{Move()}}
+{\footnotesize\ttfamily void Block\+::\+Move (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns }\end{DoxyParamCaption})}
+
+
+
+Moves the block within the game grid. 
+
+Adds row and column offsets to the current position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Number of rows to move. \\
+\hline
+{\em columns} & Number of columns to move. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBlock_a1ced2170a2dad5b9110cb3c2171be6e4}\label{classBlock_a1ced2170a2dad5b9110cb3c2171be6e4} 
+\index{Block@{Block}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Rotate()}{Rotate()}}
+{\footnotesize\ttfamily void Block\+::\+Rotate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Rotates the block clockwise. 
+
+Increments the rotation state (modulo 4). \Hypertarget{classBlock_a1dc89cd9d5eb04508c2e38c87da6e937}\label{classBlock_a1dc89cd9d5eb04508c2e38c87da6e937} 
+\index{Block@{Block}!UndoRotation@{UndoRotation}}
+\index{UndoRotation@{UndoRotation}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{UndoRotation()}{UndoRotation()}}
+{\footnotesize\ttfamily void Block\+::\+Undo\+Rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reverts the last rotation (counter-\/clockwise). 
+
+Decrements the rotation state (modulo 4). 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/\mbox{\hyperlink{block_8h}{block.\+h}}\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/block.\+cpp\end{DoxyCompactItemize}

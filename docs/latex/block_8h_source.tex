@@ -1,0 +1,49 @@
+\doxysection{block.\+h}
+\hypertarget{block_8h_source}{}\label{block_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/src/block.h@{/home/giangvu/CPPprog/raylib-\/tetris/src/block.h}}
+\mbox{\hyperlink{block_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ BLOCK\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ BLOCK\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}coord.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}colors.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}constants.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBlock}{Block}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classBlock_a3c3e7d3351be2361924f9f6f640f5f14}{codeColor}};\ \ }
+\DoxyCodeLine{00029\ \ \ \ \ std::map<int,\ std::vector<Coord>>\ \mbox{\hyperlink{classBlock_ac51052bce0b20e89c76e8536e4ebcfad}{cells}};\ }
+\DoxyCodeLine{00030\ \ \ \ \ Texture2D\ \mbox{\hyperlink{classBlock_a2c04be0aa952e6cc6de00428cfb47f3e}{texture}};\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classBlock_a37658a946bf5067ad01d68d9ff086adc}{Block}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_aac3cbcea620da098d0819f37f8b362ae}{LoadTexture}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_aff9a876805127586734c4f39910cf9a2}{Draw}}(\textcolor{keywordtype}{int}\ offsetX,\ \textcolor{keywordtype}{int}\ offsetY);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_a955ced0693bbd22b2a2479e55bb5180d}{Draw}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_a8d3c1b1b61b9a5671281508e42034010}{Move}}(\textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ columns);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ \ \ \ \ std::vector<Coord>\ \mbox{\hyperlink{classBlock_a276688f4ff869cdfdd4db1bb31f680a6}{GetCellPositions}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_a1ced2170a2dad5b9110cb3c2171be6e4}{Rotate}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBlock_a1dc89cd9d5eb04508c2e38c87da6e937}{UndoRotation}}();}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ GetBlockColor();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ cellSize;\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ rotationState;\ }
+\DoxyCodeLine{00100\ \ \ \ \ std::vector<Color>\ colors;\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{int}\ rowOffset;\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{int}\ columnOffset;\ }
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BLOCK\_H}}
+
+\end{DoxyCode}

@@ -2,5 +2,49 @@
 \hypertarget{grid_8h_source}{}\label{grid_8h_source}\index{/home/giangvu/CPPprog/raylib-\/tetris/src/grid.h@{/home/giangvu/CPPprog/raylib-\/tetris/src/grid.h}}
 
 \begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{//Ensure\ that\ this\ header\ file\ is\ only\ included\ once\ in\ a\ compilation}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <raylib.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}constants.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classGrid}{Grid}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classGrid_a10aab6d1757ab4d31ce4b8a3e3b832ae}{grid}}[constants::HEIGHT][constants::WIDTH];}
+\DoxyCodeLine{00025\ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}{Grid}}();}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classGrid_a3e31c7f04df3d45afe2db4c19cca96fa}{Initialize}}();}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classGrid_a9894012a14efc864082b1dd73254102a}{Print}}();}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classGrid_aa55979d0fc9087c65e497453e1e861bc}{Draw}}();}
+\DoxyCodeLine{00054\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classGrid_acc1c0368b187e5428ef7f1a8d7d5d11c}{IsCellOutside}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column);}
+\DoxyCodeLine{00063\ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classGrid_ae34cef2db7f54d0fd1a964935eb860bd}{IsCellEmpty}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column);}
+\DoxyCodeLine{00074\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classGrid_ac6da070fc992cecd8051b2fb712f70ea}{ClearFullRows}}();}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ IsRowFull(\textcolor{keywordtype}{int}\ row);}
+\DoxyCodeLine{00096\ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ClearRow(\textcolor{keywordtype}{int}\ row);}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ MoveRowDown(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ numRows);}
+\DoxyCodeLine{00113\ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nbRows;}
+\DoxyCodeLine{00118\ \ \ \ \ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nbCols;}
+\DoxyCodeLine{00123\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellSize;}
+\DoxyCodeLine{00128\ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::vector<Color>\ colors;}
+\DoxyCodeLine{00135\ \ \ \ \ \};}
 
 \end{DoxyCode}

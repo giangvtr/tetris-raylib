@@ -1,0 +1,152 @@
+\doxysection{Grid Class Reference}
+\hypertarget{classGrid}{}\label{classGrid}\index{Grid@{Grid}}
+
+
+Represents the game grid used for block-\/based games like Tetris.  
+
+
+
+
+{\ttfamily \#include $<$grid.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}\label{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c} 
+{\bfseries Grid} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classGrid}{Grid} object with default dimensions and cell size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrid_a3e31c7f04df3d45afe2db4c19cca96fa}{Initialize}} ()
+\begin{DoxyCompactList}\small\item\em Resets the grid to an empty state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrid_a9894012a14efc864082b1dd73254102a}{Print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the grid values to the console. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrid_aa55979d0fc9087c65e497453e1e861bc}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em Renders the grid on the screen using raylib. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGrid_acc1c0368b187e5428ef7f1a8d7d5d11c}{Is\+Cell\+Outside}} (int row, int column)
+\begin{DoxyCompactList}\small\item\em Checks if the specified cell is outside the bounds of the grid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGrid_ae34cef2db7f54d0fd1a964935eb860bd}{Is\+Cell\+Empty}} (int row, int column)
+\begin{DoxyCompactList}\small\item\em Checks if the specified cell is empty. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGrid_ac6da070fc992cecd8051b2fb712f70ea}{Clear\+Full\+Rows}} ()
+\begin{DoxyCompactList}\small\item\em Clears all full rows and shifts upper rows downward. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classGrid_a10aab6d1757ab4d31ce4b8a3e3b832ae}{grid}} \mbox{[}constants\+::\+HEIGHT\mbox{]}\mbox{[}constants\+::\+WIDTH\mbox{]}
+\begin{DoxyCompactList}\small\item\em 2D array representing the grid state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the game grid used for block-\/based games like Tetris. 
+
+The grid holds integer values representing the color index of blocks. A value of 0 indicates that the cell is empty. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classGrid_ac6da070fc992cecd8051b2fb712f70ea}\label{classGrid_ac6da070fc992cecd8051b2fb712f70ea} 
+\index{Grid@{Grid}!ClearFullRows@{ClearFullRows}}
+\index{ClearFullRows@{ClearFullRows}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{ClearFullRows()}{ClearFullRows()}}
+{\footnotesize\ttfamily int Grid\+::\+Clear\+Full\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears all full rows and shifts upper rows downward. 
+
+A row is considered full if all of its cells contain non-\/zero values. Cleared rows are replaced with empty rows at the top of the grid.
+
+\begin{DoxyReturn}{Returns}
+The total number of rows cleared. 
+\end{DoxyReturn}
+\Hypertarget{classGrid_aa55979d0fc9087c65e497453e1e861bc}\label{classGrid_aa55979d0fc9087c65e497453e1e861bc} 
+\index{Grid@{Grid}!Draw@{Draw}}
+\index{Draw@{Draw}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Grid\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Renders the grid on the screen using raylib. 
+
+Each non-\/zero cell is drawn as a filled rectangle using its corresponding color. \doxylink{classGrid}{Grid} borders and spacing may also be rendered depending on implementation. \Hypertarget{classGrid_a3e31c7f04df3d45afe2db4c19cca96fa}\label{classGrid_a3e31c7f04df3d45afe2db4c19cca96fa} 
+\index{Grid@{Grid}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void Grid\+::\+Initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Resets the grid to an empty state. 
+
+Sets every cell in the grid to 0, meaning all positions are empty (no block present). Useful at the beginning of the game or when restarting. \Hypertarget{classGrid_ae34cef2db7f54d0fd1a964935eb860bd}\label{classGrid_ae34cef2db7f54d0fd1a964935eb860bd} 
+\index{Grid@{Grid}!IsCellEmpty@{IsCellEmpty}}
+\index{IsCellEmpty@{IsCellEmpty}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{IsCellEmpty()}{IsCellEmpty()}}
+{\footnotesize\ttfamily bool Grid\+::\+Is\+Cell\+Empty (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Checks if the specified cell is empty. 
+
+A cell is considered empty if its value is 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Row index of the cell. \\
+\hline
+{\em column} & Column index of the cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the cell contains 0; false if it contains a block (non-\/zero). 
+\end{DoxyReturn}
+\Hypertarget{classGrid_acc1c0368b187e5428ef7f1a8d7d5d11c}\label{classGrid_acc1c0368b187e5428ef7f1a8d7d5d11c} 
+\index{Grid@{Grid}!IsCellOutside@{IsCellOutside}}
+\index{IsCellOutside@{IsCellOutside}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{IsCellOutside()}{IsCellOutside()}}
+{\footnotesize\ttfamily bool Grid\+::\+Is\+Cell\+Outside (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Checks if the specified cell is outside the bounds of the grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Row index to check. \\
+\hline
+{\em column} & Column index to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the cell is outside the grid dimensions; false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classGrid_a9894012a14efc864082b1dd73254102a}\label{classGrid_a9894012a14efc864082b1dd73254102a} 
+\index{Grid@{Grid}!Print@{Print}}
+\index{Print@{Print}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily void Grid\+::\+Print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the grid values to the console. 
+
+Displays each cell’s current value for debugging purposes. Used mainly during development when visual output is not required. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classGrid_a10aab6d1757ab4d31ce4b8a3e3b832ae}\label{classGrid_a10aab6d1757ab4d31ce4b8a3e3b832ae} 
+\index{Grid@{Grid}!grid@{grid}}
+\index{grid@{grid}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{grid}{grid}}
+{\footnotesize\ttfamily int Grid\+::grid\mbox{[}constants\+::\+HEIGHT\mbox{]}\mbox{[}constants\+::\+WIDTH\mbox{]}}
+
+
+
+2D array representing the grid state. 
+
+Each cell contains an integer\+:
+\begin{DoxyItemize}
+\item 0 means the cell is empty.
+\item A positive number is an index into the colors vector, representing a block. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/grid.\+h\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/grid.\+cpp\end{DoxyCompactItemize}

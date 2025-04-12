@@ -1,0 +1,107 @@
+\doxysection{Game Class Reference}
+\hypertarget{classGame}{}\label{classGame}\index{Game@{Game}}
+
+
+Core class that manages all aspects of the Tetris game.  
+
+
+
+
+{\ttfamily \#include $<$game.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGame_a1ad6cf928702b18a69e526d2414a3a95}\label{classGame_a1ad6cf928702b18a69e526d2414a3a95} 
+enum class {\bfseries Level} \{ \newline
+{\bfseries LEVEL1} =0
+, {\bfseries LEVEL2}
+, {\bfseries LEVEL3}
+, {\bfseries LEVEL4}
+, \newline
+{\bfseries LEVEL5}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGame_ad59df6562a58a614fda24622d3715b65}\label{classGame_ad59df6562a58a614fda24622d3715b65} 
+{\bfseries Game} ()
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classGame}{Game} object and initializes resources (e.\+g. block pool, sounds, grid). \end{DoxyCompactList}\item 
+\Hypertarget{classGame_ae3d112ca6e0e55150d2fdbc704474530}\label{classGame_ae3d112ca6e0e55150d2fdbc704474530} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Game} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Cleans up allocated resources like sounds/music. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_af2b8c4c51d41e17b3508d62c5af87e78}\label{classGame_af2b8c4c51d41e17b3508d62c5af87e78} 
+float {\bfseries Get\+Speed\+From\+Level} (Level level)
+\item 
+void \mbox{\hyperlink{classGame_aad2c20e2c5529244095c50c238911e30}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em Draws the current state of the game on the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame_a6cb82eaece4e30724f3fe4e0d4bde5fc}{Handle\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Handles player input (movement, rotation, etc.). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame_ab927b082b475ef3fe642bca3f6abc5d8}{Move\+Block\+Down}} ()
+\begin{DoxyCompactList}\small\item\em Moves the current block down by one row. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_abb3fb4b64092158706e7723cf8268e6a}\label{classGame_abb3fb4b64092158706e7723cf8268e6a} 
+void {\bfseries Reset} ()
+\begin{DoxyCompactList}\small\item\em Resets the game state to the beginning\+: score = 0, new grid, fresh blocks. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_a00e783780ccb4a6a7647aad2d429c4d5}\label{classGame_a00e783780ccb4a6a7647aad2d429c4d5} 
+bool {\bfseries Event\+Triggered} (double interval)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGame_a21f9857b2d4b38b97ec90b9c2ce3413d}\label{classGame_a21f9857b2d4b38b97ec90b9c2ce3413d} 
+bool {\bfseries game\+Over}
+\begin{DoxyCompactList}\small\item\em Whether the game has ended due to the grid being filled. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_afaf9404196df9968103d5b0d0ad08139}\label{classGame_afaf9404196df9968103d5b0d0ad08139} 
+int {\bfseries score}
+\begin{DoxyCompactList}\small\item\em The current score of the player, based on lines cleared and drops. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_aaea1edb9042f804aea528ab5fe2d9b32}\label{classGame_aaea1edb9042f804aea528ab5fe2d9b32} 
+Music {\bfseries music}
+\begin{DoxyCompactList}\small\item\em Background music for the game session. \end{DoxyCompactList}\item 
+\Hypertarget{classGame_ae5170b09bb73ca341c7b560bb5fbd5a7}\label{classGame_ae5170b09bb73ca341c7b560bb5fbd5a7} 
+double {\bfseries last\+Update\+Time} = 0
+\begin{DoxyCompactList}\small\item\em Time stamp to calculate falling block speed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Core class that manages all aspects of the Tetris game. 
+
+The \doxylink{classGame}{Game} class encapsulates game state, drawing, logic updates, and player interaction. It contains private helper methods to control block behavior and detect game events. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classGame_aad2c20e2c5529244095c50c238911e30}\label{classGame_aad2c20e2c5529244095c50c238911e30} 
+\index{Game@{Game}!Draw@{Draw}}
+\index{Draw@{Draw}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Game\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the current state of the game on the screen. 
+
+Renders the grid, current and next blocks, and additional UI (score, game over, etc.). \Hypertarget{classGame_a6cb82eaece4e30724f3fe4e0d4bde5fc}\label{classGame_a6cb82eaece4e30724f3fe4e0d4bde5fc} 
+\index{Game@{Game}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily void Game\+::\+Handle\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Handles player input (movement, rotation, etc.). 
+
+This method polls input from the player and delegates block control accordingly. \Hypertarget{classGame_ab927b082b475ef3fe642bca3f6abc5d8}\label{classGame_ab927b082b475ef3fe642bca3f6abc5d8} 
+\index{Game@{Game}!MoveBlockDown@{MoveBlockDown}}
+\index{MoveBlockDown@{MoveBlockDown}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{MoveBlockDown()}{MoveBlockDown()}}
+{\footnotesize\ttfamily void Game\+::\+Move\+Block\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Moves the current block down by one row. 
+
+If the block can no longer move downward (collides or reaches the grid bottom), it is locked into the grid and a new block is spawned. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/\mbox{\hyperlink{game_8h}{game.\+h}}\item 
+/home/giangvu/\+CPPprog/raylib-\/tetris/src/game.\+cpp\end{DoxyCompactItemize}

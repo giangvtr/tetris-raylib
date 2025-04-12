@@ -19,7 +19,7 @@ void Block::Draw(){
   //For each tile of a block
 
   for(Coord item: tiles)
-    DrawRectangle(item.col*cellSize+5 , item.row*cellSize+5,cellSize - 1, cellSize - 1, colors[codeColor]);
+    DrawRectangle(item.col*cellSize+10 , item.row*cellSize+10,cellSize - 1, cellSize - 1, colors[codeColor]);
 }
 
 void Block::LoadTexture(const char* filename){

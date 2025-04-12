@@ -33,3 +33,7 @@ make
 * Vector ([See lesson](https://www.learncpp.com/cpp-tutorial/introduction-to-containers-and-arrays/)) : push_back function : https://www.youtube.com/watch?v=RXzzE2wnnlo&t=91s
 * Good practice for external global constants ([See lesson](https://www.learncpp.com/cpp-tutorial/constant-variables-named-constants/))
 * Map 
+
+# Doxygen
+* How to set up (see this [Youtube video](https://www.youtube.com/watch?v=pnnKzkNTo4w&t=195s))
+* 

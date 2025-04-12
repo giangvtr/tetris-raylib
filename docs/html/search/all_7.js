@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['7_0',['7',['../md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2HISTORY.html#autotoc_md54',1,'notes on raylib 1.7'],['../md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2HISTORY.html#autotoc_md60',1,'notes on raylib 3.7']]],
-  ['7th_20anniversary_20edition_1',['notes on raylib 3.5 - 7th Anniversary Edition',['../md__2home_2giangvu_2CPPprog_2raylib-tetris_2build_2external_2raylib-master_2HISTORY.html#autotoc_md59',1,'']]]
+  ['iblock_0',['IBlock',['../classIBlock.html',1,'']]],
+  ['initialize_1',['Initialize',['../classGrid.html#a3e31c7f04df3d45afe2db4c19cca96fa',1,'Grid']]],
+  ['iscellempty_2',['IsCellEmpty',['../classGrid.html#ae34cef2db7f54d0fd1a964935eb860bd',1,'Grid']]],
+  ['iscelloutside_3',['IsCellOutside',['../classGrid.html#acc1c0368b187e5428ef7f1a8d7d5d11c',1,'Grid']]]
 ];

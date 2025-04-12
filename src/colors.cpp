@@ -15,6 +15,6 @@ const Color blush = {255, 240, 245, 255};   // 7 - Lavender Blush (almost white,
 
 std::vector<Color> GetCellColors()
 {
-    return {DARKGRAY, RED, ORANGE, PINK, VIOLET, LIME, SKYBLUE};
+    return {DARKGRAY, RED, ORANGE, PINK, VIOLET, LIME, SKYBLUE, YELLOW};
 }
 

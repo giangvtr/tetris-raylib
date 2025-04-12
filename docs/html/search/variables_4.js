@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['event_0',['event',['../structRGFW__window.html#af2effd6e3f8e3f7add8a7afd6aeb455a',1,'RGFW_window']]]
+  ['score_0',['score',['../classGame.html#afaf9404196df9968103d5b0d0ad08139',1,'Game']]]
 ];

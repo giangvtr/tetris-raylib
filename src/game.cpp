@@ -52,11 +52,15 @@ std::vector<Block> Game::RefillBlocks() {
 
 void Game::Draw(){
   grid.Draw();
-  currentBlock.Draw();
+  if(!gameOver) currentBlock.Draw();
 }
 
 void Game::HandleInput(){
   int keyPressed = GetKeyPressed();
+  if(gameOver && keyPressed == KEY_R){
+    gameOver = false;
+    Reset();
+  }
   switch(keyPressed){
     case KEY_LEFT :
       MoveBlockLeft();
@@ -97,6 +101,21 @@ void Game::MoveBlockDown(){
   }
 }
 
+float Game::GetSpeedFromLevel(Level level){
+  switch(level){
+    case Level::LEVEL1:
+      return constants::SPEED1;
+    case Level::LEVEL2:
+      return constants::SPEED2;
+    case Level::LEVEL3:
+      return constants::SPEED3;
+    case Level::LEVEL4:
+      return constants::SPEED4;
+    case Level::LEVEL5:
+      return constants::SPEED5;
+  }
+}
+
 bool Game::IsBlockOutside(){
   std::vector<Coord> tiles = currentBlock.GetCellPositions();
   for(Coord item: tiles){
@@ -126,6 +145,7 @@ void Game::LockBlock(){
   currentBlock = nextBlock;
   if(BlockFits() ==false){
     gameOver = true;
+    return;
   }
   nextBlock = GetRandomBlock();
   grid.ClearFullRows();
@@ -137,4 +157,20 @@ bool Game::BlockFits(){
     if(grid.IsCellEmpty(item.row, item.col) == false) return false;
   }
   return true;
+}
+
+void Game::Reset(){
+  grid.Initialize();
+  blocks = RefillBlocks();
+  currentBlock = GetRandomBlock();
+  nextBlock = GetRandomBlock();
+}
+
+bool Game::EventTriggered(double interval){
+  double currentTime = GetTime();
+  if(currentTime - lastUpdateTime > interval){
+    lastUpdateTime = currentTime;
+    return true;
+  }
+  return false;
 }

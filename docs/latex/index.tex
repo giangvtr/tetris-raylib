@@ -1,15 +1,14 @@
-\chapter{Raylib-\/\+Quickstart}
-\hypertarget{index}{}\label{index}\index{Raylib-\/Quickstart@{Raylib-\/Quickstart}}
+\chapter{MY TETRIS GAME FROM RAYLIB}
+\hypertarget{index}{}\label{index}\index{MY TETRIS GAME FROM RAYLIB@{MY TETRIS GAME FROM RAYLIB}}
 \label{index_md__2home_2giangvu_2CPPprog_2raylib-tetris_2README}%
 \Hypertarget{index_md__2home_2giangvu_2CPPprog_2raylib-tetris_2README}%
-A simple cross platform template for setting up a project with the bleeding edge raylib code. Works with C or C++.\hypertarget{index_autotoc_md101}{}\doxysection{\texorpdfstring{Supported Platforms}{Supported Platforms}}\label{index_autotoc_md101}
-Quickstart supports the main 3 desktop platforms\+:
+
 \begin{DoxyItemize}
-\item Windows
-\item Linux
-\item Mac\+OS
-\end{DoxyItemize}\hypertarget{index_autotoc_md102}{}\doxysection{\texorpdfstring{Naming projects}{Naming projects}}\label{index_autotoc_md102}
-Do not name your game project \textquotesingle{}raylib\textquotesingle{}, it will conflict with the raylib library.\hypertarget{index_autotoc_md103}{}\doxysection{\texorpdfstring{VSCode Users (all platforms)}{VSCode Users (all platforms)}}\label{index_autotoc_md103}
+\item This repository is built on the skeleton of raylib-\/quickstart (\href{https://github.com/raylib-extras/raylib-quickstart}{\texttt{ Source}})
+\item A simple cross platform template for setting up a project with the bleeding edge raylib code. Works with C or C++.
+\item See \href{https://www.raylib.com/cheatsheet/cheatsheet.html}{\texttt{ Raylib Cheatsheet}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{How to start building}{How to start building}}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{VSCode Users (all platforms)}{VSCode Users (all platforms)}}\label{index_autotoc_md2}
 {\itshape Note} You must have a compiler toolchain installed in addition to vscode.
 
 
@@ -19,65 +18,33 @@ Do not name your game project \textquotesingle{}raylib\textquotesingle{}, it wil
 \item Open the folder in VSCode
 \item Run the build task ( CTRL+\+SHIFT+B or F5 )
 \item You are good to go
-\end{DoxyItemize}\hypertarget{index_autotoc_md104}{}\doxysection{\texorpdfstring{Windows Users}{Windows Users}}\label{index_autotoc_md104}
-There are two compiler toolchains available for windows, Min\+GW-\/\+W64 (a free compiler using GCC), and Microsoft Visual Studio \hypertarget{index_autotoc_md105}{}\doxysubsection{\texorpdfstring{Using Min\+GW-\/\+W64}{Using MinGW-W64}}\label{index_autotoc_md105}
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Linux Users}{Linux Users}}\label{index_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ build}
+\DoxyCodeLine{./premake5\ gmake2}
+\DoxyCodeLine{cd\ ..}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
 
 \begin{DoxyItemize}
-\item Double click the {\ttfamily build-\/\+Min\+GW-\/\+W64.\+bat} file
-\item CD into the folder in your terminal
-\item run {\ttfamily make}
-\item You are good to go
-\end{DoxyItemize}\hypertarget{index_autotoc_md106}{}\doxysubsubsection{\texorpdfstring{Note on Min\+GW-\/64 versions}{Note on MinGW-64 versions}}\label{index_autotoc_md106}
-Make sure you have a modern version of Min\+GW-\/\+W64 (not mingw). The best place to get it is from the W64devkit from \href{https://github.com/skeeto/w64devkit/releases}{\texttt{ https\+://github.\+com/skeeto/w64devkit/releases}} or the version installed with the raylib installer \hypertarget{index_autotoc_md107}{}\doxyparagraph{\texorpdfstring{If you have installed raylib from the installer}{If you have installed raylib from the installer}}\label{index_autotoc_md107}
-Make sure you have added the path
-
-{\ttfamily C\+:\textbackslash{}raylib\textbackslash{}w64devkit\textbackslash{}bin}
-
-To your path environment variable so that the compiler that came with raylib can be found.
-
-DO NOT INSTALL ANOTHER Min\+GW-\/\+W64 from another source such as msys2, you don\textquotesingle{}t need it.\hypertarget{index_autotoc_md108}{}\doxysubsection{\texorpdfstring{Microsoft Visual Studio}{Microsoft Visual Studio}}\label{index_autotoc_md108}
+\item The you are good to go
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{CLion users}{CLion users}}\label{index_autotoc_md4}
+{\itshape Note} You must build the program (using premake) before editing the "{}\+Run/\+Debug configuration"{}
+\begin{DoxyItemize}
+\item Type\+: Native Application
+\item Executable\+: Found in this directory {\ttfamily /home/giangvu/\+CPPprog/raylib-\/tetris/bin/\+Debug/\mbox{[}name-\/of-\/your-\/program\mbox{]}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{Prerequisite for C++}{Prerequisite for C++}}\label{index_autotoc_md5}
 
 \begin{DoxyItemize}
-\item Run {\ttfamily build-\/\+Visual\+Studio2022.\+bat}
-\item double click the {\ttfamily .sln} file that is generated
-\item develop your game
-\item you are good to go
-\end{DoxyItemize}\hypertarget{index_autotoc_md109}{}\doxysection{\texorpdfstring{Linux Users}{Linux Users}}\label{index_autotoc_md109}
+\item Object-\/\+Oriented Programmation\+: Classes (\href{https://www.learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/}{\texttt{ See lesson}}), Inheritance (\href{https://www.learncpp.com/cpp-tutorial/introduction-to-inheritance/}{\texttt{ See lesson}})
+\item Vector (\href{https://www.learncpp.com/cpp-tutorial/introduction-to-containers-and-arrays/}{\texttt{ See lesson}}) \+: push\+\_\+back function \+: \href{https://www.youtube.com/watch?v=RXzzE2wnnlo&t=91s}{\texttt{ https\+://www.\+youtube.\+com/watch?v=\+RXzz\+E2wnnlo\&t=91s}}
+\item Good practice for external global constants (\href{https://www.learncpp.com/cpp-tutorial/constant-variables-named-constants/}{\texttt{ See lesson}})
+\item Map
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{Doxygen}{Doxygen}}\label{index_autotoc_md6}
 
 \begin{DoxyItemize}
-\item CD into the build folder
-\item run {\ttfamily ./premake5 gmake2}
-\item CD back to the root
-\item run {\ttfamily make}
-\item you are good to go
-\end{DoxyItemize}\hypertarget{index_autotoc_md110}{}\doxysection{\texorpdfstring{Mac\+OS Users}{MacOS Users}}\label{index_autotoc_md110}
-
-\begin{DoxyItemize}
-\item CD into the build folder
-\item run {\ttfamily ./premake5.osx gmake2}
-\item CD back to the root
-\item run {\ttfamily make}
-\item you are good to go
-\end{DoxyItemize}\hypertarget{index_autotoc_md111}{}\doxysection{\texorpdfstring{Output files}{Output files}}\label{index_autotoc_md111}
-The built code will be in the bin dir\hypertarget{index_autotoc_md112}{}\doxysection{\texorpdfstring{Working directories and the resources folder}{Working directories and the resources folder}}\label{index_autotoc_md112}
-The example uses a utility function from {\ttfamily path\+\_\+utils.\+h} that will find the resources dir and set it as the current working directory. This is very useful when starting out. If you wish to manage your own working directory you can simply remove the call to the function and the header.\hypertarget{index_autotoc_md113}{}\doxysection{\texorpdfstring{Changing to C++}{Changing to C++}}\label{index_autotoc_md113}
-Simply rename {\ttfamily src/main.\+c} to {\ttfamily src/main.\+cpp} and re-\/run the steps above and do a clean build.\hypertarget{index_autotoc_md114}{}\doxysection{\texorpdfstring{Using your own code}{Using your own code}}\label{index_autotoc_md114}
-Simply remove {\ttfamily src/main.\+c} and replace it with your code, and re-\/run the steps above and do a clean build.\hypertarget{index_autotoc_md115}{}\doxysection{\texorpdfstring{Building for other Open\+GL targets}{Building for other OpenGL targets}}\label{index_autotoc_md115}
-If you need to build for a different Open\+GL version than the default (Open\+GL 3.\+3) you can specify an Open\+GL version in your premake command line. Just modify the bat file or add the following to your command line\hypertarget{index_autotoc_md116}{}\doxysubsection{\texorpdfstring{For Open\+GL 1.\+1}{For OpenGL 1.1}}\label{index_autotoc_md116}
-{\ttfamily -\/-\/graphics=opengl11}\hypertarget{index_autotoc_md117}{}\doxysubsection{\texorpdfstring{For Open\+GL 2.\+1}{For OpenGL 2.1}}\label{index_autotoc_md117}
-{\ttfamily -\/-\/graphics=opengl21}\hypertarget{index_autotoc_md118}{}\doxysubsection{\texorpdfstring{For Open\+GL 4.\+3}{For OpenGL 4.3}}\label{index_autotoc_md118}
-{\ttfamily -\/-\/graphics=opengl43}\hypertarget{index_autotoc_md119}{}\doxysubsection{\texorpdfstring{For Open\+GLES 2.\+0}{For OpenGLES 2.0}}\label{index_autotoc_md119}
-{\ttfamily -\/-\/graphics=opengles2}\hypertarget{index_autotoc_md120}{}\doxysubsection{\texorpdfstring{For Open\+GLES 3.\+0}{For OpenGLES 3.0}}\label{index_autotoc_md120}
-{\ttfamily -\/-\/graphics=opengles3}\hypertarget{index_autotoc_md121}{}\doxysection{\texorpdfstring{License}{License}}\label{index_autotoc_md121}
-Copyright (c) 2020-\/2025 Jeffery Myers
-
-This software is provided "{}as-\/is"{}, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions\+:
-
-
-\begin{DoxyEnumerate}
-\item The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
-\item Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-\item This notice may not be removed or altered from any source distribution. 
-\end{DoxyEnumerate}
+\item How to set up (see this \href{https://www.youtube.com/watch?v=pnnKzkNTo4w&t=195s}{\texttt{ Youtube video}})
+\item 
+\end{DoxyItemize}

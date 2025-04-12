@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>tetris-raylib: Raylib-Quickstart</title>
+<title>tetris-raylib: MY TETRIS GAME FROM RAYLIB</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,22 +69,18 @@ $(function() {
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Raylib-Quickstart </div></div>
+  <div class="headertitle"><div class="title">MY TETRIS GAME FROM RAYLIB </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__2home_2giangvu_2CPPprog_2raylib-tetris_2README"></a>A simple cross platform template for setting up a project with the bleeding edge raylib code. Works with C or C++.</p>
-<h1><a class="anchor" id="autotoc_md101"></a>
-Supported Platforms</h1>
-<p>Quickstart supports the main 3 desktop platforms:</p><ul>
-<li>Windows</li>
-<li>Linux</li>
-<li>MacOS</li>
+<div class="textblock"><p><a class="anchor" id="md__2home_2giangvu_2CPPprog_2raylib-tetris_2README"></a></p><ul>
+<li>This repository is built on the skeleton of raylib-quickstart (<a href="https://github.com/raylib-extras/raylib-quickstart">Source</a>)</li>
+<li>A simple cross platform template for setting up a project with the bleeding edge raylib code. Works with C or C++.</li>
+<li>See <a href="https://www.raylib.com/cheatsheet/cheatsheet.html">Raylib Cheatsheet</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md102"></a>
-Naming projects</h1>
-<p>Do not name your game project 'raylib', it will conflict with the raylib library.</p>
-<h1><a class="anchor" id="autotoc_md103"></a>
-VSCode Users (all platforms)</h1>
+<h1><a class="anchor" id="autotoc_md1"></a>
+How to start building</h1>
+<h2><a class="anchor" id="autotoc_md2"></a>
+VSCode Users (all platforms)</h2>
 <p><em>Note</em> You must have a compiler toolchain installed in addition to vscode.</p>
 <ul>
 <li>Download the quickstart</li>
@@ -93,92 +89,35 @@ VSCode Users (all platforms)</h1>
 <li>Run the build task ( CTRL+SHIFT+B or F5 )</li>
 <li>You are good to go</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md104"></a>
-Windows Users</h1>
-<p>There are two compiler toolchains available for windows, MinGW-W64 (a free compiler using GCC), and Microsoft Visual Studio </p>
-<h2><a class="anchor" id="autotoc_md105"></a>
-Using MinGW-W64</h2>
-<ul>
-<li>Double click the <code>build-MinGW-W64.bat</code> file</li>
-<li>CD into the folder in your terminal</li>
-<li>run <code>make</code></li>
-<li>You are good to go</li>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Linux Users</h2>
+<div class="fragment"><div class="line">cd build</div>
+<div class="line">./premake5 gmake2</div>
+<div class="line">cd ..</div>
+<div class="line">make</div>
+</div><!-- fragment --><ul>
+<li>The you are good to go</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md106"></a>
-Note on MinGW-64 versions</h3>
-<p>Make sure you have a modern version of MinGW-W64 (not mingw). The best place to get it is from the W64devkit from <a href="https://github.com/skeeto/w64devkit/releases">https://github.com/skeeto/w64devkit/releases</a> or the version installed with the raylib installer </p>
-<h4><a class="anchor" id="autotoc_md107"></a>
-If you have installed raylib from the installer</h4>
-<p>Make sure you have added the path</p>
-<p><code>C:\raylib\w64devkit\bin</code></p>
-<p>To your path environment variable so that the compiler that came with raylib can be found.</p>
-<p>DO NOT INSTALL ANOTHER MinGW-W64 from another source such as msys2, you don't need it.</p>
-<h2><a class="anchor" id="autotoc_md108"></a>
-Microsoft Visual Studio</h2>
-<ul>
-<li>Run <code>build-VisualStudio2022.bat</code></li>
-<li>double click the <code>.sln</code> file that is generated</li>
-<li>develop your game</li>
-<li>you are good to go</li>
+<h2><a class="anchor" id="autotoc_md4"></a>
+CLion users</h2>
+<p><em>Note</em> You must build the program (using premake) before editing the "Run/Debug configuration"</p><ul>
+<li>Type: Native Application</li>
+<li>Executable: Found in this directory <code>/home/giangvu/CPPprog/raylib-tetris/bin/Debug/[name-of-your-program]</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md109"></a>
-Linux Users</h1>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Prerequisite for C++</h1>
 <ul>
-<li>CD into the build folder</li>
-<li>run <code>./premake5 gmake2</code></li>
-<li>CD back to the root</li>
-<li>run <code>make</code></li>
-<li>you are good to go</li>
+<li>Object-Oriented Programmation: Classes (<a href="https://www.learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/">See lesson</a>), Inheritance (<a href="https://www.learncpp.com/cpp-tutorial/introduction-to-inheritance/">See lesson</a>)</li>
+<li>Vector (<a href="https://www.learncpp.com/cpp-tutorial/introduction-to-containers-and-arrays/">See lesson</a>) : push_back function : <a href="https://www.youtube.com/watch?v=RXzzE2wnnlo&t=91s">https://www.youtube.com/watch?v=RXzzE2wnnlo&amp;t=91s</a></li>
+<li>Good practice for external global constants (<a href="https://www.learncpp.com/cpp-tutorial/constant-variables-named-constants/">See lesson</a>)</li>
+<li>Map</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md110"></a>
-MacOS Users</h1>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Doxygen</h1>
 <ul>
-<li>CD into the build folder</li>
-<li>run <code>./premake5.osx gmake2</code></li>
-<li>CD back to the root</li>
-<li>run <code>make</code></li>
-<li>you are good to go</li>
+<li>How to set up (see this <a href="https://www.youtube.com/watch?v=pnnKzkNTo4w&amp;t=195s">Youtube video</a>)</li>
+<li></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md111"></a>
-Output files</h1>
-<p>The built code will be in the bin dir</p>
-<h1><a class="anchor" id="autotoc_md112"></a>
-Working directories and the resources folder</h1>
-<p>The example uses a utility function from <code>path_utils.h</code> that will find the resources dir and set it as the current working directory. This is very useful when starting out. If you wish to manage your own working directory you can simply remove the call to the function and the header.</p>
-<h1><a class="anchor" id="autotoc_md113"></a>
-Changing to C++</h1>
-<p>Simply rename <code>src/main.c</code> to <code>src/main.cpp</code> and re-run the steps above and do a clean build.</p>
-<h1><a class="anchor" id="autotoc_md114"></a>
-Using your own code</h1>
-<p>Simply remove <code>src/main.c</code> and replace it with your code, and re-run the steps above and do a clean build.</p>
-<h1><a class="anchor" id="autotoc_md115"></a>
-Building for other OpenGL targets</h1>
-<p>If you need to build for a different OpenGL version than the default (OpenGL 3.3) you can specify an OpenGL version in your premake command line. Just modify the bat file or add the following to your command line</p>
-<h2><a class="anchor" id="autotoc_md116"></a>
-For OpenGL 1.1</h2>
-<p><code>--graphics=opengl11</code></p>
-<h2><a class="anchor" id="autotoc_md117"></a>
-For OpenGL 2.1</h2>
-<p><code>--graphics=opengl21</code></p>
-<h2><a class="anchor" id="autotoc_md118"></a>
-For OpenGL 4.3</h2>
-<p><code>--graphics=opengl43</code></p>
-<h2><a class="anchor" id="autotoc_md119"></a>
-For OpenGLES 2.0</h2>
-<p><code>--graphics=opengles2</code></p>
-<h2><a class="anchor" id="autotoc_md120"></a>
-For OpenGLES 3.0</h2>
-<p><code>--graphics=opengles3</code></p>
-<h1><a class="anchor" id="autotoc_md121"></a>
-License</h1>
-<p>Copyright (c) 2020-2025 Jeffery Myers</p>
-<p>This software is provided "as-is", without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.</p>
-<p>Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:</p>
-<ol type="1">
-<li>The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.</li>
-<li>Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.</li>
-<li>This notice may not be removed or altered from any source distribution. </li>
-</ol>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
