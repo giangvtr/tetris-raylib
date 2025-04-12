@@ -40,7 +40,7 @@ make
 
 # Prerequisite for C++
 * Object-Oriented Programmation: Classes ([See lesson](https://www.learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/)), Inheritance ([See lesson](https://www.learncpp.com/cpp-tutorial/introduction-to-inheritance/))
-* Vector ([See lesson](https://www.learncpp.com/cpp-tutorial/introduction-to-containers-and-arrays/)) : push_back function : https://www.youtube.com/watch?v=RXzzE2wnnlo&t=91s
+* Vector ([See lesson](https://www.learncpp.com/cpp-tutorial/introduction-to-containers-and-arrays/))
 * Good practice for external global constants ([See lesson](https://www.learncpp.com/cpp-tutorial/constant-variables-named-constants/))
 * Map 
 
