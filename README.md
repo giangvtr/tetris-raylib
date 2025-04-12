@@ -1,8 +1,18 @@
 # MY TETRIS GAME FROM RAYLIB
-* This repository is built on the skeleton of raylib-quickstart ([Source](https://github.com/raylib-extras/raylib-quickstart)) 
+* This is a simple implementation of the classic Tetris game using the [raylib](https://www.raylib.com/) library, written in C++. It is based on the [original Cpp-Tetris-Game-with-raylib repository](https://github.com/educ8s/Cpp-Tetris-Game-with-raylib/tree/main) with several enhancements.
 * A simple cross platform template for setting up a project with the bleeding edge raylib code.
 Works with C or C++.
+* Raylib quick-start skeleton ([Source](https://github.com/raylib-extras/raylib-quickstart))
 * See [Raylib Cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.html)
+
+# Additional Features
+- **Soft Falling:** Hold the down arrow key to make the blocks descend faster, giving you more control over the game.
+- **Leaderboard:** The game now features a leaderboard that saves high scores in a `root/resources/score.txt` file.
+- **Multiple Levels:** Choose different levels, each with unique speeds and point systems.
+
+# Instructions for players
+- Click on the button to navigate through the menus and start the game.
+- To quit to the main menu, press **Q**.
 
 # How to start building
 ## VSCode Users (all platforms)
