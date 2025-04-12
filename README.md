@@ -1,7 +1,7 @@
 # MY TETRIS GAME FROM RAYLIB
 * This is a simple implementation of the classic Tetris game using the [raylib](https://www.raylib.com/) library, written in C++. It is based on the [original Cpp-Tetris-Game-with-raylib repository](https://github.com/educ8s/Cpp-Tetris-Game-with-raylib/tree/main) with several enhancements.
 * A simple cross platform template for setting up a project with the bleeding edge raylib code.
-Works with C or C++.
+Works with C++.
 * Raylib quick-start skeleton ([Source](https://github.com/raylib-extras/raylib-quickstart))
 * See [Raylib Cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.html)
 
